@@ -30,18 +30,18 @@ def main():
     data_access.insert_hanja_data(hanja_dict)
     """
 
-    # Example word to search for
-    word_to_search = '결과'
+    """    # Example word to search for
+        word_to_search = '결과'
 
-    # Retrieve associated hanja characters and their meanings
-    hanja_results = data_access.get_hanja_meanings_for_word(word_to_search)
+        # Retrieve associated hanja characters and their meanings
+        hanja_results = data_access.get_hanja_meanings_for_word(word_to_search)
 
-    if hanja_results:
-        print(f"Hanja characters and meanings associated with '{word_to_search}':")
-        for hanja, korean, meaning in hanja_results:
-            print(f"Character: {hanja}, Korean: {korean}, Meaning: {meaning}")
-    else:
-        print(f"No hanja characters found for '{word_to_search}'.")
-
+        if hanja_results:
+            print(f"Hanja characters and meanings associated with '{word_to_search}':")
+            for hanja, korean, meaning in hanja_results:
+                print(f"Character: {hanja}, Korean: {korean}, Meaning: {meaning}")
+        else:
+            print(f"No hanja characters found for '{word_to_search}'.")
+    """
 if __name__ == '__main__':
     main()

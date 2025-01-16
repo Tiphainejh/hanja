@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Korean Word</title>
+</head>
+<body>
+    <h1>Search for Korean Word's Hanja</h1>
+
+    <form action="/search" method="POST">
+        <input type="text" name="word" placeholder="Enter Korean word" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if hanja_results %}
+        <h2>Hanja Results:</h2>
+        <ul>
+            {% for hanja, korean, meaning in hanja_results %}
+                <li>Character: {{ hanja }}, Korean: {{ korean }}, Meaning: {{ meaning }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
