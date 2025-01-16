@@ -1,0 +1,62 @@
+\doxysection{src.\+data\+\_\+processing.\+Data\+Processor Class Reference}
+\hypertarget{classsrc_1_1data__processing_1_1_data_processor}{}\label{classsrc_1_1data__processing_1_1_data_processor}\index{src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsrc_1_1data__processing_1_1_data_processor_a4d8f294a1410020041fdd57ebca5c629}{extract\+\_\+data}} (self)
+\item 
+\mbox{\hyperlink{classsrc_1_1data__processing_1_1_data_processor_af1d408b78a8a28b54b96e30bc3de1754}{process\+\_\+data}} (self, raw\+\_\+data)
+\item 
+\mbox{\hyperlink{classsrc_1_1data__processing_1_1_data_processor_acee13daf812b03ebd4b468b5bd21d832}{read\+\_\+hanja\+\_\+file}} (self, file\+\_\+path)
+\item 
+\mbox{\hyperlink{classsrc_1_1data__processing_1_1_data_processor_a611dcfaf4a6c3129fc38bc01d659203f}{process\+\_\+hanja\+\_\+data}} (self, lines)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsrc_1_1data__processing_1_1_data_processor_a4d8f294a1410020041fdd57ebca5c629}\index{src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}!extract\_data@{extract\_data}}
+\index{extract\_data@{extract\_data}!src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}}
+\doxysubsubsection{\texorpdfstring{extract\_data()}{extract\_data()}}
+{\footnotesize\ttfamily \label{classsrc_1_1data__processing_1_1_data_processor_a4d8f294a1410020041fdd57ebca5c629} 
+src.\+data\+\_\+processing.\+Data\+Processor.\+extract\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extracts data from an online datapackage resource.
+Downloads and reads the 'kengdic' resource from the specified datapackage URL.
+:return: A list of dictionaries containing the raw data.
+\end{DoxyVerb}
+ \Hypertarget{classsrc_1_1data__processing_1_1_data_processor_af1d408b78a8a28b54b96e30bc3de1754}\index{src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}!process\_data@{process\_data}}
+\index{process\_data@{process\_data}!src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}}
+\doxysubsubsection{\texorpdfstring{process\_data()}{process\_data()}}
+{\footnotesize\ttfamily \label{classsrc_1_1data__processing_1_1_data_processor_af1d408b78a8a28b54b96e30bc3de1754} 
+src.\+data\+\_\+processing.\+Data\+Processor.\+process\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{raw\+\_\+data}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Processes raw data to extract and transform necessary fields for further use.
+:param raw_data: A list of dictionaries representing raw data entries.
+:return: A list of dictionaries with processed and relevant data.
+\end{DoxyVerb}
+ \Hypertarget{classsrc_1_1data__processing_1_1_data_processor_a611dcfaf4a6c3129fc38bc01d659203f}\index{src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}!process\_hanja\_data@{process\_hanja\_data}}
+\index{process\_hanja\_data@{process\_hanja\_data}!src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}}
+\doxysubsubsection{\texorpdfstring{process\_hanja\_data()}{process\_hanja\_data()}}
+{\footnotesize\ttfamily \label{classsrc_1_1data__processing_1_1_data_processor_a611dcfaf4a6c3129fc38bc01d659203f} 
+src.\+data\+\_\+processing.\+Data\+Processor.\+process\+\_\+hanja\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{lines}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Processes Hanja file lines to extract structured data.
+Groups Hanja characters, their corresponding Korean readings, and definitions.
+:param lines: A list of lines from the Hanja data file.
+:return: A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions.
+\end{DoxyVerb}
+ \Hypertarget{classsrc_1_1data__processing_1_1_data_processor_acee13daf812b03ebd4b468b5bd21d832}\index{src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}!read\_hanja\_file@{read\_hanja\_file}}
+\index{read\_hanja\_file@{read\_hanja\_file}!src.data\_processing.DataProcessor@{src.data\_processing.DataProcessor}}
+\doxysubsubsection{\texorpdfstring{read\_hanja\_file()}{read\_hanja\_file()}}
+{\footnotesize\ttfamily \label{classsrc_1_1data__processing_1_1_data_processor_acee13daf812b03ebd4b468b5bd21d832} 
+src.\+data\+\_\+processing.\+Data\+Processor.\+read\+\_\+hanja\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{file\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Reads a Hanja data file line by line.
+:param file_path: Path to the Hanja data file.
+:return: A list of lines read from the file.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{data__processing_8py}{data\+\_\+processing.\+py}}\end{DoxyCompactItemize}
