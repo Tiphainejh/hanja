@@ -1,7 +1,7 @@
 # src/data_access.py
 import sqlite3
-from config import DATABASE_PATH
-from database import DatabaseConnection
+from src.config import DATABASE_PATH
+from src.database import DatabaseConnection
 
 class DataAccess:
     def initialize_database(self):

@@ -1,17 +1,13 @@
-# api/flask.py
+# api/app.py
 
 from flask import Flask, render_template, request
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
+import os
 
-"""
 # Get the absolute path for templates folder
 template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'templates')
 app = Flask(__name__, template_folder=template_folder)
-"""
-
-# Initialize Flask app
-app = Flask(__name__)
 
 # Instantiate your classes
 data_access = DataAccess()
@@ -38,4 +34,7 @@ def search():
 # This is needed for Vercel to run the app as a serverless function
 def vercel_app(environ, start_response):
     return app(environ, start_response)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
