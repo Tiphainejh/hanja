@@ -9,7 +9,7 @@ PROJECT_NUMBER         =
 PROJECT_BRIEF          = "Getting hanja characters for korean words"
 PROJECT_LOGO           =
 PROJECT_ICON           =
-OUTPUT_DIRECTORY       = C:/Users/PC/Documents/hanja/hanja/docs
+OUTPUT_DIRECTORY       = docs
 CREATE_SUBDIRS         = NO
 CREATE_SUBDIRS_LEVEL   = 8
 ALLOW_UNICODE_NAMES    = NO
@@ -174,7 +174,7 @@ IGNORE_PREFIX          =
 # Configuration options related to the HTML output
 #---------------------------------------------------------------------------
 GENERATE_HTML          = YES
-HTML_OUTPUT            = C:/Users/PC/Documents/hanja/hanja/docs
+HTML_OUTPUT            = docs
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            =
 HTML_FOOTER            =

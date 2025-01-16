@@ -16,12 +16,6 @@ jobs:
     - name: Install Doxygen
       run: sudo apt-get install doxygen -y
 
-    - name: Clean up docs directory
-      run: rm -rf docs
-
-    - name: Create docs directory
-      run: mkdir -p docs
-
     - name: Generate Documentation
       run: doxygen Doxyfile
 
@@ -29,4 +23,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
+        publish_dir: ./docs  # Ensure this matches the directory where the HTML files are generated
