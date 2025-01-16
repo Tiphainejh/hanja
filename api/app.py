@@ -27,7 +27,10 @@ def search():
     """
     if request.method == 'POST':
         word_to_search = request.form['word']
+        print(f"Word to search: {word_to_search}")  # This will print in the terminal or logs
+        
         hanja_results = data_access.get_hanja_meanings_for_word(word_to_search)
+        print(f"Hanja results: {hanja_results}")  # Check what the results look like
 
         return render_template('index.html', word=word_to_search, results=hanja_results)
 
