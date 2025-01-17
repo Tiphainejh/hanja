@@ -9,8 +9,6 @@ class DataAccess:
     """
 
     def initialize_database(self):
-        class DataAccess:
-    def initialize_database(self):
         """
         Initializes the database by creating necessary tables if they don't already exist.
 
