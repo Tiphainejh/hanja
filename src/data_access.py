@@ -1,4 +1,4 @@
-# @file src/data_access.py
+#! @file src/data_access.py
 import sqlite3
 from src.config import DATABASE_PATH
 from src.database import DatabaseConnection

@@ -1,4 +1,4 @@
-# api/app.py
+# ! @file api/app.py
 
 from flask import Flask, render_template, request
 from src.data_access import DataAccess
@@ -15,15 +15,15 @@ data_processor = DataProcessor()
 
 @app.route('/')
 def index():
-    """
-    Render the main page with a search form.
+    """!
+    @brief Render the main page with a search form.
     """
     return render_template('index.html')
 
 @app.route('/search', methods=['POST'])
 def search():
-    """
-    Handle search requests and display results.
+    """!
+    @brief Handle search requests and display results.
     """
     if request.method == 'POST':
         word_to_search = request.form['word']

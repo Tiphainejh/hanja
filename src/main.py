@@ -1,10 +1,10 @@
-#src/main.py
+#! @file src/main.py
 from data_access import DataAccess
 from data_processing import DataProcessor
 
 def main():
     """
-    Main function to orchestrate the data extraction, processing, and database operations.
+    @brief Main function to orchestrate the data extraction, processing, and database operations.
 
     - Initializes the database and creates tables if they don't exist.
     - Extracts and processes word data, then inserts it into the database.

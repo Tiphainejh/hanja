@@ -1,4 +1,4 @@
-# src/__init__.py
+#! @file src/__init__.py
 from flask import Flask
 
 def create_app():

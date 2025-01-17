@@ -1,13 +1,13 @@
-# src/data_processing.py
+#! @file src/data_processing.py
 from datapackage import Package
 import regex
 
 class DataProcessor:
     def extract_data(self):
-        """
-        Extracts data from an online datapackage resource.
+        """!
+        @brief Extracts data from an online datapackage resource.
         Downloads and reads the 'kengdic' resource from the specified datapackage URL.
-        :return: A list of dictionaries containing the raw data.
+        @return A list of dictionaries containing the raw data.
         """
         # Initialize the datapackage object from the provided URL
         package = Package('https://raw.githubusercontent.com/garfieldnate/kengdic/master/datapackage.json')
@@ -19,10 +19,10 @@ class DataProcessor:
         return data
 
     def process_data(self, raw_data):
-        """
-        Processes raw data to extract and transform necessary fields for further use.
-        :param raw_data: A list of dictionaries representing raw data entries.
-        :return: A list of dictionaries with processed and relevant data.
+        """!
+        @brief Processes raw data to extract and transform necessary fields for further use.
+        @param raw_data A list of dictionaries representing raw data entries.
+        @return A list of dictionaries with processed and relevant data.
         """
         processed_data = []
         for entry in raw_data:
@@ -39,21 +39,21 @@ class DataProcessor:
         return processed_data
 
     def read_hanja_file(self, file_path):
-        """
-        Reads a Hanja data file line by line.
-        :param file_path: Path to the Hanja data file.
-        :return: A list of lines read from the file.
+        """!
+        @brief Reads a Hanja data file line by line.
+        @param file_path Path to the Hanja data file.
+        @return A list of lines read from the file.
         """
         with open(file_path, 'r', encoding='utf-8') as file:
             lines = file.readlines()  # Read all lines in the file
         return lines
 
     def process_hanja_data(self, lines):
-        """
-        Processes Hanja file lines to extract structured data.
+        """!
+        @brief Processes Hanja file lines to extract structured data.
         Groups Hanja characters, their corresponding Korean readings, and definitions.
-        :param lines: A list of lines from the Hanja data file.
-        :return: A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions.
+        @param lines A list of lines from the Hanja data file.
+        @return A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions.
         """
         hanja_dict = {}  # Dictionary to store processed Hanja data
         kor = ''  # Variable to keep track of the Korean context for Hanja

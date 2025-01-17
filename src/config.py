@@ -1,4 +1,4 @@
-# src/config.py
+#! @file src/config.py
 import os
 
 # Chemin vers la base de données
