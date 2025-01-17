@@ -103,20 +103,25 @@ $(document).ready(function(){initNavTree('classsrc_1_1database_1_1DatabaseConnec
   <div class="headertitle"><div class="title">src.database.DatabaseConnection Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class to manage database connections using a context manager.  
+ <a href="classsrc_1_1database_1_1DatabaseConnection.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for src.database.DatabaseConnection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1database_1_1DatabaseConnection__coll__graph.png" border="0" usemap="#asrc_8database_8DatabaseConnection_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8database_8DatabaseConnection_coll__map" id="asrc_8database_8DatabaseConnection_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,241,91"/>
+<area shape="rect" title="A class to manage database connections using a context manager." alt="" coords="5,5,241,91"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4b17edc08a871595f10ae5d2c519806" id="r_ab4b17edc08a871595f10ae5d2c519806"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1database_1_1DatabaseConnection.html#ab4b17edc08a871595f10ae5d2c519806">__enter__</a> (self)</td></tr>
+<tr class="memdesc:ab4b17edc08a871595f10ae5d2c519806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Establishes a connection to the SQLite database.  <br /></td></tr>
 <tr class="separator:ab4b17edc08a871595f10ae5d2c519806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00d6547240ef42d689d7825c7a5ad1ed" id="r_a00d6547240ef42d689d7825c7a5ad1ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1database_1_1DatabaseConnection.html#a00d6547240ef42d689d7825c7a5ad1ed">__exit__</a> (self, exc_type, exc_val, exc_tb)</td></tr>
+<tr class="memdesc:a00d6547240ef42d689d7825c7a5ad1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the database connection when exiting the context.  <br /></td></tr>
 <tr class="separator:a00d6547240ef42d689d7825c7a5ad1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -125,14 +130,9 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ace6735dee7ad91a77d0b120ae3cb3f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">A class to manage database connections using a context manager.
-Provides a convenient way to handle SQLite connections, ensuring
-the connection is properly closed after use.
-
-Usage:
-    with DatabaseConnection() as conn:
-        # Perform database operations with `conn`
-</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>A class to manage database connections using a context manager. </p>
+<p>Provides a convenient way to handle SQLite connections, ensuring the connection is properly closed after use. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab4b17edc08a871595f10ae5d2c519806" name="ab4b17edc08a871595f10ae5d2c519806"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4b17edc08a871595f10ae5d2c519806">&#9670;&#160;</a></span>__enter__()</h2>
 
@@ -148,10 +148,10 @@ Usage:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Establishes a connection to the SQLite database.
 
-:return: sqlite3.Connection object representing the database connection.
-</pre> 
+<p>Establishes a connection to the SQLite database. </p>
+<dl class="section return"><dt>Returns</dt><dd>sqlite3.Connection object representing the database connection. </dd></dl>
+
 </div>
 </div>
 <a id="a00d6547240ef42d689d7825c7a5ad1ed" name="a00d6547240ef42d689d7825c7a5ad1ed"></a>
@@ -191,12 +191,17 @@ Usage:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Closes the database connection when exiting the context.
 
-:param exc_type: The type of the exception (if any).
-:param exc_val: The value of the exception (if any).
-:param exc_tb: The traceback of the exception (if any).
-</pre> 
+<p>Closes the database connection when exiting the context. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exc_val</td><td>The value of the exception (if any). </td></tr>
+    <tr><td class="paramname">exc_type</td><td>The type of the exception (if any). </td></tr>
+    <tr><td class="paramname">exc_tb</td><td>The traceback of the exception (if any). </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>

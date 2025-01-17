@@ -114,12 +114,16 @@ Collaboration diagram for src.data_processing.DataProcessor:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d8f294a1410020041fdd57ebca5c629" id="r_a4d8f294a1410020041fdd57ebca5c629"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a4d8f294a1410020041fdd57ebca5c629">extract_data</a> (self)</td></tr>
+<tr class="memdesc:a4d8f294a1410020041fdd57ebca5c629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts data from an online datapackage resource.  <br /></td></tr>
 <tr class="separator:a4d8f294a1410020041fdd57ebca5c629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1d408b78a8a28b54b96e30bc3de1754" id="r_af1d408b78a8a28b54b96e30bc3de1754"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#af1d408b78a8a28b54b96e30bc3de1754">process_data</a> (self, raw_data)</td></tr>
+<tr class="memdesc:af1d408b78a8a28b54b96e30bc3de1754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes raw data to extract and transform necessary fields for further use.  <br /></td></tr>
 <tr class="separator:af1d408b78a8a28b54b96e30bc3de1754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acee13daf812b03ebd4b468b5bd21d832" id="r_acee13daf812b03ebd4b468b5bd21d832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#acee13daf812b03ebd4b468b5bd21d832">read_hanja_file</a> (self, file_path)</td></tr>
+<tr class="memdesc:acee13daf812b03ebd4b468b5bd21d832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a Hanja data file line by line.  <br /></td></tr>
 <tr class="separator:acee13daf812b03ebd4b468b5bd21d832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a611dcfaf4a6c3129fc38bc01d659203f" id="r_a611dcfaf4a6c3129fc38bc01d659203f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a611dcfaf4a6c3129fc38bc01d659203f">process_hanja_data</a> (self, lines)</td></tr>
+<tr class="memdesc:a611dcfaf4a6c3129fc38bc01d659203f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes Hanja file lines to extract structured data.  <br /></td></tr>
 <tr class="separator:a611dcfaf4a6c3129fc38bc01d659203f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -138,10 +142,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Extracts data from an online datapackage resource.
-Downloads and reads the 'kengdic' resource from the specified datapackage URL.
-:return: A list of dictionaries containing the raw data.
-</pre> 
+
+<p>Extracts data from an online datapackage resource. </p>
+<p>Downloads and reads the 'kengdic' resource from the specified datapackage URL. </p><dl class="section return"><dt>Returns</dt><dd>A list of dictionaries containing the raw data. </dd></dl>
+
 </div>
 </div>
 <a id="af1d408b78a8a28b54b96e30bc3de1754" name="af1d408b78a8a28b54b96e30bc3de1754"></a>
@@ -169,10 +173,16 @@ Downloads and reads the 'kengdic' resource from the specified datapackage URL.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Processes raw data to extract and transform necessary fields for further use.
-:param raw_data: A list of dictionaries representing raw data entries.
-:return: A list of dictionaries with processed and relevant data.
-</pre> 
+
+<p>Processes raw data to extract and transform necessary fields for further use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw_data</td><td>A list of dictionaries representing raw data entries. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of dictionaries with processed and relevant data. </dd></dl>
+
 </div>
 </div>
 <a id="a611dcfaf4a6c3129fc38bc01d659203f" name="a611dcfaf4a6c3129fc38bc01d659203f"></a>
@@ -200,11 +210,16 @@ Downloads and reads the 'kengdic' resource from the specified datapackage URL.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Processes Hanja file lines to extract structured data.
-Groups Hanja characters, their corresponding Korean readings, and definitions.
-:param lines: A list of lines from the Hanja data file.
-:return: A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions.
-</pre> 
+
+<p>Processes Hanja file lines to extract structured data. </p>
+<p>Groups Hanja characters, their corresponding Korean readings, and definitions. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lines</td><td>A list of lines from the Hanja data file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions. </dd></dl>
+
 </div>
 </div>
 <a id="acee13daf812b03ebd4b468b5bd21d832" name="acee13daf812b03ebd4b468b5bd21d832"></a>
@@ -232,10 +247,16 @@ Groups Hanja characters, their corresponding Korean readings, and definitions.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Reads a Hanja data file line by line.
-:param file_path: Path to the Hanja data file.
-:return: A list of lines read from the file.
-</pre> 
+
+<p>Reads a Hanja data file line by line. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>Path to the Hanja data file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of lines read from the file. </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
