@@ -1,16 +1,15 @@
-# src/data_access.py
+# @file src/data_access.py
 import sqlite3
 from src.config import DATABASE_PATH
 from src.database import DatabaseConnection
 
 class DataAccess:
-    """
-    A class to handle database operations for managing Korean words and their associated Hanja characters.
+    """!
+    @brief A class to handle database operations for managing Korean words and their associated Hanja characters.
     """
 
     def initialize_database(self):
-        """
-        Initializes the database by creating necessary tables if they don't already exist.
+        """! @brief Initializes the database by creating necessary tables if they don't already exist.
 
         Database Schema:
         ----------------
@@ -58,15 +57,14 @@ class DataAccess:
                 print("Tables already exist.")
 
     def insert_data(self, processed_data):
-        """
-        Inserts processed data into the 'korean_words' table.
+        """!
+        @brief Inserts processed data into the 'korean_words' table.
         
-        Args:
-            processed_data (list): A list of dictionaries containing word data. Each dictionary should have:
-                - id (int): The unique ID for the word.
-                - word (str): The Korean word.
-                - hanja (str): Associated Hanja characters.
-                - glossary (str): Meaning of the word.
+        @param processed_data (list): A list of dictionaries containing word data. Each dictionary should have:
+        @param id (int): The unique ID for the word.
+        @param word (str): The Korean word.
+        @param hanja (str): Associated Hanja characters.
+        @param glossary (str): Meaning of the word.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -83,16 +81,17 @@ class DataAccess:
             conn.commit()
 
     def insert_hanja_data(self, hanja_dict):
-        """
-        Inserts Hanja data into the 'hanja_characters' table.
+        """!
+        @brief Inserts Hanja data into the 'hanja_characters' table.
         
-        Args:
-            hanja_dict (dict): A dictionary mapping Hanja characters to a list of related Korean data. 
-                Example:
+        @param hanja_dict (dict): A dictionary mapping Hanja characters to a list of related Korean data. 
+        Example:
+        @code{.json}
                     {
                         '漢': [{'kor': '한', 'def': 'China'}],
                         '字': [{'kor': '자', 'def': 'character'}]
                     }
+        @endcode
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -108,11 +107,10 @@ class DataAccess:
             conn.commit()
 
     def drop_tables(self, cursor):
-        """
-        Drops the 'hanja_characters' and 'korean_words' tables if they exist.
+        """!
+        @brief Drops the 'hanja_characters' and 'korean_words' tables if they exist.
         
-        Args:
-            cursor (sqlite3.Cursor): The database cursor for executing SQL commands.
+        @param cursor (sqlite3.Cursor): The database cursor for executing SQL commands.
         """
         try:
             cursor.execute('DROP TABLE IF EXISTS hanja_characters')
@@ -123,14 +121,12 @@ class DataAccess:
             print(f"Error dropping tables: {e}")
 
     def get_hanja_meanings_for_word(self, word):
-        """
-        Retrieves Hanja meanings associated with a given Korean word.
+        """!
+        @brief Retrieves Hanja meanings associated with a given Korean word.
         
-        Args:
-            word (str): The Korean word for which to fetch Hanja meanings.
+        @param word (str): The Korean word for which to fetch Hanja meanings.
         
-        Returns:
-            list: A list of tuples containing Hanja character, Korean pronunciation, and meaning.
+        @return a list of tuples containing Hanja character, Korean pronunciation, and meaning.
                   Returns None if no data is found.
         """
         with DatabaseConnection() as conn:
