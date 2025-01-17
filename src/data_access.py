@@ -4,9 +4,17 @@ from src.config import DATABASE_PATH
 from src.database import DatabaseConnection
 
 class DataAccess:
+    """
+    A class to handle database operations for managing Korean words and their associated Hanja characters.
+    """
+
     def initialize_database(self):
         """
         Initializes the database by creating necessary tables if they don't already exist.
+        
+        Tables:
+            - korean_words: Stores Korean words along with their Hanja and glossary meanings.
+            - hanja_characters: Stores individual Hanja characters and their corresponding Korean pronunciations and meanings.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -40,53 +48,63 @@ class DataAccess:
     def insert_data(self, processed_data):
         """
         Inserts processed data into the 'korean_words' table.
-        :param processed_data: A list of dictionaries containing word data.
+        
+        Args:
+            processed_data (list): A list of dictionaries containing word data. Each dictionary should have:
+                - id (int): The unique ID for the word.
+                - word (str): The Korean word.
+                - hanja (str): Associated Hanja characters.
+                - glossary (str): Meaning of the word.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
             for entry in processed_data:
-                word_id = entry['id']  # Extract the word ID
-                word = entry['word']  # Extract the word itself
-                glossary = entry['glossary']  # Extract the glossary/meaning
-                hanja_str = entry['hanja']  # Extract the associated Hanja characters
+                word_id = entry['id']
+                word = entry['word']
+                glossary = entry['glossary']
+                hanja_str = entry['hanja']
 
-                # Insert the data into the 'korean_words' table
                 cursor.execute('''
                 INSERT OR IGNORE INTO korean_words (id, word, hanja, glossary)
                 VALUES (?, ?, ?, ?)
                 ''', (word_id, word, hanja_str, glossary))
-            conn.commit()  # Save changes to the database
+            conn.commit()
 
     def insert_hanja_data(self, hanja_dict):
         """
         Inserts Hanja data into the 'hanja_characters' table.
-        :param hanja_dict: A dictionary where keys are Hanja characters, and values are lists of related Korean data.
+        
+        Args:
+            hanja_dict (dict): A dictionary mapping Hanja characters to a list of related Korean data. 
+                Example:
+                    {
+                        '漢': [{'kor': '한', 'def': 'China'}],
+                        '字': [{'kor': '자', 'def': 'character'}]
+                    }
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
-            for chi, items in hanja_dict.items():  # Iterate over each Hanja character and its related items
+            for chi, items in hanja_dict.items():
                 for item in items:
-                    korean = item['kor']  # Extract the Korean pronunciation
-                    meaning = item['def']  # Extract the Hanja meaning
+                    korean = item['kor']
+                    meaning = item['def']
 
-                    # Insert the Hanja data into the 'hanja_characters' table
                     cursor.execute('''
                     INSERT OR IGNORE INTO hanja_characters (character, korean, meaning)
                     VALUES (?, ?, ?)
                     ''', (chi, korean, meaning))
-            conn.commit()  # Save changes to the database
+            conn.commit()
 
     def drop_tables(self, cursor):
         """
         Drops the 'hanja_characters' and 'korean_words' tables if they exist.
-        :param cursor: The database cursor for executing SQL commands.
+        
+        Args:
+            cursor (sqlite3.Cursor): The database cursor for executing SQL commands.
         """
         try:
-            # Drop the 'hanja_characters' table
             cursor.execute('DROP TABLE IF EXISTS hanja_characters')
             print("Table 'hanja_characters' has been dropped.")
-
-            # Drop the 'korean_words' table
             cursor.execute('DROP TABLE IF EXISTS korean_words')
             print("Table 'korean_words' has been dropped.")
         except sqlite3.Error as e:
@@ -95,33 +113,32 @@ class DataAccess:
     def get_hanja_meanings_for_word(self, word):
         """
         Retrieves Hanja meanings associated with a given Korean word.
-        :param word: The Korean word for which to fetch Hanja meanings.
-        :return: A list of tuples containing Hanja character, Korean pronunciation, and meaning.
+        
+        Args:
+            word (str): The Korean word for which to fetch Hanja meanings.
+        
+        Returns:
+            list: A list of tuples containing Hanja character, Korean pronunciation, and meaning.
+                  Returns None if no data is found.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
-
-            # Fetch the associated Hanja string for the given word
             cursor.execute('SELECT hanja FROM korean_words WHERE word = ?', (word,))
             hanja_result = cursor.fetchone()
             
-            if hanja_result:  # Check if Hanja data exists for the word
+            if hanja_result:
                 hanja_string = hanja_result[0]
-                if hanja_string is None:  # Handle cases where Hanja data is empty
+                if hanja_string is None:
                     print(f"No Hanja found for word '{word}'.")
                     return None
                 else:
-                    # Convert the Hanja string into a list of individual characters
                     hanja_list = list(hanja_string)
-
-                    # Fetch Hanja details from the 'hanja_characters' table
                     query = 'SELECT character, korean, meaning FROM hanja_characters WHERE character IN ({seq})'.format(
-                        seq=','.join(['?'] * len(hanja_list))  # Prepare placeholders for the query
+                        seq=','.join(['?'] * len(hanja_list))
                     )
                     cursor.execute(query, hanja_list)
-                    results = cursor.fetchall()  # Fetch all matching records
+                    results = cursor.fetchall()
                     return results
             else:
-                # Handle cases where the word has no Hanja data in the database
                 print(f"No Hanja found for word '{word}'.")
                 return None
