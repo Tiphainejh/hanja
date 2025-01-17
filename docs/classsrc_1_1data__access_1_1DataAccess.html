@@ -102,31 +102,39 @@ $(document).ready(function(){initNavTree('classsrc_1_1data__access_1_1DataAccess
   <div class="headertitle"><div class="title">src.data_access.DataAccess Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class to handle database operations for managing Korean words and their associated Hanja characters.  
+ <a href="classsrc_1_1data__access_1_1DataAccess.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for src.data_access.DataAccess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__access_1_1DataAccess__coll__graph.png" border="0" usemap="#asrc_8data__access_8DataAccess_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__access_8DataAccess_coll__map" id="asrc_8data__access_8DataAccess_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,203,165"/>
+<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,165"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4684f7cefabfbcb84b28be9e2ef74f64" id="r_a4684f7cefabfbcb84b28be9e2ef74f64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a4684f7cefabfbcb84b28be9e2ef74f64">initialize_database</a> (self)</td></tr>
+<tr class="memdesc:a4684f7cefabfbcb84b28be9e2ef74f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the database by creating necessary tables if they don't already exist.  <br /></td></tr>
 <tr class="separator:a4684f7cefabfbcb84b28be9e2ef74f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f4e7ab71ee7131858752bdfb4d0e2f1" id="r_a4f4e7ab71ee7131858752bdfb4d0e2f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a4f4e7ab71ee7131858752bdfb4d0e2f1">insert_data</a> (self, processed_data)</td></tr>
+<tr class="memdesc:a4f4e7ab71ee7131858752bdfb4d0e2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts processed data into the 'korean_words' table.  <br /></td></tr>
 <tr class="separator:a4f4e7ab71ee7131858752bdfb4d0e2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cfc6893f66c213340355c6acaf1a3a3" id="r_a1cfc6893f66c213340355c6acaf1a3a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a1cfc6893f66c213340355c6acaf1a3a3">insert_hanja_data</a> (self, hanja_dict)</td></tr>
+<tr class="memdesc:a1cfc6893f66c213340355c6acaf1a3a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts Hanja data into the 'hanja_characters' table.  <br /></td></tr>
 <tr class="separator:a1cfc6893f66c213340355c6acaf1a3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23e8da2b908674f31c01407620fe3728" id="r_a23e8da2b908674f31c01407620fe3728"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a23e8da2b908674f31c01407620fe3728">drop_tables</a> (self, cursor)</td></tr>
+<tr class="memdesc:a23e8da2b908674f31c01407620fe3728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops the 'hanja_characters' and 'korean_words' tables if they exist.  <br /></td></tr>
 <tr class="separator:a23e8da2b908674f31c01407620fe3728"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f80aa884c00c50a14da99ac902c4dc7" id="r_a5f80aa884c00c50a14da99ac902c4dc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a5f80aa884c00c50a14da99ac902c4dc7">get_hanja_meanings_for_word</a> (self, word)</td></tr>
+<tr class="memdesc:a5f80aa884c00c50a14da99ac902c4dc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja meanings associated with a given Korean word.  <br /></td></tr>
 <tr class="separator:a5f80aa884c00c50a14da99ac902c4dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">A class to handle database operations for managing Korean words and their associated Hanja characters.
-</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>A class to handle database operations for managing Korean words and their associated Hanja characters. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a23e8da2b908674f31c01407620fe3728" name="a23e8da2b908674f31c01407620fe3728"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23e8da2b908674f31c01407620fe3728">&#9670;&#160;</a></span>drop_tables()</h2>
 
@@ -152,11 +160,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Drops the 'hanja_characters' and 'korean_words' tables if they exist.
 
-Args:
-    cursor (sqlite3.Cursor): The database cursor for executing SQL commands.
-</pre> 
+<p>Drops the 'hanja_characters' and 'korean_words' tables if they exist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cursor</td><td>(sqlite3.Cursor): The database cursor for executing SQL commands. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a5f80aa884c00c50a14da99ac902c4dc7" name="a5f80aa884c00c50a14da99ac902c4dc7"></a>
@@ -184,15 +196,16 @@ Args:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Retrieves Hanja meanings associated with a given Korean word.
 
-Args:
-    word (str): The Korean word for which to fetch Hanja meanings.
+<p>Retrieves Hanja meanings associated with a given Korean word. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja meanings.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a list of tuples containing Hanja character, Korean pronunciation, and meaning. Returns None if no data is found. </dd></dl>
 
-Returns:
-    list: A list of tuples containing Hanja character, Korean pronunciation, and meaning.
-          Returns None if no data is found.
-</pre> 
 </div>
 </div>
 <a id="a4684f7cefabfbcb84b28be9e2ef74f64" name="a4684f7cefabfbcb84b28be9e2ef74f64"></a>
@@ -210,24 +223,26 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Initializes the database by creating necessary tables if they don't already exist.
 
-Database Schema:
-----------------
-**korean_words**
-- `id` (INTEGER, PRIMARY KEY): Unique identifier for each word.
-- `word` (TEXT, NOT NULL): Korean word.
-- `hanja` (TEXT): Associated Hanja characters.
-- `glossary` (TEXT): Word's glossary or definition.
-
-**hanja_characters**
-- `id` (INTEGER, PRIMARY KEY AUTOINCREMENT): Unique identifier for each Hanja character.
-- `character` (TEXT, NOT NULL, UNIQUE): The Hanja character.
-- `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
-- `meaning` (TEXT): Meaning of the Hanja character.
-
-\image html database_diagram.png
-</pre> 
+<p>Initializes the database by creating necessary tables if they don't already exist. </p>
+<h2><a class="anchor" id="autotoc_md0"></a>
+Database Schema:</h2>
+<p><b>korean_words</b></p><ul>
+<li><code>id</code> (INTEGER, PRIMARY KEY): Unique identifier for each word.</li>
+<li><code>word</code> (TEXT, NOT NULL): Korean word.</li>
+<li><code>hanja</code> (TEXT): Associated Hanja characters.</li>
+<li><code>glossary</code> (TEXT): Word's glossary or definition.</li>
+</ul>
+<p><b>hanja_characters</b></p><ul>
+<li><code>id</code> (INTEGER, PRIMARY KEY AUTOINCREMENT): Unique identifier for each Hanja character.</li>
+<li><code>character</code> (TEXT, NOT NULL, UNIQUE): The Hanja character.</li>
+<li><code>korean</code> (TEXT, NOT NULL): Korean pronunciation of the Hanja.</li>
+<li><code>meaning</code> (TEXT): Meaning of the Hanja character.</li>
+</ul>
+<div class="image">
+<img src="database_diagram.png" alt=""/>
+</div>
+ 
 </div>
 </div>
 <a id="a4f4e7ab71ee7131858752bdfb4d0e2f1" name="a4f4e7ab71ee7131858752bdfb4d0e2f1"></a>
@@ -255,15 +270,19 @@ Database Schema:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Inserts processed data into the 'korean_words' table.
 
-Args:
-    processed_data (list): A list of dictionaries containing word data. Each dictionary should have:
-        - id (int): The unique ID for the word.
-        - word (str): The Korean word.
-        - hanja (str): Associated Hanja characters.
-        - glossary (str): Meaning of the word.
-</pre> 
+<p>Inserts processed data into the 'korean_words' table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processed_data</td><td>(list): A list of dictionaries containing word data. Each dictionary should have: </td></tr>
+    <tr><td class="paramname">id</td><td>(int): The unique ID for the word. </td></tr>
+    <tr><td class="paramname">word</td><td>(str): The Korean word. </td></tr>
+    <tr><td class="paramname">hanja</td><td>(str): Associated Hanja characters. </td></tr>
+    <tr><td class="paramname">glossary</td><td>(str): Meaning of the word. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a1cfc6893f66c213340355c6acaf1a3a3" name="a1cfc6893f66c213340355c6acaf1a3a3"></a>
@@ -291,16 +310,19 @@ Args:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Inserts Hanja data into the 'hanja_characters' table.
 
-Args:
-    hanja_dict (dict): A dictionary mapping Hanja characters to a list of related Korean data. 
-        Example:
-            {
-                '漢': [{'kor': '한', 'def': 'China'}],
-                '字': [{'kor': '자', 'def': 'character'}]
-            }
-</pre> 
+<p>Inserts Hanja data into the 'hanja_characters' table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hanja_dict</td><td>(dict): A dictionary mapping Hanja characters to a list of related Korean data. Example: <div class="fragment"><div class="line">{</div>
+<div class="line">    &#39;漢&#39;: [{&#39;kor&#39;: &#39;한&#39;, &#39;def&#39;: &#39;China&#39;}],</div>
+<div class="line">    &#39;字&#39;: [{&#39;kor&#39;: &#39;자&#39;, &#39;def&#39;: &#39;character&#39;}]</div>
+<div class="line">}</div>
+</div><!-- fragment --> </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
