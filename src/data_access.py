@@ -9,12 +9,26 @@ class DataAccess:
     """
 
     def initialize_database(self):
+        class DataAccess:
+    def initialize_database(self):
         """
         Initializes the database by creating necessary tables if they don't already exist.
-        
-        Tables:
-            - korean_words: Stores Korean words along with their Hanja and glossary meanings.
-            - hanja_characters: Stores individual Hanja characters and their corresponding Korean pronunciations and meanings.
+
+        Database Schema:
+        ----------------
+        **korean_words**
+        - `id` (INTEGER, PRIMARY KEY): Unique identifier for each word.
+        - `word` (TEXT, NOT NULL): Korean word.
+        - `hanja` (TEXT): Associated Hanja characters.
+        - `glossary` (TEXT): Word's glossary or definition.
+
+        **hanja_characters**
+        - `id` (INTEGER, PRIMARY KEY AUTOINCREMENT): Unique identifier for each Hanja character.
+        - `character` (TEXT, NOT NULL, UNIQUE): The Hanja character.
+        - `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
+        - `meaning` (TEXT): Meaning of the Hanja character.
+
+        \image html database_diagram.png
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
