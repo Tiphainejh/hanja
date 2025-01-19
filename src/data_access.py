@@ -10,9 +10,8 @@ class DataAccess:
     """
 
     def initialize_database(self):
-        """! 
-        @brief Initializes the database by creating necessary tables if they don't already exist.
 
+        """!@brief Initializes the database by creating necessary tables if they don't already exist.
         Database Schema:
         ----------------
         **korean_words**
@@ -31,7 +30,7 @@ class DataAccess:
         - `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
         - `meaning` (TEXT): Meaning of the Hanja character.
 
-        \image html database_diagram.png width=400
+        @image html database_diagram.png width=400
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -170,3 +169,14 @@ class DataAccess:
             else:
                 print(f"No Hanja found for word '{word}'.")
                 return None
+
+    def get_word_by_korean(self, korean_word):
+            """@brief Fetches a word entry by its Korean text.
+            
+            @param korean_word: The Korean word to search for.
+            @return: A list of matching entries.
+            """      
+            with DatabaseConnection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                return cursor.fetchall()

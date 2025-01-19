@@ -3,6 +3,7 @@ Check code documentation here : https://tiphainejh.github.io/hanja/
 
 # TODO
 - [ ] Add functionality to search korean text even if its not full
+- [ ] Add audio and other values to the DB
 
 ### 1. **Creation of the database**
 

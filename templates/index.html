@@ -13,11 +13,17 @@
         <button type="submit">Search</button>
     </form>
 
-    {% if results %}
+    {% if hanja_results %}
         <h2>Hanja Results:</h2>
         <ul>
-            {% for hanja, korean, meaning in results %}
+            {% for hanja, korean, meaning in hanja_results %}
                 <li>Character: {{ hanja }}, Korean: {{ korean }}, Meaning: {{ meaning }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Korean Results:</h2>
+        <ul>
+            {% for glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition in korean_results %}
+                <li>Definition: {{ glossary }}, englishLemma: {{ englishLemma }}, englishDefinition: {{ englishDefinition }}, frenchLemma: {{ frenchLemma }}, frenchDefinition: {{ frenchDefinition }}</li>
             {% endfor %}
         </ul>
     {% else %}
