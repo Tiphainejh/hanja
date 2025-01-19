@@ -1,4 +1,4 @@
-# Hanja getter
+# Hanja getter for korean
 Check code documentation here : https://tiphainejh.github.io/hanja/
 
 # TODO
