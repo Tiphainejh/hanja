@@ -5,6 +5,10 @@ import os
 import json 
 
 class DataProcessor:
+    """!
+    @class DataProcessor
+    @brief A class to process the data of the json file.
+    """
     def __init__(self, folder_path):
         """
         @brief Initialize the DataExtractor with the folder path containing the JSON files.
@@ -44,7 +48,7 @@ class DataProcessor:
         @param raw_data A list of dictionaries representing raw data entries.
         @return A list of dictionaries with processed and relevant data.
         
-        @var lexical_entries Represents a single lexical entry in the dictionary, containing various features of the word.
+        @property lexical_entries Represents a single lexical entry in the dictionary, containing various features of the word.
             Lemma:
                 - A list of 'feat' elements that represent the main word form.
                 - Each 'feat' contains:
