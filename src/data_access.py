@@ -5,7 +5,6 @@ from src.database import DatabaseConnection
 
 class DataAccess:
     """!
-    @class DataAccess
     @brief A class to handle database operations for managing Korean words and their associated Hanja characters.
     """
 
