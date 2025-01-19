@@ -8,7 +8,7 @@ Check code documentation here : https://tiphainejh.github.io/hanja/
 ### 1. **Creation of the database**
 
 - **Data collection**: Korean dictionary obtained from https://krdict.korean.go.kr/download/downloadPopup and hanja obtained from https://github.com/myungcheol/hanja.
-- **Data structure **: Two databases created with sqlite3. Diagram generated with DBeaver (sqlite3 korean_learning.db .dump > korean_learning.sql).
+- **Data structure**: Two databases created with sqlite3. Diagram generated with DBeaver.
 
 ### 2. **Development of an association algorithm**
 
