@@ -111,7 +111,7 @@ Collaboration diagram for src.data_processing.DataProcessor:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__processing_1_1DataProcessor__coll__graph.png" border="0" usemap="#asrc_8data__processing_8DataProcessor_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__processing_8DataProcessor_coll__map" id="asrc_8data__processing_8DataProcessor_coll__map">
-<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,285"/>
+<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,305"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -122,6 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d8f294a1410020041fdd57ebca5c629" id="r_a4d8f294a1410020041fdd57ebca5c629"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a4d8f294a1410020041fdd57ebca5c629">extract_data</a> (self)</td></tr>
 <tr class="memdesc:a4d8f294a1410020041fdd57ebca5c629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts data from JSON files in the specified folder.  <br /></td></tr>
 <tr class="separator:a4d8f294a1410020041fdd57ebca5c629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d408b78a8a28b54b96e30bc3de1754" id="r_af1d408b78a8a28b54b96e30bc3de1754"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#af1d408b78a8a28b54b96e30bc3de1754">process_data</a> (self, raw_data)</td></tr>
+<tr class="memdesc:af1d408b78a8a28b54b96e30bc3de1754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes raw data to extract and transform necessary fields for further use.  <br /></td></tr>
+<tr class="separator:af1d408b78a8a28b54b96e30bc3de1754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca8cb2dd99e8358d0c80ff0f04307193" id="r_aca8cb2dd99e8358d0c80ff0f04307193"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#aca8cb2dd99e8358d0c80ff0f04307193">extract_word</a> (self, lemma_datas)</td></tr>
 <tr class="memdesc:aca8cb2dd99e8358d0c80ff0f04307193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the 'val' from the lemma element.  <br /></td></tr>
 <tr class="separator:aca8cb2dd99e8358d0c80ff0f04307193"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -467,6 +470,101 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The extracted word value, or None if not found. </dd></dl>
+
+</div>
+</div>
+<a id="af1d408b78a8a28b54b96e30bc3de1754" name="af1d408b78a8a28b54b96e30bc3de1754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d408b78a8a28b54b96e30bc3de1754">&#9670;&#160;</a></span>process_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_processing.DataProcessor.process_data </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>raw_data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes raw data to extract and transform necessary fields for further use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw_data</td><td>A list of dictionaries representing raw data entries. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of dictionaries with processed and relevant data.</dd></dl>
+<p>lexical_entries Represents a single lexical entry in the dictionary, containing various features of the word. Lemma:</p><ul>
+<li>A list of 'feat' elements that represent the main word form.</li>
+<li>Each 'feat' contains:<ul>
+<li>'att': The attribute name, typically 'writtenForm' for the main word.</li>
+<li>'val': The actual value, which is the word itself (e.g., '침팬지'). RelatedForm:</li>
+</ul>
+</li>
+<li>Represents any related forms of the word, such as variations or inflections.</li>
+<li>Typically contains 'feat' elements with 'att' representing the type of form (e.g., 'variant') and 'val' representing the word form (e.g., '침팬치'). Sense:</li>
+<li>Contains detailed information about the meaning(s) of the word.</li>
+<li>Typically contains the following sub-elements:<ul>
+<li>Equivalent: A list of 'feat' elements representing the word's equivalent forms in other languages. Each 'feat' contains:<ul>
+<li>'att': The attribute name, such as 'language', 'lemma', or 'definition'.</li>
+<li>'val': The corresponding value for the attribute, such as:<ul>
+<li>'language' -&gt; The language name (e.g., '영어' for English, '프랑스어' for French).</li>
+<li>'lemma' -&gt; The word in the equivalent language.</li>
+<li>'definition' -&gt; The definition of the word in the equivalent language.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SenseExample:<ul>
+<li>Contains example usage of the word, typically in context.</li>
+<li>'feat': A list containing:<ul>
+<li>'att': 'type' represents the type of example (e.g., '문장' for sentence, '대화' for conversation).</li>
+<li>'val': The actual example text.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>att : could represent the identifier for sense.</li>
+<li>feat: This part contains the different specifications<ul>
+<li>'att': 'type' represents different specifications of the word such as 'homonym_number', 'partOfSpeech', 'origin', 'vocabularyLevel', 'lexicalUnit'.</li>
+<li>'val': The actual value of the specification.</li>
+</ul>
+</li>
+<li>val : could represent the id of the word WordForm:</li>
+</ul>
+</li>
+<li>Contains pronunciation information or other related word forms.</li>
+<li>Typically contains 'feat' elements with:<ul>
+<li>'att': 'pronunciation' for pronunciation details.</li>
+<li>'val': The value for pronunciation or another related form. att:</li>
+</ul>
+</li>
+<li>Can represent various attributes or features of the word, such as:<ul>
+<li>'id': The unique identifier for the lexical entry.</li>
+<li>'partOfSpeech': The part of speech (e.g., 'noun', 'verb').</li>
+<li>'origin': The origin of the word (e.g., '한자' for Hanja-based words). feat:</li>
+</ul>
+</li>
+<li>Contains various additional features of the word, such as:<ul>
+<li>'att': Could include attributes like 'homonym_number', 'partOfSpeech', 'origin', 'vocabularyLevel', 'lexicalUnit'.</li>
+<li>'val': The actual value for each feature (e.g., a specific homonym number, part of speech, or origin of the word). val:</li>
+</ul>
+</li>
+<li>Can represent a variety of values such as the 'id' of the word, or specific properties like part of speech or lexical unit. </li>
+</ul>
 
 </div>
 </div>
