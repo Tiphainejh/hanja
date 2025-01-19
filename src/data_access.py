@@ -5,11 +5,13 @@ from src.database import DatabaseConnection
 
 class DataAccess:
     """!
+    @class DataAccess
     @brief A class to handle database operations for managing Korean words and their associated Hanja characters.
     """
 
     def initialize_database(self):
-        """! @brief Initializes the database by creating necessary tables if they don't already exist.
+        """! 
+        @brief Initializes the database by creating necessary tables if they don't already exist.
 
         Database Schema:
         ----------------
@@ -17,7 +19,11 @@ class DataAccess:
         - `id` (INTEGER, PRIMARY KEY): Unique identifier for each word.
         - `word` (TEXT, NOT NULL): Korean word.
         - `hanja` (TEXT): Associated Hanja characters.
-        - `glossary` (TEXT): Word's glossary or definition.
+        - `glossary` (TEXT): Word's glossary or definition in Korean.
+        - `englishLemma` (TEXT): Lemma/word in English.
+        - `englishDefinition` (TEXT): English definition of the word.
+        - `frenchLemma` (TEXT): Lemma/word in French.
+        - `frenchDefinition` (TEXT): French definition of the word.
 
         **hanja_characters**
         - `id` (INTEGER, PRIMARY KEY AUTOINCREMENT): Unique identifier for each Hanja character.
@@ -40,7 +46,11 @@ class DataAccess:
                     id INTEGER PRIMARY KEY,
                     word TEXT NOT NULL,
                     hanja TEXT,
-                    glossary TEXT
+                    glossary TEXT,
+                    englishLemma TEXT,
+                    englishDefinition TEXT,
+                    frenchLemma TEXT,
+                    frenchDefinition TEXT
                 )
                 ''')
                 cursor.execute('''
@@ -61,24 +71,34 @@ class DataAccess:
         @brief Inserts processed data into the 'korean_words' table.
         
         @param processed_data (list): A list of dictionaries containing word data. Each dictionary should have:
-        @param id (int): The unique ID for the word.
-        @param word (str): The Korean word.
-        @param hanja (str): Associated Hanja characters.
-        @param glossary (str): Meaning of the word.
+            - `id` (int): The unique ID for the word (optional if the database assigns it automatically).
+            - `word` (str): The Korean word.
+            - `hanja` (str): Associated Hanja characters.
+            - `glossary` (str): Meaning of the word in Korean.
+            - `englishLemma` (str): Lemma/word in English.
+            - `englishDefinition` (str): English definition of the word.
+            - `frenchLemma` (str): Lemma/word in French.
+            - `frenchDefinition` (str): French definition of the word.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
             for entry in processed_data:
-                word_id = entry['id']
                 word = entry['word']
-                glossary = entry['glossary']
-                hanja_str = entry['hanja']
+                hanja = entry.get('hanja')
+                glossary = entry.get('glossary')
+                english_lemma = entry.get('englishLemma')
+                english_definition = entry.get('englishDefinition')
+                french_lemma = entry.get('frenchLemma')
+                french_definition = entry.get('frenchDefinition')
 
                 cursor.execute('''
-                INSERT OR IGNORE INTO korean_words (id, word, hanja, glossary)
-                VALUES (?, ?, ?, ?)
-                ''', (word_id, word, hanja_str, glossary))
+                INSERT OR IGNORE INTO korean_words (
+                    word, hanja, glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                ''', (word, hanja, glossary, english_lemma, english_definition, french_lemma, french_definition))
             conn.commit()
+            print("Values inserted in the table.")
+
 
     def insert_hanja_data(self, hanja_dict):
         """!
