@@ -5,10 +5,6 @@ import os
 import json 
 
 class DataProcessor:
-    """!
-    @class DataProcessor
-    @brief A class to process the data of the json file.
-    """
     def __init__(self, folder_path):
         """
         @brief Initialize the DataExtractor with the folder path containing the JSON files.
