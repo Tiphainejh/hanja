@@ -110,16 +110,11 @@ class DataProcessor:
             
             # Iterate through the Lexical Entries
             for entry in lexical_entries:
-                # Check if 'Lemma' is a list or a dictionary
                 lemma_data = entry.get("Lemma")
                 korean_word = self.extract_word(lemma_data)
-                # getting hanja 
                 hanja_datas = entry.get("feat")
                 hanja = self.extract_hanja(hanja_datas)
-                
                 korean_definition = self.extract_korean_definition(entry)
-                
-                # Access the Sense details
                 equivalents = self.extract_equivalents(entry.get("Sense", {}))
               
                 for equivalent in equivalents:
@@ -190,7 +185,7 @@ class DataProcessor:
         """
         equivalents = {}
         if isinstance(sense_datas, list):
-            equivalents = sense_datas[0].get('Equivalent', {})
+            equivalents = sense_datas[0].get('Equivalent', {}) #only getting the first one because the others are similar
         elif isinstance(sense_datas, dict):
             equivalents = sense_datas.get('Equivalent', {})
         return equivalents
