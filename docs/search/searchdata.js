@@ -1,11 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "_bcdms",
+  0: "_bcdefgimprs",
   1: "d",
   2: "s",
   3: "_cdm",
-  4: "_m",
-  5: "bcd"
+  4: "_degimpr",
+  5: "bcdf"
 };
 
 var indexSectionNames =
