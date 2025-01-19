@@ -47,7 +47,7 @@ class DataProcessor:
         @param raw_data A list of dictionaries representing raw data entries.
         @return A list of dictionaries with processed and relevant data.
         
-        @property lexical_entries Represents a single lexical entry in the dictionary, containing various features of the word.
+        lexical_entries Represents a single lexical entry in the dictionary, containing various features of the word.
             Lemma:
                 - A list of 'feat' elements that represent the main word form.
                 - Each 'feat' contains:
