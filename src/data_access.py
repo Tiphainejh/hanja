@@ -25,7 +25,7 @@ class DataAccess:
         - `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
         - `meaning` (TEXT): Meaning of the Hanja character.
 
-        \image html database_diagram.png
+        \image html database_diagram.png width=400
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
