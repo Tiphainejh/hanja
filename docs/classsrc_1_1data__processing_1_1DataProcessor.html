@@ -111,7 +111,7 @@ Collaboration diagram for src.data_processing.DataProcessor:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__processing_1_1DataProcessor__coll__graph.png" border="0" usemap="#asrc_8data__processing_8DataProcessor_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__processing_8DataProcessor_coll__map" id="asrc_8data__processing_8DataProcessor_coll__map">
-<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,305"/>
+<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,325"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -152,6 +152,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a611dcfaf4a6c3129fc38bc01d659203f" id="r_a611dcfaf4a6c3129fc38bc01d659203f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a611dcfaf4a6c3129fc38bc01d659203f">process_hanja_data</a> (self, lines)</td></tr>
 <tr class="memdesc:a611dcfaf4a6c3129fc38bc01d659203f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes Hanja file lines to extract structured data.  <br /></td></tr>
 <tr class="separator:a611dcfaf4a6c3129fc38bc01d659203f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a908b48e2667224a24a994f9f15819cdb" id="r_a908b48e2667224a24a994f9f15819cdb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a908b48e2667224a24a994f9f15819cdb">reorder_hanja_results</a> (self, hanja_results, hanja_characters)</td></tr>
+<tr class="memdesc:a908b48e2667224a24a994f9f15819cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to reorder based on the correct list.  <br /></td></tr>
+<tr class="separator:a908b48e2667224a24a994f9f15819cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -279,7 +282,7 @@ Public Attributes</h2></td></tr>
 <p>Extracts the Equivalent data from the Sense. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sense_data</td><td>The Sense data, which can be a list or a dictionary. </td></tr>
+    <tr><td class="paramname">sense_datas</td><td>The Sense data, which can be a list or a dictionary. </td></tr>
   </table>
   </dd>
 </dl>
@@ -465,7 +468,7 @@ Public Attributes</h2></td></tr>
 <p>Extracts the 'val' from the lemma element. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lemma_data</td><td>The lemma data, which can be a list or a dictionary. </td></tr>
+    <tr><td class="paramname">lemma_datas</td><td>The lemma data, which can be a list or a dictionary. </td></tr>
   </table>
   </dd>
 </dl>
@@ -639,6 +642,50 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of lines read from the file. </dd></dl>
+
+</div>
+</div>
+<a id="a908b48e2667224a24a994f9f15819cdb" name="a908b48e2667224a24a994f9f15819cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a908b48e2667224a24a994f9f15819cdb">&#9670;&#160;</a></span>reorder_hanja_results()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_processing.DataProcessor.reorder_hanja_results </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hanja_results</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hanja_characters</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to reorder based on the correct list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hanja_results</td><td>Unordered hanja list </td></tr>
+    <tr><td class="paramname">hanja</td><td>characters Ordered hanja list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ordered_results </dd></dl>
 
 </div>
 </div>

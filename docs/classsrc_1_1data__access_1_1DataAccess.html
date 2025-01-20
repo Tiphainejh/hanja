@@ -110,7 +110,7 @@ Collaboration diagram for src.data_access.DataAccess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__access_1_1DataAccess__coll__graph.png" border="0" usemap="#asrc_8data__access_8DataAccess_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__access_8DataAccess_coll__map" id="asrc_8data__access_8DataAccess_coll__map">
-<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,185"/>
+<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,205"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,11 +128,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23e8da2b908674f31c01407620fe3728" id="r_a23e8da2b908674f31c01407620fe3728"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a23e8da2b908674f31c01407620fe3728">drop_tables</a> (self, cursor)</td></tr>
 <tr class="memdesc:a23e8da2b908674f31c01407620fe3728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops the 'hanja_characters' and 'korean_words' tables if they exist.  <br /></td></tr>
 <tr class="separator:a23e8da2b908674f31c01407620fe3728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f80aa884c00c50a14da99ac902c4dc7" id="r_a5f80aa884c00c50a14da99ac902c4dc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a5f80aa884c00c50a14da99ac902c4dc7">get_hanja_meanings_for_word</a> (self, word)</td></tr>
-<tr class="memdesc:a5f80aa884c00c50a14da99ac902c4dc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja meanings associated with a given Korean word.  <br /></td></tr>
-<tr class="separator:a5f80aa884c00c50a14da99ac902c4dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9857ba6547fe8216f69801f9d4eaa6e0" id="r_a9857ba6547fe8216f69801f9d4eaa6e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a9857ba6547fe8216f69801f9d4eaa6e0">get_word_by_korean</a> (self, korean_word)</td></tr>
-<tr class="separator:a9857ba6547fe8216f69801f9d4eaa6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c59fef88695c46c9ee18f370e4346c6" id="r_a6c59fef88695c46c9ee18f370e4346c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a6c59fef88695c46c9ee18f370e4346c6">get_hanja_for_word</a> (self, word)</td></tr>
+<tr class="memdesc:a6c59fef88695c46c9ee18f370e4346c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja associated with a given Korean word.  <br /></td></tr>
+<tr class="separator:a6c59fef88695c46c9ee18f370e4346c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae726f5ea5aa704b34208db1cc915fa3a" id="r_ae726f5ea5aa704b34208db1cc915fa3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#ae726f5ea5aa704b34208db1cc915fa3a">get_hanja_meanings_for_word</a> (self, word, hanja_list)</td></tr>
+<tr class="memdesc:ae726f5ea5aa704b34208db1cc915fa3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja meanings associated with a given Korean word.  <br /></td></tr>
+<tr class="separator:ae726f5ea5aa704b34208db1cc915fa3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2fa8212ead4b1885e8f26697b4b0b9" id="r_a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a3f2fa8212ead4b1885e8f26697b4b0b9">get_word_by_korean</a> (self, korean_word, language)</td></tr>
+<tr class="separator:a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class to handle database operations for managing Korean words and their associated Hanja characters. </p>
@@ -173,8 +176,45 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f80aa884c00c50a14da99ac902c4dc7" name="a5f80aa884c00c50a14da99ac902c4dc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f80aa884c00c50a14da99ac902c4dc7">&#9670;&#160;</a></span>get_hanja_meanings_for_word()</h2>
+<a id="a6c59fef88695c46c9ee18f370e4346c6" name="a6c59fef88695c46c9ee18f370e4346c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c59fef88695c46c9ee18f370e4346c6">&#9670;&#160;</a></span>get_hanja_for_word()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_access.DataAccess.get_hanja_for_word </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>word</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves Hanja associated with a given Korean word. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a list of tuples containing Hanja character. Returns None if no data is found. </dd></dl>
+
+</div>
+</div>
+<a id="ae726f5ea5aa704b34208db1cc915fa3a" name="ae726f5ea5aa704b34208db1cc915fa3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae726f5ea5aa704b34208db1cc915fa3a">&#9670;&#160;</a></span>get_hanja_meanings_for_word()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +229,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>word</em>&#160;</td>
+          <td class="paramname"><em>word</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hanja_list</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,8 +256,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9857ba6547fe8216f69801f9d4eaa6e0" name="a9857ba6547fe8216f69801f9d4eaa6e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9857ba6547fe8216f69801f9d4eaa6e0">&#9670;&#160;</a></span>get_word_by_korean()</h2>
+<a id="a3f2fa8212ead4b1885e8f26697b4b0b9" name="a3f2fa8212ead4b1885e8f26697b4b0b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2fa8212ead4b1885e8f26697b4b0b9">&#9670;&#160;</a></span>get_word_by_korean()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +272,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>korean_word</em>&#160;</td>
+          <td class="paramname"><em>korean_word</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>language</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -238,6 +290,7 @@ Public Member Functions</h2></td></tr>
 <pre class="fragment">@brief Fetches a word entry by its Korean text.
 
 @param korean_word: The Korean word to search for.
+@param language: The language for the definition
 @return: A list of matching entries.
 </pre> 
 </div>
