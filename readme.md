@@ -4,6 +4,7 @@ Check the code documentation here : https://tiphainejh.github.io/hanja/
 # TODO
 - [ ] Add functionality to search korean text even if its not full
 - [ ] Add audio and other values to the DB
+- [ ] Change Doxygen Css https://codepen.io/havardob/pen/PopKJRE 
 
 ### 1. **Creation of the database**
 
@@ -28,6 +29,7 @@ Check the code documentation here : https://tiphainejh.github.io/hanja/
 
 - **Graphical visualization**: Integrate graphics or mind maps to visually represent the links between words and their Hanja roots.
 - **Advanced search**: Add filters to sort words by frequency of use, language level (formal/informal), or field (scientific, literary, etc.).
+- **Fonts**: Korean title : https://noonnu.cc/font_page/1100; English title : https://bboxtype.com/typefaces/FFF_tuoi_tre/, https://dirtylinestudio.com/product/neue-metana-next-free-font/
 
 ### 5. **Later improvements**
 

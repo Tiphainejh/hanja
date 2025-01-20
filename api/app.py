@@ -1,13 +1,18 @@
 # ! @file api/app.py
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
 import os
 
 # Get the absolute path for templates folder
-template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'templates')
-app = Flask(__name__, template_folder=template_folder)
+
+app = Flask(
+    __name__,
+    template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'templates'),
+    static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static')
+)
+app.secret_key = os.urandom(12).hex()
 
 # Instantiate the classes and specify the path to the folder
 folder_path = "data/전체 내려받기_한국어기초사전_json_20250112"
@@ -17,26 +22,32 @@ data_processor = DataProcessor(folder_path)
 @app.route('/')
 def index():
     """!
-    @brief Render the main page with a search form.
+    @brief Render the main page with a search form and sets the default language to english.
     """
-    return render_template('index.html')
+    # Get the current language, default to English if not set
+    language = session.get('language', 'en')
+    return render_template('index.html', language=language)
+
+@app.route('/set_language', methods=['POST'])
+def set_language():
+    language = request.form['language']
+    session['language'] = language
+    return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST'])
 def search():
     """!
     @brief Handle search requests and display results.
     """
+    language = session.get('language', 'en')
+    
     if request.method == 'POST':
         word_to_search = request.form['word']
-        print(f"Word to search: {word_to_search}")  # This will print in the terminal or logs
-        
-        hanja_results = data_access.get_hanja_meanings_for_word(word_to_search)
-        print(f"Hanja results: {hanja_results}")  # Check what the results look like
-        
-        korean_results = data_access.get_word_by_korean(word_to_search)
-        print(f"Korean results: {korean_results}")  # Check what the results look like
+        hanja_characters = data_access.get_hanja_for_word(word_to_search)
+        korean_results = data_access.get_word_by_korean(word_to_search, language)
+        hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters), hanja_characters)
 
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results)
+        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, language=language, hanja_characters="".join(hanja_characters))
 
 # This is needed for Vercel to run the app as a serverless function
 def vercel_app(environ, start_response):

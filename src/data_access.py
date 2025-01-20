@@ -137,14 +137,14 @@ class DataAccess:
             print("Table 'korean_words' has been dropped.")
         except sqlite3.Error as e:
             print(f"Error dropping tables: {e}")
-
-    def get_hanja_meanings_for_word(self, word):
+    
+    def get_hanja_for_word(self, word):
         """!
-        @brief Retrieves Hanja meanings associated with a given Korean word.
+        @brief Retrieves Hanja associated with a given Korean word.
         
-        @param word (str): The Korean word for which to fetch Hanja meanings.
+        @param word (str): The Korean word for which to fetch Hanja character.
         
-        @return a list of tuples containing Hanja character, Korean pronunciation, and meaning.
+        @return a list of tuples containing Hanja character.
                   Returns None if no data is found.
         """
         with DatabaseConnection() as conn:
@@ -159,23 +159,44 @@ class DataAccess:
                     return None
                 else:
                     hanja_list = list(hanja_string)
-                    query = 'SELECT character, korean, meaning FROM hanja_characters WHERE character IN ({seq})'.format(
-                        seq=','.join(['?'] * len(hanja_list))
-                    )
-                    cursor.execute(query, hanja_list)
-                    results = cursor.fetchall()
-                    return results
-            else:
+                    return hanja_list
+
+
+    def get_hanja_meanings_for_word(self, word, hanja_list):
+        """!
+        @brief Retrieves Hanja meanings associated with a given Korean word.
+        
+        @param word (str): The Korean word for which to fetch Hanja meanings.
+        
+        @return a list of tuples containing Hanja character, Korean pronunciation, and meaning.
+                  Returns None if no data is found.
+        """
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+           
+            if hanja_list is None:
                 print(f"No Hanja found for word '{word}'.")
                 return None
+            else:                    
+                query = 'SELECT character, korean, meaning FROM hanja_characters WHERE character IN ({seq})'.format(
+                    seq=','.join(['?'] * len(hanja_list))
+                )
+                cursor.execute(query, hanja_list)
+                results = cursor.fetchall()
+                return results
 
-    def get_word_by_korean(self, korean_word):
+
+    def get_word_by_korean(self, korean_word, language):
             """@brief Fetches a word entry by its Korean text.
             
             @param korean_word: The Korean word to search for.
+            @param language: The language for the definition
             @return: A list of matching entries.
             """      
             with DatabaseConnection() as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                if language == "fr":
+                    cursor.execute("SELECT glossary, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                else :
+                    cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
                 return cursor.fetchall()

@@ -148,7 +148,7 @@ class DataProcessor:
     def extract_word(self, lemma_datas):
         """! 
         @brief Extracts the 'val' from the lemma element.
-        @param lemma_data The lemma data, which can be a list or a dictionary.
+        @param lemma_datas The lemma data, which can be a list or a dictionary.
         @return The extracted word value, or None if not found.
         """
         if isinstance(lemma_datas, list):
@@ -179,7 +179,7 @@ class DataProcessor:
     def extract_equivalents(self, sense_datas):
         """! 
         @brief Extracts the Equivalent data from the Sense.
-        @param sense_data The Sense data, which can be a list or a dictionary.
+        @param sense_datas The Sense data, which can be a list or a dictionary.
         @return The extracted Equivalent data, or an empty dictionary if not found.
         """
         equivalents = {}
@@ -291,3 +291,18 @@ class DataProcessor:
 
         # Return the fully processed Hanja dictionary
         return hanja_dict
+
+    def reorder_hanja_results(self, hanja_results, hanja_characters):
+        """! @brief Function to reorder based on the correct list
+        @param hanja_results Unordered hanja list
+        @param hanja characters Ordered hanja list
+
+        @return ordered_results
+        """
+        # Create a dictionary to map each Hanja character to its position in hanja_characters
+        hanja_order = {char: index for index, char in enumerate(hanja_characters)}
+        
+        # Sort the hanja_results based on the order of the first item in the tuple (Hanja character)
+        ordered_results = sorted(hanja_results, key=lambda x: hanja_order.get(x[0], float('inf')))
+        
+        return ordered_results

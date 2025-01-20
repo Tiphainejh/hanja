@@ -1,33 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Korean Word</title>
-</head>
-<body>
-    <h1>Search for Korean Word's Hanja</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HanjaGetter</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        <link href="https://free.bboxtype.com/embedfonts/?family=FFF_tuoi_tre:700,900" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
-    <form action="/search" method="POST">
-        <input type="text" name="word" placeholder="Enter Korean word" required>
-        <button type="submit">Search</button>
-    </form>
+    </head>
+    <body>
+        <div class="language-selector">
+            <form method="POST" action="/set_language">
+                <select name="language" onchange="this.form.submit()">
+                    <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+                    <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>
+                </select>
+            </form>
+        </div>
+        <div class="container">
+            <div class="header-title">
+                <div class="언어의">언어의</div>
+                <div class="뿌리">뿌리</div>
+                <div class="HanjaGetter">
+                    <div class="Hanja">
+                        <span class="font1">Hanja</span>
+                        <span class="font2">Hanja</span><br>
+                    </div>
+                    <div class="Getter">
+                        <span class="font1">Getter</span>
+                        <span class="font2">Getter</span>
+                    </div>
+                </div>
+            </div>
+            <div class ="search-container">
+                {% if language == 'en' %}
+                    <h1>Look Up Hanja for Your Korean Word</h1>
+                    <form action="/search" method="POST" class="search-bar">
+                        <input type="text" name="word" placeholder="Enter a Korean word" required>
+                        <button type="submit">Search</button>
+                    </form>
+                {% else %}
+                    <h1>Trouvez les Hanja pour votre mot coréen</h1>
+                    <form action="/search" method="POST" class="search-bar">
+                        <input type="text" name="word" placeholder="Entrez un mot en coréen" required>
+                        <button type="submit">Rechercher</button>
+                    </form>
+                {% endif %}
 
-    {% if hanja_results %}
-        <h2>Hanja Results:</h2>
-        <ul>
-            {% for hanja, korean, meaning in hanja_results %}
-                <li>Character: {{ hanja }}, Korean: {{ korean }}, Meaning: {{ meaning }}</li>
-            {% endfor %}
-        </ul>
-        <h2>Korean Results:</h2>
-        <ul>
-            {% for glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition in korean_results %}
-                <li>Definition: {{ glossary }}, englishLemma: {{ englishLemma }}, englishDefinition: {{ englishDefinition }}, frenchLemma: {{ frenchLemma }}, frenchDefinition: {{ frenchDefinition }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-    <p>No results found for "{{ word }}"</p>
-    {% endif %}
-</body>
-</html>
+                {% if hanja_results %}
+                    {% include 'results.html' %}
+                {% else %}
+                    {% if word %}
+                        <p class="no-results">No results found for "{{ word }}"</p>
+                    {% else %}
+                        {% if language == 'en' %}
+                        <p style="text-align: center;">Welcome! Please enter a Korean word to get the Hanja characters associated with it.</p>
+                        {% else %}
+                        <p style="text-align: center;">Bienvenue! Entrez un mot en coréen pour obtenir les charactères Hanja qui lui sont associés.</p>
+                        {% endif %}
+                        
+                    {% endif %}
+                    
+                {% endif %}
+
+               
+            </div>
+        </div>
+    </body>
+    </html>
