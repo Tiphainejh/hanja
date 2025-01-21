@@ -30,6 +30,7 @@ body {
   max-width: 600px;
   word-wrap: break-word;
   white-space: normal;
+  margin-top: 10px;
 }
 
 .header-title {
@@ -42,7 +43,7 @@ body {
     " 뿌리 HanjaGetter";
   text-align: left; /* Align content left */
   justify-content: end;
-  width: 50%;
+  width: 44%;
   margin: 0 auto;
   line-height: 1.2;
 }
@@ -61,20 +62,6 @@ body {
   color: #000;
 }
 
-.HanjaGetter {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "Hanja Hanja Hanja"
-    "Getter Getter Getter";
-  grid-area: HanjaGetter;
-  position: relative; /* Enable positioning for overlapping */
-  font-size: 2rem;
-  font-weight: bold;
-}
-
 
 .HanjaGetter .font1 {
   font-family: 'NeueMetanaNext', sans-serif; /* First font */
@@ -85,6 +72,9 @@ body {
   left: 0;
 }
 
+.HanjaGetter{
+  margin-top: 5px;
+}
 .HanjaGetter .font2 {
   font-family: 'NeueMetanaNextOutline', sans-serif; /* Second font */
   color: #ff6392; /* Black color */
@@ -100,9 +90,6 @@ body {
   position: relative; /* Enable positioning for overlapping */
   font-size: 2rem;
 }
-
-.Hanja { grid-area: Hanja; }
-.Getter { grid-area: Getter; }
 
 h1 {
   text-align: center;
