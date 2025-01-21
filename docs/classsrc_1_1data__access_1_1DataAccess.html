@@ -110,7 +110,7 @@ Collaboration diagram for src.data_access.DataAccess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__access_1_1DataAccess__coll__graph.png" border="0" usemap="#asrc_8data__access_8DataAccess_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__access_8DataAccess_coll__map" id="asrc_8data__access_8DataAccess_coll__map">
-<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,205"/>
+<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,225"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae726f5ea5aa704b34208db1cc915fa3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f2fa8212ead4b1885e8f26697b4b0b9" id="r_a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a3f2fa8212ead4b1885e8f26697b4b0b9">get_word_by_korean</a> (self, korean_word, language)</td></tr>
 <tr class="separator:a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f8eb51816b5631748421df5638689e4" id="r_a1f8eb51816b5631748421df5638689e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a1f8eb51816b5631748421df5638689e4">get_related_words</a> (self, hanja_character, language)</td></tr>
+<tr class="separator:a1f8eb51816b5631748421df5638689e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class to handle database operations for managing Korean words and their associated Hanja characters. </p>
@@ -253,6 +255,40 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a list of tuples containing Hanja character, Korean pronunciation, and meaning. Returns None if no data is found. </dd></dl>
+
+</div>
+</div>
+<a id="a1f8eb51816b5631748421df5638689e4" name="a1f8eb51816b5631748421df5638689e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f8eb51816b5631748421df5638689e4">&#9670;&#160;</a></span>get_related_words()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_access.DataAccess.get_related_words </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hanja_character</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>language</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
