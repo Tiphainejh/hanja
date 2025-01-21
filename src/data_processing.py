@@ -280,7 +280,7 @@ class DataProcessor:
                     # Create a structured entry for the current Hanja character
                     item = {
                         'kor': kor_parts,  # Korean readings
-                        'def': def_parts  # Definitions
+                        'def': def_parts.capitalize()  # Definitions
                     }
 
                     # Add the entry to the dictionary under the current Hanja character

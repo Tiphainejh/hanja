@@ -2,6 +2,7 @@
 Check the code documentation here : https://tiphainejh.github.io/hanja/
 
 # TODO
+- [ ] Add function to fetch data from DB even when there is no associated hanja
 - [ ] Add functionality to search korean text even if its not full
 - [ ] Add audio and other values to the DB
 - [ ] Change Doxygen Css https://codepen.io/havardob/pen/PopKJRE 

@@ -1,6 +1,6 @@
 # ! @file api/app.py
 
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
 import os
@@ -40,14 +40,35 @@ def search():
     @brief Handle search requests and display results.
     """
     language = session.get('language', 'en')
-    
     if request.method == 'POST':
         word_to_search = request.form['word']
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
         korean_results = data_access.get_word_by_korean(word_to_search, language)
-        hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters), hanja_characters)
+        if hanja_characters == None :
+            hanja_results = None
+        else :
+            hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters), hanja_characters)
 
         return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, language=language, hanja_characters="".join(hanja_characters))
+
+@app.route('/related-words')
+def related_words():
+    language = session.get('language', 'en')
+    hanja_character = request.args.get('hanja')
+    # Query your database for related words
+    related_words = data_access.get_related_words(hanja_character, language)
+    
+    # Filter duplicates by keeping only the first occurrence of each unique pair of Hanja
+    seen_hanja_pairs = set()
+    unique_words = []
+    for word in related_words:
+        # Sort the Hanja characters to avoid the order mismatch
+        hanja = word['hanja']
+        if hanja[:2] not in seen_hanja_pairs:
+            seen_hanja_pairs.add(hanja[:2])
+            unique_words.append(word)
+
+    return jsonify(unique_words)
 
 # This is needed for Vercel to run the app as a serverless function
 def vercel_app(environ, start_response):

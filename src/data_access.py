@@ -200,3 +200,40 @@ class DataAccess:
                 else :
                     cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
                 return cursor.fetchall()
+            
+    def get_related_words(self, hanja_character, language):
+        if language == "fr" :
+            query = """
+            SELECT word, hanja, glossary, frenchLemma, frenchDefinition
+            FROM korean_words
+            WHERE hanja LIKE ?;
+            """
+        elif language == "en":
+            query = """
+            SELECT word, hanja, glossary, englishLemma, englishDefinition
+            FROM korean_words
+            WHERE hanja LIKE ?;
+            """
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+    
+            # Execute the query
+            cursor.execute(query, (f"%{hanja_character}%",))
+
+            # Fetch all matching rows
+            results = cursor.fetchall()
+
+            # Map results to a list of dictionaries
+            words = [
+                {
+                    "word": row[0],
+                    "hanja": row[1],
+                    "glossary": row[2],
+                    "lemma": row[3],
+                    "definition": row[4],
+                }
+                for row in results
+            ]
+
+            return words
+
