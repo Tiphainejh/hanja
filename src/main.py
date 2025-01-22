@@ -28,8 +28,9 @@ def main():
     # Read and process hanja data
     lines = data_processor.read_hanja_file('data/hanja.txt')
     hanja_dict = data_processor.process_hanja_data(lines)
-    data_access.insert_hanja_data(hanja_dict)"""
+    data_access.insert_hanja_data(hanja_dict)
     data_access.remove_duplicates()
+    """
 
 if __name__ == '__main__':
     main()

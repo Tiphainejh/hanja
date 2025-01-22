@@ -12,10 +12,9 @@
     <div class="hanja-results">
     <ul>
         {% for hanja, korean, meaning in hanja_results %}
-        <div class="result-item korean collapsed" onclick="toggleDetails('{{ hanja }}', this)">
-            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li> <!-- TODO CHANGE "meaning"-->
+        <div class="result-item korean collapsed" onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
+            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li>
             <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
-                <!-- This is where the additional details will go -->
                 <p>{{ text_language.load }}</p>
             </div>
         </div>

@@ -58,7 +58,7 @@
                     {% include 'results.html' %}
                 {% else %}
                     {% if word %}
-                        <p class="no-results">No results found for "{{ word }}"</p>
+                        <p class="no-results">{{text_language.no_res}} "{{ word }}"</p>
                     {% else %}
                     <div class="home-page">
                         {% if language == 'en' %}

@@ -258,3 +258,40 @@ class DataAccess:
 
             return words
 
+
+    def find_word_with_unique_hanja(self):
+        """
+        Finds a Korean word where at least one Hanja character is unique to that word.
+
+        Args:
+            db_path (str): Path to the SQLite database.
+
+        Returns:
+            list: Words with unique Hanja characters.
+        """
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+            # Step 1: Flatten all Hanja characters into a single column
+            cursor.execute("SELECT word, hanja FROM korean_words WHERE hanja IS NOT NULL;")
+            rows = cursor.fetchall()
+
+            # Step 2: Create a mapping of Hanja characters to the words they appear in
+            hanja_to_words = {}
+            for word, hanja in rows:
+                for char in hanja:  # Iterate over each character in the Hanja string
+                    if char not in hanja_to_words:
+                        hanja_to_words[char] = set()
+                    hanja_to_words[char].add(word)
+
+            # Step 3: Find unique Hanja characters and the corresponding words
+            unique_hanja_words = []
+            for char, words in hanja_to_words.items():
+                if len(words) == 1:  # This Hanja character is unique
+                    unique_hanja_words.append((list(words)[0], char))
+
+            # Step 4: Filter the words that contain unique Hanja characters
+            result_words = []
+            for word, char in unique_hanja_words:
+                result_words.append((word, char))
+
+            return result_words

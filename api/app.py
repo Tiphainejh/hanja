@@ -49,29 +49,34 @@ def search():
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
         print(hanja_characters)
         korean_results = data_access.get_word_by_korean(word_to_search, language)
-        
         if hanja_characters == None :
             hanja_results = None
         else :
             hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters, language), hanja_characters)
+            hanja_characters="".join(hanja_characters)
         
-        text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés..."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words..."}
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters="".join(hanja_characters), text_language=text_language, language=language)
+        text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés...", "no_res":"Pas de résultats pour", "no_related":"Aucun mot lié trouvé.", "err_load":"Erreur lors du chargement des données."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words...", "no_res":"No results found for", "no_related":"No related words found.", "err_load":"Error while loading the data."}
+        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters=hanja_characters, text_language=text_language, language=language)
 
 @app.route('/related-words')
 def related_words():
     language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
     hanja_character = request.args.get('hanja')
+    original_word = request.args.get('original_word')  # Pass the original word from the client-side
+    print(original_word)
     # Query your database for related words
     related_words = data_access.get_related_words(hanja_character, language)
     
     # Filter duplicates by keeping only the first occurrence of each unique pair of Hanja
+    # Filter duplicates and exclude the original word
     seen_hanja_pairs = set()
     unique_words = []
     for word in related_words:
-        # Sort the Hanja characters to avoid the order mismatch
         hanja = word['hanja']
-        if hanja[:2] not in seen_hanja_pairs:
+        korean_word = word['word']
+            
+        # Exclude the original word
+        if korean_word != original_word and hanja[:2] not in seen_hanja_pairs:
             seen_hanja_pairs.add(hanja[:2])
             unique_words.append(word)
 
