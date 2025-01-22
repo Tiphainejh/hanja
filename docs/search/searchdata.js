@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "d",
   2: "s",
   3: "_cdm",
-  4: "_degimpr",
+  4: "_defgimpr",
   5: "bcdf"
 };
 

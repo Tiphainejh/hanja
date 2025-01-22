@@ -1,6 +1,7 @@
 var classsrc_1_1data__access_1_1DataAccess =
 [
     [ "drop_tables", "classsrc_1_1data__access_1_1DataAccess.html#a23e8da2b908674f31c01407620fe3728", null ],
+    [ "find_word_with_unique_hanja", "classsrc_1_1data__access_1_1DataAccess.html#abcea9b4378c4ccf458bc2ad40418efdd", null ],
     [ "get_hanja_for_word", "classsrc_1_1data__access_1_1DataAccess.html#a6c59fef88695c46c9ee18f370e4346c6", null ],
     [ "get_hanja_meanings_for_word", "classsrc_1_1data__access_1_1DataAccess.html#a3d1907ec15f436a5a700997ec2bdeedd", null ],
     [ "get_related_words", "classsrc_1_1data__access_1_1DataAccess.html#a1f8eb51816b5631748421df5638689e4", null ],
