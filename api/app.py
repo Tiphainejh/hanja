@@ -1,6 +1,6 @@
 # ! @file api/app.py
 
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify, make_response
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
 from deep_translator import GoogleTranslator
@@ -26,21 +26,24 @@ def index():
     @brief Render the main page with a search form and sets the default language to english.
     """
     # Get the current language, default to English if not set
-    language = session.get('language', 'en')
+     # Essayer de récupérer la langue de la session, sinon du cookie
+    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
     return render_template('index.html', language=language)
 
 @app.route('/set_language', methods=['POST'])
 def set_language():
     language = request.form['language']
-    session['language'] = language
-    return redirect(url_for('index'))
+    session['language'] = language  # Enregistrer la langue dans la session
+    resp = make_response(redirect(url_for('index')))
+    resp.set_cookie('language', language, max_age=30*24*60*60)  # Enregistrer la langue dans le cookie (30 jours)
+    return resp
 
 @app.route('/search', methods=['POST'])
 def search():
     """!
     @brief Handle search requests and display results.
     """
-    language = session.get('language', 'en')
+    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
     if request.method == 'POST':
         word_to_search = request.form['word']
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
@@ -57,7 +60,7 @@ def search():
 
 @app.route('/related-words')
 def related_words():
-    language = session.get('language', 'en')
+    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
     hanja_character = request.args.get('hanja')
     # Query your database for related words
     related_words = data_access.get_related_words(hanja_character, language)
