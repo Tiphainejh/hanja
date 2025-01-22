@@ -53,7 +53,7 @@ def search():
             hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters, language), hanja_characters)
         
         text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés..."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words..."}
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters="".join(hanja_characters), text_language=text_language)
+        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters="".join(hanja_characters), text_language=text_language, language=language)
 
 @app.route('/related-words')
 def related_words():

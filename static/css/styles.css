@@ -330,7 +330,9 @@ h2 {
   text-align: center;
 }
 
-
+.home-page ol {
+  text-align: left;
+}
 .home-page .email-link {
   color: #ff6392;
   text-decoration: none;

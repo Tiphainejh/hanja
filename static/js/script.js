@@ -20,27 +20,37 @@ function toggleDetails(hanja) {
     }
 }
 
-
-
 async function fetchRelatedWords(hanja, container) {
     try {
         // Fetch data from your server
         const response = await fetch(`/related-words?hanja=${encodeURIComponent(hanja)}`);
         const data = await response.json();
 
+        // Escape special characters to prevent XSS
+        const sanitizeHTML = (str) =>
+            String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
         // Check if data is not empty
         if (data.length > 0) {
             // Populate the container with the related words based on language
             container.innerHTML = data
-                .map(word => {
-                        return `
+                .map((word) => {
+                    const sanitizedWord = sanitizeHTML(word.word);
+                    const sanitizedHanja = sanitizeHTML(word.hanja);
+                    const sanitizedLemma = sanitizeHTML(word.lemma);
+
+                    return `
                         <form action="/search" method="POST" class="related-word-form">
-                            <input type="hidden" name="word" value="${word.word}">
+                            <input type="hidden" name="word" value="${sanitizedWord}">
                             <button type="submit" class="related-word-button">
-                                <strong>${word.word}</strong></button> (${word.hanja}) : ${word.lemma}
-                            
-                            </form>
-                        `;
+                                <strong>${sanitizedWord}</strong></button> (${sanitizedHanja}) : ${sanitizedLemma}
+                        </form>
+                    `;
                 })
                 .join('');
         } else {
@@ -55,3 +65,4 @@ async function fetchRelatedWords(hanja, container) {
         container.innerHTML = `<p>Error loading data.</p>`; // TODO add language
     }
 }
+
