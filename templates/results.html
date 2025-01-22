@@ -1,19 +1,5 @@
 <div class="results-container">
-
     <h2 style="font-weight: 500;"><b>{{word}}</b> {{hanja_characters}}</h2>
-    <div class="hanja-results">
-    <ul>
-        {% for hanja, korean, meaning in hanja_results %}
-        <div class="result-item korean" onclick="toggleDetails('{{ hanja }}')">
-            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li>
-            <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
-                <!-- This is where the additional details will go -->
-                <p>Loading related words...</p>
-            </div>
-        </div>
-        {% endfor %}
-    </ul>
-    </div>
     <div class="korean-results">
         {% for glossary, Lemma, Definition in korean_results %}
         <div class="result-item">
@@ -23,4 +9,18 @@
         {% endfor %}
         
     </div>
+    <div class="hanja-results">
+    <ul>
+        {% for hanja, korean, meaning in hanja_results %}
+        <div class="result-item korean collapsed" onclick="toggleDetails('{{ hanja }}', this)">
+            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li>
+            <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
+                <!-- This is where the additional details will go -->
+                <p>Loading related words...</p>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+    </div>
+   
 </div>  

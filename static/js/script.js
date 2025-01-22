@@ -1,8 +1,17 @@
 function toggleDetails(hanja) {
     const detailsDiv = document.getElementById(`details-${hanja}`);
+    const resultItem = detailsDiv.closest('.result-item'); // Get the parent .result-item
+
     if (detailsDiv) {
-        // Toggle the 'visible' class
+        // Toggle the 'visible' class on the details div
         detailsDiv.classList.toggle('visible');
+
+        // Update the parent .result-item's 'collapsed' class
+        if (detailsDiv.classList.contains('visible')) {
+            resultItem.classList.remove('collapsed'); // Expanded state
+        } else {
+            resultItem.classList.add('collapsed'); // Collapsed state
+        }
 
         // If it's visible and data isn't loaded, fetch related words
         if (detailsDiv.classList.contains('visible') && !detailsDiv.dataset.loaded) {
@@ -10,6 +19,8 @@ function toggleDetails(hanja) {
         }
     }
 }
+
+
 
 async function fetchRelatedWords(hanja, container) {
     try {

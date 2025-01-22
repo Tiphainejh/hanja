@@ -29,9 +29,8 @@ body {
   align-items: center;
 }
 .container {
-  max-width: 80%;
-  word-wrap: break-word;
-  white-space: normal;
+  max-width: 100%;
+  width: 70%;
   margin-top: 1rem;
 }
 
@@ -99,6 +98,10 @@ h1 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 1rem;
+}
+
+.search-container {
+  width: 100%;
 }
 .search-bar {
   display: flex;
@@ -171,18 +174,24 @@ h2 {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 }
-.korean:hover {
-  background-color: #fca8c1;
-  cursor:pointer;
-}
-.result-item:hover .hanja-character, 
-.result-item:hover li, 
-.result-item:hover .details {
-    color: #333; /* Changez la couleur du texte si nécessaire */
+.korean {
+    transition: #f9f9f9 0.3s ease, color 0.3s ease;
 }
 
-/* Ajoutez une animation douce pour les enfants aussi */
+.korean.collapsed:hover {
+    background-color: #ffe6f0;
+    cursor: pointer;
+}
+
+/* No hover effect when not collapsed */
+.korean:not(.collapsed):hover {
+    background-color: #f9f9f9; /* No change */
+    cursor: pointer;
+}
+
+/* Ajoutez une animation douce pour les child aussi */
 .result-item .hanja-character,
 .result-item li,
 .result-item .details {
@@ -206,7 +215,7 @@ h2 {
 }
 
 .korean-results .result-item {
-  background-color: #f0f4f8;
+  background-color: #f8f0f7;
 }
 
 .no-results {
