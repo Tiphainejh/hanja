@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
+from deep_translator import GoogleTranslator
 import os
 
 # Get the absolute path for templates folder
@@ -43,13 +44,16 @@ def search():
     if request.method == 'POST':
         word_to_search = request.form['word']
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
+        print(hanja_characters)
         korean_results = data_access.get_word_by_korean(word_to_search, language)
+        
         if hanja_characters == None :
             hanja_results = None
         else :
-            hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters), hanja_characters)
-
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, language=language, hanja_characters="".join(hanja_characters))
+            hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters, language), hanja_characters)
+        
+        text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés..."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words..."}
+        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters="".join(hanja_characters), text_language=text_language)
 
 @app.route('/related-words')
 def related_words():

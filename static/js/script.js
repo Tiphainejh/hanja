@@ -45,13 +45,13 @@ async function fetchRelatedWords(hanja, container) {
                 .join('');
         } else {
             // Display a message if no related words are found
-            container.innerHTML = `<p>No related words found.</p>`;
+            container.innerHTML = `<p>No related words found.</p>`; // TODO add language
         }
 
         // Mark as loaded to avoid re-fetching
         container.dataset.loaded = true;
     } catch (error) {
         console.error('Error fetching related words:', error);
-        container.innerHTML = `<p>Error loading data.</p>`;
+        container.innerHTML = `<p>Error loading data.</p>`; // TODO add language
     }
 }

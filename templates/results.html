@@ -3,8 +3,8 @@
     <div class="korean-results">
         {% for glossary, Lemma, Definition in korean_results %}
         <div class="result-item">
-            <div class="korean-definition"><b>Definition</b> {{ glossary }}</div>
-            <div class="lemma"><b>English</b> {{ Lemma }} </br>{{ Definition }}</div>
+            <div class="korean-definition"><b>{{ text_language.def }}</b> {{ glossary }}</div>
+            <div class="lemma"><b>{{ text_language.lang }}</b> {{ Lemma }} </br>{{ Definition }}</div>
         </div>
         {% endfor %}
         
@@ -13,10 +13,10 @@
     <ul>
         {% for hanja, korean, meaning in hanja_results %}
         <div class="result-item korean collapsed" onclick="toggleDetails('{{ hanja }}', this)">
-            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li>
+            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li> <!-- TODO CHANGE "meaning"-->
             <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
                 <!-- This is where the additional details will go -->
-                <p>Loading related words...</p>
+                <p>{{ text_language.load }}</p>
             </div>
         </div>
         {% endfor %}

@@ -3,6 +3,7 @@ from datapackage import Package
 import regex
 import os 
 import json 
+from deep_translator import GoogleTranslator
 
 class DataProcessor:
     """!
@@ -123,10 +124,10 @@ class DataProcessor:
                     
                     # Store the English and French data specifically
                     if language == "영어":
-                        english_lemma = lemma
+                        english_lemma = lemma.capitalize() + '.'
                         english_definition = definition
                     elif language == "프랑스어":
-                        french_lemma = lemma
+                        french_lemma = lemma.capitalize() + '.'
                         french_definition = definition
 
                 # Extract and transform specific fields from the raw data
@@ -246,6 +247,7 @@ class DataProcessor:
         """!
         @brief Processes Hanja file lines to extract structured data.
         Groups Hanja characters, their corresponding Korean readings, and definitions.
+        Slow because of the translation process
         @param lines A list of lines from the Hanja data file.
         @return A dictionary where keys are Hanja characters and values are lists of corresponding Korean readings and definitions.
         """
@@ -276,11 +278,13 @@ class DataProcessor:
                     # Join the classified parts into strings
                     kor_parts = ', '.join(kor_part)
                     def_parts = ', '.join(def_part)
-
+                    english_def = def_parts.capitalize()
+                    
                     # Create a structured entry for the current Hanja character
                     item = {
                         'kor': kor_parts,  # Korean readings
-                        'def': def_parts.capitalize()  # Definitions
+                        'english_def': english_def,  # Definitions
+                        'french_def': GoogleTranslator(source='en', target='fr').translate(english_def)  # Definitions
                     }
 
                     # Add the entry to the dictionary under the current Hanja character

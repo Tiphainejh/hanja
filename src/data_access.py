@@ -27,7 +27,8 @@ class DataAccess:
         - `id` (INTEGER, PRIMARY KEY AUTOINCREMENT): Unique identifier for each Hanja character.
         - `character` (TEXT, NOT NULL, UNIQUE): The Hanja character.
         - `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
-        - `meaning` (TEXT): Meaning of the Hanja character.
+        - `englishDefinition` (TEXT): Meaning of the Hanja character in english.
+        - `frenchDefinition` (TEXT): Meaning of the Hanja character in french.
 
         @image html database_diagram.png width=400
         """
@@ -56,7 +57,8 @@ class DataAccess:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     character TEXT NOT NULL UNIQUE,
                     korean TEXT NOT NULL,
-                    meaning TEXT
+                    englishDefinition TEXT,
+                    frenchDefinition TEXT
                 )
                 ''')
                 conn.commit()  # Save the changes to the database
@@ -88,14 +90,18 @@ class DataAccess:
                 english_definition = entry.get('englishDefinition')
                 french_lemma = entry.get('frenchLemma')
                 french_definition = entry.get('frenchDefinition')
-
-                cursor.execute('''
-                INSERT OR IGNORE INTO korean_words (
-                    word, hanja, glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
-                ''', (word, hanja, glossary, english_lemma, english_definition, french_lemma, french_definition))
+                query = """
+                INSERT INTO korean_words (word, hanja, glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition)
+                SELECT ?, ?, ?, ?, ?, ?, ?
+                WHERE NOT EXISTS (
+                    SELECT 1
+                    FROM korean_words
+                    WHERE word = ? AND hanja = ?
+                );
+                """
+                cursor.execute(query, (word, hanja, glossary, english_lemma, english_definition, french_lemma, french_definition))
             conn.commit()
-            print("Values inserted in the table.")
+            print("Values inserted in the table korean_words.")
 
 
     def insert_hanja_data(self, hanja_dict):
@@ -106,23 +112,24 @@ class DataAccess:
         Example:
         @code{.json}
                     {
-                        '漢': [{'kor': '한', 'def': 'China'}],
-                        '字': [{'kor': '자', 'def': 'character'}]
+                        '漢': [{'kor': '한', 'englishDefinition': 'China'}, 'frenchDefinition': 'Chine'}],
+                        '字': [{'kor': '자', 'englishDefinition': 'Character'}, 'frenchDefinition': 'Caractère'}]
                     }
         @endcode
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
-            for chi, items in hanja_dict.items():
+            for hanja, items in hanja_dict.items():
                 for item in items:
                     korean = item['kor']
-                    meaning = item['def']
-
+                    english_def = item['english_def']
+                    french_def = item['french_def']
                     cursor.execute('''
-                    INSERT OR IGNORE INTO hanja_characters (character, korean, meaning)
-                    VALUES (?, ?, ?)
-                    ''', (chi, korean, meaning))
+                    INSERT OR IGNORE INTO hanja_characters (character, korean, englishDefinition, frenchDefinition)
+                    VALUES (?, ?, ?, ?)
+                    ''', (hanja, korean, english_def, french_def))
             conn.commit()
+            print("Values inserted in the table hanja_characters.")
 
     def drop_tables(self, cursor):
         """!
@@ -137,6 +144,16 @@ class DataAccess:
             print("Table 'korean_words' has been dropped.")
         except sqlite3.Error as e:
             print(f"Error dropping tables: {e}")
+       
+    def remove_duplicates(self ):
+
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+            try:
+                cursor.execute('DELETE FROM korean_words WHERE id NOT IN ( SELECT MIN(id) FROM korean_words GROUP BY word, hanja);')
+                conn.commit()
+            except sqlite3.Error as e:
+                print(f"Error deleting duplicates: {e}") 
     
     def get_hanja_for_word(self, word):
         """!
@@ -161,8 +178,7 @@ class DataAccess:
                     hanja_list = list(hanja_string)
                     return hanja_list
 
-
-    def get_hanja_meanings_for_word(self, word, hanja_list):
+    def get_hanja_meanings_for_word(self, word, hanja_list, language):
         """!
         @brief Retrieves Hanja meanings associated with a given Korean word.
         
@@ -177,8 +193,13 @@ class DataAccess:
             if hanja_list is None:
                 print(f"No Hanja found for word '{word}'.")
                 return None
-            else:                    
-                query = 'SELECT character, korean, meaning FROM hanja_characters WHERE character IN ({seq})'.format(
+            else:         
+                if language == "fr":           
+                    query = 'SELECT character, korean, frenchDefinition FROM hanja_characters WHERE character IN ({seq})'.format(
+                    seq=','.join(['?'] * len(hanja_list))
+                )
+                else :
+                    query = 'SELECT character, korean, englishDefinition FROM hanja_characters WHERE character IN ({seq})'.format(
                     seq=','.join(['?'] * len(hanja_list))
                 )
                 cursor.execute(query, hanja_list)
