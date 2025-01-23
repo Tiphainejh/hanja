@@ -145,7 +145,7 @@ class DataAccess:
         except sqlite3.Error as e:
             print(f"Error dropping tables: {e}")
        
-    def remove_duplicates(self ):
+    def remove_duplicates(self):
 
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -158,9 +158,7 @@ class DataAccess:
     def get_hanja_for_word(self, word):
         """!
         @brief Retrieves Hanja associated with a given Korean word.
-        
         @param word (str): The Korean word for which to fetch Hanja character.
-        
         @return a list of tuples containing Hanja character.
                   Returns None if no data is found.
         """
@@ -180,10 +178,10 @@ class DataAccess:
 
     def get_hanja_meanings_for_word(self, word, hanja_list, language):
         """!
-        @brief Retrieves Hanja meanings associated with a given Korean word.
-        
+        @brief Retrieves Hanja meanings of every characters associated with a given Korean word.
         @param word (str): The Korean word for which to fetch Hanja meanings.
-        
+        @param hanja_list (list): The list of hanja associated to the initial words.
+        @param language (str): The language of the page.
         @return a list of tuples containing Hanja character, Korean pronunciation, and meaning.
                   Returns None if no data is found.
         """
@@ -223,6 +221,12 @@ class DataAccess:
                 return cursor.fetchall()
             
     def get_related_words(self, hanja_character, language):
+        """! @brief Gets all the words that contains the specified hanja character.
+            
+            @param hanja_character: the hanja character to search for.
+            @param language: The language for the definition
+            @return: A list of matching entries.
+        """  
         if language == "fr" :
             query = """
             SELECT word, hanja, glossary, frenchLemma, frenchDefinition
@@ -260,14 +264,9 @@ class DataAccess:
 
 
     def find_word_with_unique_hanja(self):
-        """
-        Finds a Korean word where at least one Hanja character is unique to that word.
-
-        Args:
-            db_path (str): Path to the SQLite database.
-
-        Returns:
-            list: Words with unique Hanja characters.
+        """!
+        @brief Finds a Korean word where at least one Hanja character is unique to that word.
+        @returns list of words with unique Hanja characters.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()

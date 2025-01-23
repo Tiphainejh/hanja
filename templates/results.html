@@ -1,25 +1,41 @@
 <div class="results-container">
-    <h2 style="font-weight: 500;"><b>{{word}}</b> {{hanja_characters}}</h2>
+    <!-- Header displaying the word and its associated Hanja characters -->
+    <h2 style="font-weight: 500;">
+        <b>{{word}}</b> {{hanja_characters}}
+    </h2>
+    
     <div class="korean-results">
+        <!-- Loop through the Korean results and display each glossary entry -->
         {% for glossary, Lemma, Definition in korean_results %}
         <div class="result-item">
-            <div class="korean-definition"><b>{{ text_language.def }}</b> {{ glossary }}</div>
-            <div class="lemma"><b>{{ text_language.lang }}</b> {{ Lemma }} </br>{{ Definition }}</div>
-        </div>
-        {% endfor %}
-        
-    </div>
-    <div class="hanja-results">
-    <ul>
-        {% for hanja, korean, meaning in hanja_results %}
-        <div class="result-item korean collapsed" onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
-            <li ><span class="hanja-character" >{{ hanja }}</span> {{ korean }} {{ meaning }}</li>
-            <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
-                <p>{{ text_language.load }}</p>
+            <!-- Display the definition in Korean -->
+            <div class="korean-definition">
+                <b>{{ text_language.def }}</b> {{ glossary }}
+            </div>
+            <!-- Display the lemma and its definition -->
+            <div class="lemma">
+                <b>{{ text_language.lang }}</b> {{ Lemma }} </br>{{ Definition }}
             </div>
         </div>
         {% endfor %}
-    </ul>
     </div>
-   
-</div>  
+    
+    <div class="hanja-results">
+        <ul>
+            <!-- Loop through the Hanja results and display each entry -->
+            {% for hanja, korean, meaning in hanja_results %}
+            <div class="result-item korean collapsed" 
+                 onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
+                <!-- Display the Hanja character, Korean equivalent, and meaning -->
+                <li>
+                    <span class="hanja-character">{{ hanja }}</span> {{ korean }} {{ meaning }}
+                </li>
+                <!-- Hidden details section that can be toggled -->
+                <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
+                    <p>{{ text_language.load }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
