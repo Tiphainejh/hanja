@@ -28,7 +28,7 @@ def index():
     # Get the current language, default to English if not set
      # Essayer de récupérer la langue de la session, sinon du cookie
     language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
-    return render_template('index.html', language=language)
+    return render_template('index.html', language=language, is_homepage=True)
 
 @app.route('/set_language', methods=['POST'])
 def set_language():
@@ -45,9 +45,8 @@ def search():
     """
     language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
     if request.method == 'POST':
-        word_to_search = request.form['word']
+        word_to_search = request.form['word'].replace(" ", "")
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
-        print(hanja_characters)
         korean_results = data_access.get_word_by_korean(word_to_search, language)
         if hanja_characters == None :
             hanja_results = None
@@ -55,8 +54,8 @@ def search():
             hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters, language), hanja_characters)
             hanja_characters="".join(hanja_characters)
         
-        text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés...", "no_res":"Pas de résultats pour", "no_related":"Aucun mot lié trouvé.", "err_load":"Erreur lors du chargement des données."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words...", "no_res":"No results found for", "no_related":"No related words found.", "err_load":"Error while loading the data."}
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters=hanja_characters, text_language=text_language, language=language)
+        text_language = {'def':"Définition", "lang":"Français", "load":"Recherche des mots liés...", "no_res":"Pas de résultats pour", "no_res_hanja":"Pas de hanja associé au mot", "no_related":"Aucun mot lié trouvé.", "err_load":"Erreur lors du chargement des données."} if language == "fr" else {'def': "Definition", "lang" : "English", "load":"Loading related words...", "no_res":"No results found for", "no_res_hanja":"No hanja character linked to the word", "no_related":"No related words found.", "err_load":"Error while loading the data."}
+        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters=hanja_characters, text_language=text_language, language=language, is_homepage=False)
 
 @app.route('/related-words')
 def related_words():

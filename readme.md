@@ -6,7 +6,8 @@ Check the code documentation here : https://tiphainejh.github.io/hanja/
 - [x] Fix the width of the container
 - [x] Change that the color hover is only when the div isnt collapsed
 - [x] Change the definitions position
-- [ ] Add functionality to search korean text even if its not full
+- [ ] Add functionality to search korean text even if its not full or if there is a space at the end 
+- [x] Check responsive design for phones 
 - [ ] Add audio and other values to the DB
 - [ ] Change Doxygen Css https://codepen.io/havardob/pen/PopKJRE 
 
