@@ -60,11 +60,6 @@
                     {% if korean_results %}
                         {% include 'results_korean.html' %}
                     {% else %}
-                    <div class="results-container">
-                        <div class="korean-results">
-                            <div class="result-item">{{ text_language.no_res }} "{{word}}".</div>
-                            
-                        </div></div>
                         {% if is_homepage %}
                         <div class="home-page">
                             {% if language == 'en' %}
@@ -99,6 +94,12 @@
                                 Happy learning! 😊
                             {% endif %}
                         </div>    
+                        {% else %}
+                            <div class="results-container">
+                            <div class="korean-results">
+                                <div class="result-item">{{ text_language.no_res }} "{{word}}".</div>
+                                
+                            </div></div>
                         {% endif %}
                     {% endif %}
                     

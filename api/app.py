@@ -35,7 +35,7 @@ def set_language():
     language = request.form['language']
     session['language'] = language  # Enregistrer la langue dans la session
     resp = make_response(redirect(url_for('index')))
-    resp.set_cookie('language', language, max_age=30*24*60*60)  # Enregistrer la langue dans le cookie (30 jours)
+    resp.set_cookie('language', language, max_age=30*24*60*60, secure=True, httponly=True)  # Enregistrer la langue dans le cookie (30 jours)
     return resp
 
 @app.route('/search', methods=['POST'])

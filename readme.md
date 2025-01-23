@@ -2,11 +2,11 @@
 Check the code documentation here : https://tiphainejh.github.io/hanja/
 
 # TODO
-- [ ] Add function to fetch data from DB even when there is no associated hanja
+- [x] Add function to fetch data from DB even when there is no associated hanja
 - [x] Fix the width of the container
 - [x] Change that the color hover is only when the div isnt collapsed
 - [x] Change the definitions position
-- [ ] Add functionality to search korean text even if its not full or if there is a space at the end 
+- [ ] Add functionality to search korean text even if its not full
 - [x] Check responsive design for phones 
 - [ ] Add audio and other values to the DB
 - [ ] Change Doxygen Css https://codepen.io/havardob/pen/PopKJRE 
