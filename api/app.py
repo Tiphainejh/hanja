@@ -27,7 +27,7 @@ def index():
     """
     # Get the current language, default to English if not set
      # Essayer de récupérer la langue de la session, sinon du cookie
-    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
+    language = session.get('language') or request.cookies.get('language', 'fr')  
     return render_template('index.html', language=language, is_homepage=True)
 
 @app.route('/set_language', methods=['POST'])
@@ -43,7 +43,7 @@ def search():
     """!
     @brief Handle search requests and display results.
     """
-    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
+    language = session.get('language') or request.cookies.get('language', 'fr')  
     if request.method == 'POST':
         word_to_search = request.form['word'].replace(" ", "")
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
@@ -59,7 +59,7 @@ def search():
 
 @app.route('/related-words')
 def related_words():
-    language = session.get('language') or request.cookies.get('language', 'en')  # 'en' comme langue par défaut
+    language = session.get('language') or request.cookies.get('language', 'fr')  
     hanja_character = request.args.get('hanja')
     original_word = request.args.get('original_word')  # Pass the original word from the client-side
     print(original_word)
