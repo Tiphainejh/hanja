@@ -31,7 +31,7 @@ body {
 .container {
   max-width: 100%;
   width: 80%;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .title-link {
@@ -104,12 +104,13 @@ body {
 
 h1 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: clamp(1vw, 1.2rem, 1.5rem);
   color: #333;
   margin-bottom: 1rem;
 }
 
 .search-container {
+  margin-top: 2rem;
   width: 100%;
 }
 .search-bar {
@@ -120,7 +121,7 @@ h1 {
 .search-bar input {
   width: 70%;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.5rem);
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
@@ -153,7 +154,7 @@ input {
 
 .search-bar button {
   padding: 10px 15px;
-  font-size: 1rem;
+  font-size: clamp(0.5vw, 1rem, 1.5rem);;
   background-color: #ff6392;
   color: #f9f9f9;
   border: none;
@@ -198,7 +199,7 @@ p {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: clamp(0.5vw, 1.5rem, 2rem);
   color: #ff6392;
   margin-bottom: 10px;
 }
@@ -269,17 +270,41 @@ h2 {
 .language-selector {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 4rem;
   background-color: #fff;
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-size: 1rem;
+  max-width: 150px;
 }
 
 .language-selector select {
   font-size: 1rem;
   border: none;
   background-color: transparent;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .language-selector {
+    top: 5px; /* Réduit l'espace en haut */
+    right: 20px; /* Réduit l'espace à droite */
+    font-size: 0.9rem; /* Texte légèrement plus petit */
+  }
+}
+
+@media (max-width: 480px) {
+  .language-selector {
+    top: 10px; /* Moins d'espace en haut */
+    right: 20px; /* Réduit l'espace à droite encore plus */
+    padding: 3px; /* Réduit le padding */
+    font-size: 0.8rem; /* Réduit la taille du texte */
+  }
+
+  .language-selector select {
+    font-size: 0.8em; /* Texte plus petit dans le sélecteur */
+  }
 }
 
 .details {
