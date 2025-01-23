@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['database_5fpath_0',['DATABASE_PATH',['../namespacesrc_1_1config.html#a9ac81f0c023a802f6daf87ac4b00080b',1,'src::config']]]
+  ['conn_0',['conn',['../classsrc_1_1database_1_1DatabaseConnection.html#ace6735dee7ad91a77d0b120ae3cb3f87',1,'src::database::DatabaseConnection']]]
 ];

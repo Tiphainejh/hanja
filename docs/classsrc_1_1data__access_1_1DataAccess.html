@@ -134,13 +134,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6c59fef88695c46c9ee18f370e4346c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja associated with a given Korean word.  <br /></td></tr>
 <tr class="separator:a6c59fef88695c46c9ee18f370e4346c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d1907ec15f436a5a700997ec2bdeedd" id="r_a3d1907ec15f436a5a700997ec2bdeedd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a3d1907ec15f436a5a700997ec2bdeedd">get_hanja_meanings_for_word</a> (self, word, hanja_list, language)</td></tr>
-<tr class="memdesc:a3d1907ec15f436a5a700997ec2bdeedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja meanings associated with a given Korean word.  <br /></td></tr>
+<tr class="memdesc:a3d1907ec15f436a5a700997ec2bdeedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Hanja meanings of every characters associated with a given Korean word.  <br /></td></tr>
 <tr class="separator:a3d1907ec15f436a5a700997ec2bdeedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f2fa8212ead4b1885e8f26697b4b0b9" id="r_a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a3f2fa8212ead4b1885e8f26697b4b0b9">get_word_by_korean</a> (self, korean_word, language)</td></tr>
 <tr class="separator:a3f2fa8212ead4b1885e8f26697b4b0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f8eb51816b5631748421df5638689e4" id="r_a1f8eb51816b5631748421df5638689e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a1f8eb51816b5631748421df5638689e4">get_related_words</a> (self, hanja_character, language)</td></tr>
+<tr class="memdesc:a1f8eb51816b5631748421df5638689e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the words that contains the specified hanja character.  <br /></td></tr>
 <tr class="separator:a1f8eb51816b5631748421df5638689e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcea9b4378c4ccf458bc2ad40418efdd" id="r_abcea9b4378c4ccf458bc2ad40418efdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#abcea9b4378c4ccf458bc2ad40418efdd">find_word_with_unique_hanja</a> (self)</td></tr>
+<tr class="memdesc:abcea9b4378c4ccf458bc2ad40418efdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a Korean word where at least one Hanja character is unique to that word.  <br /></td></tr>
 <tr class="separator:abcea9b4378c4ccf458bc2ad40418efdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -197,14 +199,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Finds a Korean word where at least one Hanja character is unique to that word.
 
-Args:
-    db_path (str): Path to the SQLite database.
+<p>Finds a Korean word where at least one Hanja character is unique to that word. </p>
+<dl class="section return"><dt>Returns</dt><dd>list of words with unique Hanja characters. </dd></dl>
 
-Returns:
-    list: Words with unique Hanja characters.
-</pre> 
 </div>
 </div>
 <a id="a6c59fef88695c46c9ee18f370e4346c6" name="a6c59fef88695c46c9ee18f370e4346c6"></a>
@@ -236,7 +234,7 @@ Returns:
 <p>Retrieves Hanja associated with a given Korean word. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja character.</td></tr>
+    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja character. </td></tr>
   </table>
   </dd>
 </dl>
@@ -282,10 +280,12 @@ Returns:
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves Hanja meanings associated with a given Korean word. </p>
+<p>Retrieves Hanja meanings of every characters associated with a given Korean word. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja meanings.</td></tr>
+    <tr><td class="paramname">word</td><td>(str): The Korean word for which to fetch Hanja meanings. </td></tr>
+    <tr><td class="paramname">hanja_list</td><td>(list): The list of hanja associated to the initial words. </td></tr>
+    <tr><td class="paramname">language</td><td>(str): The language of the page. </td></tr>
   </table>
   </dd>
 </dl>
@@ -324,6 +324,16 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets all the words that contains the specified hanja character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hanja_character</td><td>the hanja character to search for. </td></tr>
+    <tr><td class="paramname">language</td><td>The language for the definition </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: A list of matching entries. </dd></dl>
 
 </div>
 </div>
