@@ -111,6 +111,9 @@ FILE_VERSION_FILTER    =
 LAYOUT_FILE            =
 CITE_BIB_FILES         =
 EXTERNAL_TOOL_PATH     =
+GENERATE_CLASS_INDEX   = NO
+GENERATE_MEMBER_INDEX  = NO 
+HIDE_NAMESPACE         = YES
 #---------------------------------------------------------------------------
 # Configuration options related to warning and progress messages
 #---------------------------------------------------------------------------
