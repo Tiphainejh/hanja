@@ -56,10 +56,16 @@ body {
   width: max-content;
   min-width: fit-content;
   max-width: 100%;
+  white-space: nowrap;
   margin: 0 auto;
   line-height: 1.2;
 }
 
+@media (max-width: 768px) {
+  .header-title {
+    min-width: fit-content;
+  }
+}
 .언어의 {
   grid-area: 언어의;
   font-family: 'LOTTERIACHAB', sans-serif; /* Font for Korean */
