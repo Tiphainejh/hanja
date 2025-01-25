@@ -54,6 +54,7 @@ body {
   text-align: left; /* Align content left */
   justify-content: end;
   width: max-content;
+  min-width: max-content;
   margin: 0 auto;
   line-height: 1.2;
 }
@@ -352,7 +353,6 @@ h4 {
 }
 
 .home-page {
-  margin: 20px;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -371,10 +371,4 @@ h4 {
 
 .home-page .email-link:hover {
   text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-  .home-page {
-    margin: 0px;
-  }
 }
