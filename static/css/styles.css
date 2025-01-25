@@ -372,3 +372,9 @@ h4 {
 .home-page .email-link:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+  .home-page {
+    margin: 0px;
+  }
+}
