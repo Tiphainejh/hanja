@@ -54,7 +54,8 @@ body {
   text-align: left; /* Align content left */
   justify-content: end;
   width: max-content;
-  min-width: max-content;
+  min-width: fit-content;
+  max-width: 100%;
   margin: 0 auto;
   line-height: 1.2;
 }
