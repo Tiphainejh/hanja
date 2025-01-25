@@ -373,7 +373,7 @@ h4 {
   text-decoration: underline;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .home-page {
     margin: 0px;
   }
