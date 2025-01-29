@@ -19,6 +19,7 @@ function toggleDetails(hanja, original_word, text_language_no_related, text_lang
     }
 }
 
+
 async function fetchRelatedWords(hanja, container, originalWord, text_language_no_related, text_language_error) {
     try {
         // Fetch data from your server

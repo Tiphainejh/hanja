@@ -193,6 +193,30 @@ p {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.korean::after {
+  content: "";
+  background-repeat: no-repeat;
+  background-image: url('../images/arrow-right.svg');
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  font-size: 1.2em;
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.korean:not(.collapsed)::after {
+  -webkit-transform: translateY(-50%) rotate(90deg);
+  -moz-transform: translateY(-50%) rotate(90deg);
+  -ms-transform: translateY(-50%) rotate(90deg);
+  -o-transform: translateY(-50%) rotate(90deg);
+  transform: translateY(-50%) rotate(90deg);
 }
 
 .hanja-results .result-item,
@@ -223,11 +247,8 @@ h4 {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-}
-.korean {
-    transition: #f9f9f9 0.3s ease, color 0.3s ease;
-}
 
 .korean.collapsed:hover {
     background-color: #ffe6f0;
