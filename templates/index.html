@@ -68,9 +68,9 @@
                                 
                                 <h3>How to Use this website:</h3>
                                 <ol>
-                                    <li><strong>Search a Word:</strong> Use the search bar to look up Korean words. You’ll get a list of related words, their meanings, and associated Hanja characters.</li>
-                                    <li><strong>Discover Connections:</strong> Click on any result to expand and see additional related words with the same Hanja.</li>
-                                    <li><strong>Interactive Learning:</strong> Explore detailed definitions and examples to deepen your understanding.</li>
+                                    <li><strong>Search a Word:</strong> Type a Korean word into the search bar to get its definition and corresponding Hanja characters.
+                                    <li><strong>Discover Connections:</strong> Click on one of the characters to expand the list and see other related words sharing the same Hanja.</li>
+                                    <li><strong>Interactive Learning:</strong> Click on one of the words in this list to find out more about it.</li>
                                 </ol>
                                 
                                 <h3>Feedback & Suggestions</h3>
@@ -86,9 +86,9 @@
                                 
                                 <h3>Comment utiliser ce site :</h3>
                                 <ol>
-                                    <li><strong>Recherchez un mot :</strong> Utilisez la barre de recherche pour trouver des mots coréens. Vous obtiendrez une liste de mots associés, leurs significations et les caractères Hanja correspondants.</li>
-                                    <li><strong>Découvrez les connexions :</strong> Cliquez sur un résultat pour l’étendre et voir d'autres mots liés partageant les mêmes Hanja.</li>
-                                    <li><strong>Apprentissage interactif :</strong> Explorez les définitions détaillées et des exemples pour approfondir votre compréhension.</li>
+                                    <li><strong>Recherchez un mot :</strong> Tapez un mot en coréen dans la barre de recherche pour obtenir sa définition et les caractères Hanja correspondants.</li>
+                                    <li><strong>Découvrez les connexions :</strong> Cliquez sur un des caractères pour étendre la liste et voir d'autres mots liés partageant les mêmes Hanja.</li>
+                                    <li><strong>Apprentissage interactif :</strong> Cliquez sur un des mots de cette liste pour en savoir plus.</li>
                                 </ol>
                                 
                                 <h3>Suggestions et retours</h3>
@@ -104,7 +104,7 @@
                         {% else %}
                             <div class="results-container">
                             <div class="korean-results">
-                                <div class="result-item">{{ text_language.no_res }} "{{word}}".</div>
+                                <div class="result-item">{{ text_language.no_res | safe}} "{{word| safe}}".</div>
                                 
                             </div></div>
                         {% endif %}

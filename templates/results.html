@@ -1,7 +1,7 @@
 <div class="results-container">
     <!-- Header displaying the word and its associated Hanja characters -->
     <h2 style="font-weight: 500;">
-        <b>{{word}}</b> {{hanja_characters}}
+        <b>{{word| safe}}</b> {{hanja_characters| safe}}
     </h2>
     
     <div class="korean-results">
@@ -10,11 +10,11 @@
         <div class="result-item">
             <!-- Display the definition in Korean -->
             <div class="korean-definition">
-                <b>{{ text_language.def }}</b> {{ glossary }}
+                <b>{{ text_language.def | safe}}</b> {{ glossary | safe}}
             </div>
             <!-- Display the lemma and its definition -->
             <div class="lemma">
-                <b>{{ text_language.lang }}</b> {{ Lemma }} </br>{{ Definition }}
+                <b>{{ text_language.lang | safe}}</b> {{ Lemma | safe}} </br>{{ Definition | safe}}
             </div>
         </div>
         {% endfor %}
@@ -28,11 +28,11 @@
                  onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
                 <!-- Display the Hanja character, Korean equivalent, and meaning -->
                 <li>
-                    <span class="hanja-character">{{ hanja }}</span> {{ korean }} {{ meaning }}
+                    <span class="hanja-character">{{ hanja | safe}}</span> {{ korean | safe}} {{ meaning | safe}}
                 </li>
                 <!-- Hidden details section that can be toggled -->
                 <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
-                    <p>{{ text_language.load }}</p>
+                    <p>{{ text_language.load | safe}}</p>
                 </div>
             </div>
             {% endfor %}
