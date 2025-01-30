@@ -8,6 +8,7 @@ var classsrc_1_1data__processing_1_1DataProcessor =
     [ "extract_korean_definition", "classsrc_1_1data__processing_1_1DataProcessor.html#a8b10b2a476887fdf599456f74c582652", null ],
     [ "extract_language", "classsrc_1_1data__processing_1_1DataProcessor.html#a8c28d40e8b07b8de8a765f8f5c9c18f8", null ],
     [ "extract_lemma", "classsrc_1_1data__processing_1_1DataProcessor.html#a3a6f7d8ef4426dfe180524a089fe5ea9", null ],
+    [ "extract_pronounciation", "classsrc_1_1data__processing_1_1DataProcessor.html#ac8e2944d6f855feb557e929eb4631b51", null ],
     [ "extract_word", "classsrc_1_1data__processing_1_1DataProcessor.html#aca8cb2dd99e8358d0c80ff0f04307193", null ],
     [ "process_data", "classsrc_1_1data__processing_1_1DataProcessor.html#af1d408b78a8a28b54b96e30bc3de1754", null ],
     [ "process_hanja_data", "classsrc_1_1data__processing_1_1DataProcessor.html#a611dcfaf4a6c3129fc38bc01d659203f", null ],

@@ -111,7 +111,7 @@ Collaboration diagram for src.data_processing.DataProcessor:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__processing_1_1DataProcessor__coll__graph.png" border="0" usemap="#asrc_8data__processing_8DataProcessor_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__processing_8DataProcessor_coll__map" id="asrc_8data__processing_8DataProcessor_coll__map">
-<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,325"/>
+<area shape="rect" title="A class to process the data of the json file." alt="" coords="5,5,209,345"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -134,6 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa387522f4d9d82eab51fad066c97c404" id="r_aa387522f4d9d82eab51fad066c97c404"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#aa387522f4d9d82eab51fad066c97c404">extract_equivalents</a> (self, sense_datas)</td></tr>
 <tr class="memdesc:aa387522f4d9d82eab51fad066c97c404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the Equivalent data from the Sense.  <br /></td></tr>
 <tr class="separator:aa387522f4d9d82eab51fad066c97c404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e2944d6f855feb557e929eb4631b51" id="r_ac8e2944d6f855feb557e929eb4631b51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#ac8e2944d6f855feb557e929eb4631b51">extract_pronounciation</a> (self, word_form)</td></tr>
+<tr class="memdesc:ac8e2944d6f855feb557e929eb4631b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the pronounciation data from the wordForm.  <br /></td></tr>
+<tr class="separator:ac8e2944d6f855feb557e929eb4631b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c28d40e8b07b8de8a765f8f5c9c18f8" id="r_a8c28d40e8b07b8de8a765f8f5c9c18f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__processing_1_1DataProcessor.html#a8c28d40e8b07b8de8a765f8f5c9c18f8">extract_language</a> (self, equivalents)</td></tr>
 <tr class="memdesc:a8c28d40e8b07b8de8a765f8f5c9c18f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the 'language' from the Equivalent.  <br /></td></tr>
 <tr class="separator:a8c28d40e8b07b8de8a765f8f5c9c18f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,6 +439,43 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The lemma value, or None if not found. </dd></dl>
+
+</div>
+</div>
+<a id="ac8e2944d6f855feb557e929eb4631b51" name="ac8e2944d6f855feb557e929eb4631b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e2944d6f855feb557e929eb4631b51">&#9670;&#160;</a></span>extract_pronounciation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_processing.DataProcessor.extract_pronounciation </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>word_form</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts the pronounciation data from the wordForm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">word_form</td><td>The wordForm data, which can be a list or a dictionary. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The extracted sound data, or None if not found. </dd></dl>
 
 </div>
 </div>
