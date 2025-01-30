@@ -9,7 +9,6 @@ var namespaceapi =
       [ "app", "namespaceapi_1_1app.html#af539acf96b123b092913c3b972d45f8d", null ],
       [ "data_access", "namespaceapi_1_1app.html#a8f56da2bd58eca36a1801418061ecc6b", null ],
       [ "data_processor", "namespaceapi_1_1app.html#a5702ea214d2b31eb72a5029626bb70f8", null ],
-      [ "debug", "namespaceapi_1_1app.html#a176de600ef735cbe7b916fe2001e2b45", null ],
       [ "folder_path", "namespaceapi_1_1app.html#a7a6d88df119924b34e474cf535263d06", null ],
       [ "secret_key", "namespaceapi_1_1app.html#a56a8ed779749a77078562ad87be4fe04", null ]
     ] ]
