@@ -65,9 +65,11 @@ async function fetchRelatedWords(hanja, container, originalWord, text_language_n
     }
 }
 
-const audio = document.getElementById("audio-player");
 const playButton = document.getElementById("play-button");
 
+// Check if the playButton exists before adding the event listener
+if (playButton) {
+    const audio = document.getElementById("audio-player");
 playButton.addEventListener("click", () => {
     if (audio.paused) {
         audio.play();
@@ -77,3 +79,4 @@ playButton.addEventListener("click", () => {
         playButton.textContent = "▶"; // Remet l'icône play
     }
 });
+}

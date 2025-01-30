@@ -82,7 +82,7 @@ def search():
                 korean_results.extend(data_access.get_word_by_korean(word_to_search, language, h))
                 hanja_results.append(data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, h, language), h))
                 hanja_characters_list.append("".join(h))
-        print(korean_results)
+
         combined_results =  list(zip(korean_results, hanja_results, hanja_characters_list))
         return render_template('index.html', word=word_to_search, combined_results=combined_results, text_language=text_language, language=language, is_homepage=False)
 
@@ -125,4 +125,4 @@ def vercel_app(environ, start_response):
     return app(environ, start_response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
