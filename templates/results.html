@@ -3,21 +3,28 @@
     
     {% for korean_results, hanja_results, hanja_characters in combined_results %}
         {% if korean_results %}
+            {% set word_definition = korean_results[0] %}
+            {% set lemma = korean_results[1] %}
+            {% set additional_info = korean_results[2] %}
+            {% set audio_src = korean_results[3] %}
+        
+            <h2 style="font-weight: 500;">
+            <b>{{word| safe}}</b> {{hanja_characters| safe}} {% if audio_src  %}<button class="play-button" onclick="document.getElementById('audio-player').play()">▶</button>
+            
+            <audio id="audio-player"  src="{{audio_src}}"></audio>
+            {% endif %}
 
-        <h2 style="font-weight: 500;">
-            <b>{{word| safe}}</b> {{hanja_characters| safe}} <button class="play-button" onclick="document.getElementById('audio-player').play()">▶</button>
-            <audio id="audio-player"  src="https://dicmedia.korean.go.kr/multimedia/sound_file/hieut_2005/ho-gu.wav"></audio>
         </h2>
         <div class="korean-results">
             <!-- Loop through the Korean results and display each glossary entry -->
             <div class="result-item">
                 <!-- Display the definition in Korean -->
                 <div class="korean-definition">
-                    <b>{{ text_language.def | safe}}</b> {{ korean_results[0] | safe}}
+                    <b>{{ text_language.def | safe}}</b> {{ word_definition | safe}}
                 </div>
                 <!-- Display the lemma and its definition -->
                 <div class="lemma">
-                    <b>{{ text_language.lang | safe}}</b> {{ korean_results[1] | safe}} </br>{{ korean_results[2] | safe}}
+                    <b>{{ text_language.lang | safe}}</b> {{ lemma | safe}} </br>{{ additional_info | safe}}
                 </div>
             </div>
         </div>

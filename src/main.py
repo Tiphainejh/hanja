@@ -13,18 +13,20 @@ def main():
     """
 
     data_access = DataAccess()
-    """# Specify the path to the folder
+    # Specify the path to the folder
     folder_path = "data/전체 내려받기_한국어기초사전_json_20250112"
     data_processor = DataProcessor(folder_path)
 
-    # Initialize the database and create tables
-    data_access.initialize_database()
     
     # Extract and process word data
     raw_data = data_processor.extract_data()
     processed_data = data_processor.process_data(raw_data)
-    data_access.insert_data(processed_data)
     
+    # Initialize the database and create tables
+    data_access.drop_tables()
+    data_access.initialize_database()
+    data_access.insert_data(processed_data)
+    """
     # Read and process hanja data
     lines = data_processor.read_hanja_file('data/hanja.txt')
     hanja_dict = data_processor.process_hanja_data(lines)

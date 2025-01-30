@@ -29,6 +29,7 @@ class DataAccess:
         - `korean` (TEXT, NOT NULL): Korean pronunciation of the Hanja.
         - `englishDefinition` (TEXT): Meaning of the Hanja character in english.
         - `frenchDefinition` (TEXT): Meaning of the Hanja character in french.
+        - `pronounciation` (TEXT): html link of audio for the word's pronounciation.
 
         @image html database_diagram.png width=400
         """
@@ -37,7 +38,6 @@ class DataAccess:
             # Check if the 'korean_words' table exists
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='korean_words'")
             table_exists = cursor.fetchone()
-            
             if not table_exists:
                 # Create 'korean_words' and 'hanja_characters' tables if they don't exist
                 cursor.execute('''
@@ -49,10 +49,11 @@ class DataAccess:
                     englishLemma TEXT,
                     englishDefinition TEXT,
                     frenchLemma TEXT,
-                    frenchDefinition TEXT
+                    frenchDefinition TEXT,
+                    pronounciation TEXT
                 )
                 ''')
-                cursor.execute('''
+                """ cursor.execute('''
                 CREATE TABLE hanja_characters (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     character TEXT NOT NULL UNIQUE,
@@ -60,7 +61,7 @@ class DataAccess:
                     englishDefinition TEXT,
                     frenchDefinition TEXT
                 )
-                ''')
+                ''') """
                 conn.commit()  # Save the changes to the database
                 print("Tables created.")
             else:
@@ -79,6 +80,7 @@ class DataAccess:
             - `englishDefinition` (str): English definition of the word.
             - `frenchLemma` (str): Lemma/word in French.
             - `frenchDefinition` (str): French definition of the word.
+            - `pronounciation` (str): html link of audio for the word's pronounciation.
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
@@ -90,16 +92,17 @@ class DataAccess:
                 english_definition = entry.get('englishDefinition')
                 french_lemma = entry.get('frenchLemma')
                 french_definition = entry.get('frenchDefinition')
+                pronounciation = entry.get('pronounciation')
                 query = """
-                INSERT INTO korean_words (word, hanja, glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition)
-                SELECT ?, ?, ?, ?, ?, ?, ?
+                INSERT INTO korean_words (word, hanja, glossary, englishLemma, englishDefinition, frenchLemma, frenchDefinition, pronounciation)
+                SELECT ?, ?, ?, ?, ?, ?, ?, ?
                 WHERE NOT EXISTS (
                     SELECT 1
                     FROM korean_words
                     WHERE word = ? AND hanja = ?
                 );
                 """
-                cursor.execute(query, (word, hanja, glossary, english_lemma, english_definition, french_lemma, french_definition))
+                cursor.execute(query, (word, hanja, glossary, english_lemma, english_definition, french_lemma, french_definition, pronounciation, word, hanja))
             conn.commit()
             print("Values inserted in the table korean_words.")
 
@@ -131,19 +134,17 @@ class DataAccess:
             conn.commit()
             print("Values inserted in the table hanja_characters.")
 
-    def drop_tables(self, cursor):
+    def drop_tables(self):
         """!
         @brief Drops the 'hanja_characters' and 'korean_words' tables if they exist.
-        
-        @param cursor (sqlite3.Cursor): The database cursor for executing SQL commands.
         """
-        try:
-            cursor.execute('DROP TABLE IF EXISTS hanja_characters')
-            print("Table 'hanja_characters' has been dropped.")
-            cursor.execute('DROP TABLE IF EXISTS korean_words')
-            print("Table 'korean_words' has been dropped.")
-        except sqlite3.Error as e:
-            print(f"Error dropping tables: {e}")
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+            try:
+                cursor.execute('DROP TABLE IF EXISTS korean_words')
+                print("Table 'korean_words' has been dropped.")
+            except sqlite3.Error as e:
+                print(f"Error dropping tables: {e}")
        
     def remove_duplicates(self):
 
@@ -214,15 +215,15 @@ class DataAccess:
                 cursor = conn.cursor()
                 if hanja_characters == None :
                     if language == "fr":
-                        cursor.execute("SELECT glossary, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                        cursor.execute("SELECT glossary, frenchLemma, frenchDefinition, pronounciation  FROM korean_words WHERE word = ?", (korean_word,))
                     else :
-                        cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                        cursor.execute("SELECT glossary, englishLemma, englishDefinition, pronounciation  FROM korean_words WHERE word = ?", (korean_word,))
                     return cursor.fetchall()
                 else :
                     if language == "fr":
                         conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
                         query = f"""
-                            SELECT glossary, frenchLemma, frenchDefinition 
+                            SELECT glossary, frenchLemma, frenchDefinition, pronounciation 
                             FROM korean_words 
                             WHERE word = ? AND {conditions}
                         """
@@ -232,7 +233,17 @@ class DataAccess:
 
                         cursor.execute(query, params)
                     else :
-                        cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                        conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
+                        query = f"""
+                            SELECT glossary, englishLemma, englishDefinition, pronounciation 
+                            FROM korean_words 
+                            WHERE word = ? AND {conditions}
+                        """
+
+                        # Construire les paramètres de la requête (un '%' + caractère + '%' pour chaque caractère)
+                        params = [korean_word] + [f"%{char}%" for char in hanja_characters]
+
+                        cursor.execute(query, params)
                     return cursor.fetchall()
             
     def get_related_words(self, hanja_character, language):

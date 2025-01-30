@@ -107,7 +107,8 @@ class DataProcessor:
             language = None
             lemma = None
             definition = None
-            
+            pronounciation = None
+
             # Iterate through the Lexical Entries
             for entry in lexical_entries:
                 lemma_data = entry.get("Lemma")
@@ -116,7 +117,8 @@ class DataProcessor:
                 hanja = self.extract_hanja(hanja_datas)
                 korean_definition = self.extract_korean_definition(entry)
                 equivalents = self.extract_equivalents(entry.get("Sense", {}))
-              
+                pronounciation = self.extract_pronounciation(entry.get("WordForm", {}))
+                
                 for equivalent in equivalents:
                     language = self.extract_language(equivalent)
                     lemma = self.extract_lemma(equivalent)
@@ -139,6 +141,7 @@ class DataProcessor:
                     'englishDefinition' : english_definition,
                     'frenchLemma' : french_lemma,
                     'frenchDefinition' : french_definition,
+                    'pronounciation' : pronounciation,
                 }
                 # Append the processed entry to the result list
                 processed_data.append(processed_entry) 
@@ -189,6 +192,33 @@ class DataProcessor:
         elif isinstance(sense_datas, dict):
             equivalents = sense_datas.get('Equivalent', {})
         return equivalents
+    
+    def extract_pronounciation(self, word_form):
+        """! 
+        @brief Extracts the pronounciation data from the wordForm.
+        @param word_form The wordForm data, which can be a list or a dictionary.
+        @return The extracted sound data, or None if not found.
+        """
+        sound_url = None
+        if word_form :
+            if isinstance(word_form, list) :
+                # Iterate through the list to find the 'sound' value
+                for entry in word_form:
+                    # Check if 'feat' is in the entry
+                    if isinstance(entry, dict):
+                        for feature in entry.get('feat'):
+                            # Check if the 'att' is 'sound'
+                            if feature.get('att') == 'sound':
+                                sound_url = feature.get('val')
+                                break  # Exit the loop once we find the sound
+            elif isinstance(word_form, dict):
+                for feature in word_form.get('feat'):
+                    # Check if the 'att' is 'sound'
+                    if feature.get('att') == 'sound':
+                        sound_url = feature.get('val')
+                        break
+        
+        return sound_url
 
     def extract_language(self, equivalents):
         """! 
