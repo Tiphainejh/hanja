@@ -65,3 +65,15 @@ async function fetchRelatedWords(hanja, container, originalWord, text_language_n
     }
 }
 
+const audio = document.getElementById("audio-player");
+const playButton = document.getElementById("play-button");
+
+playButton.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        playButton.textContent = "⏸"; // Change le bouton en pause
+    } else {
+        audio.pause();
+        playButton.textContent = "▶"; // Remet l'icône play
+    }
+});

@@ -164,16 +164,14 @@ class DataAccess:
         """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT hanja FROM korean_words WHERE word = ?', (word,))
-            hanja_result = cursor.fetchone()
-            
+            cursor.execute('SELECT hanja FROM korean_words WHERE word = ? AND hanja IS NOT NULL', (word,))
+            hanja_result = cursor.fetchall()
             if hanja_result:
-                hanja_string = hanja_result[0]
-                if hanja_string is None:
+                if hanja_result is None:
                     print(f"No Hanja found for word '{word}'.")
                     return None
                 else:
-                    hanja_list = list(hanja_string)
+                    hanja_list = [h[0] for h in hanja_result]
                     return hanja_list
 
     def get_hanja_meanings_for_word(self, word, hanja_list, language):
@@ -205,7 +203,7 @@ class DataAccess:
                 return results
 
 
-    def get_word_by_korean(self, korean_word, language):
+    def get_word_by_korean(self, korean_word, language, hanja_characters=None):
             """@brief Fetches a word entry by its Korean text.
             
             @param korean_word: The Korean word to search for.
@@ -214,11 +212,28 @@ class DataAccess:
             """      
             with DatabaseConnection() as conn:
                 cursor = conn.cursor()
-                if language == "fr":
-                    cursor.execute("SELECT glossary, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                if hanja_characters == None :
+                    if language == "fr":
+                        cursor.execute("SELECT glossary, frenchLemma, frenchDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                    else :
+                        cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                    return cursor.fetchall()
                 else :
-                    cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
-                return cursor.fetchall()
+                    if language == "fr":
+                        conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
+                        query = f"""
+                            SELECT glossary, frenchLemma, frenchDefinition 
+                            FROM korean_words 
+                            WHERE word = ? AND {conditions}
+                        """
+
+                        # Construire les paramètres de la requête (un '%' + caractère + '%' pour chaque caractère)
+                        params = [korean_word] + [f"%{char}%" for char in hanja_characters]
+
+                        cursor.execute(query, params)
+                    else :
+                        cursor.execute("SELECT glossary, englishLemma, englishDefinition FROM korean_words WHERE word = ?", (korean_word,))
+                    return cursor.fetchall()
             
     def get_related_words(self, hanja_character, language):
         """! @brief Gets all the words that contains the specified hanja character.

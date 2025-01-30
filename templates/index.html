@@ -54,65 +54,51 @@
                     </form>
                 {% endif %}
 
-                {% if hanja_results %}
-                    {% include 'results.html' %}
-                {% else %}
-                    {% if korean_results %}
-                        {% include 'results_korean.html' %}
+                {% if is_homepage %}
+                <div class="home-page">
+                    {% if language == 'en' %}
+                        <h2>Welcome to <span class="site-name">HanjaGetter</span>!</h2>
+                        <p>This website's goal is to help you explore and understand Korean vocabulary and its origins through Hanja.</p>
+                        
+                        <h3>How to Use this website:</h3>
+                        <ol>
+                            <li><strong>Search a Word:</strong> Type a Korean word into the search bar to get its definition and corresponding Hanja characters.
+                            <li><strong>Discover Connections:</strong> Click on one of the characters to expand the list and see other related words sharing the same Hanja.</li>
+                            <li><strong>Interactive Learning:</strong> Click on one of the words in this list to find out more about it.</li>
+                        </ol>
+                        
+                        <h3>Feedback & Suggestions</h3>
+                        <p>If you have any suggestions, questions, or feedback, feel free to reach out at:</p>
+                        <p><a href="mailto:tiphainejh@gmail.com" class="email-link">tiphainejh@gmail.com</a></p>
+                        Happy learning! 😊
+                        <h4>Sources :</h4>            
+                        Vocabulary words and their translations come from the official website of the National Korean Language Institute <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>,
+                        hanja characters and their definition come from this <a href="https://happycgi.com/13322#2">database</a>.
                     {% else %}
-                        {% if is_homepage %}
-                        <div class="home-page">
-                            {% if language == 'en' %}
-                                <h2>Welcome to <span class="site-name">HanjaGetter</span>!</h2>
-                                <p>This website's goal is to help you explore and understand Korean vocabulary and its origins through Hanja.</p>
-                                
-                                <h3>How to Use this website:</h3>
-                                <ol>
-                                    <li><strong>Search a Word:</strong> Type a Korean word into the search bar to get its definition and corresponding Hanja characters.
-                                    <li><strong>Discover Connections:</strong> Click on one of the characters to expand the list and see other related words sharing the same Hanja.</li>
-                                    <li><strong>Interactive Learning:</strong> Click on one of the words in this list to find out more about it.</li>
-                                </ol>
-                                
-                                <h3>Feedback & Suggestions</h3>
-                                <p>If you have any suggestions, questions, or feedback, feel free to reach out at:</p>
-                                <p><a href="mailto:tiphainejh@gmail.com" class="email-link">tiphainejh@gmail.com</a></p>
-                                Happy learning! 😊
-                                <h4>Sources :</h4>            
-                                Vocabulary words and their translations come from the official website of the National Korean Language Institute <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>,
-                                hanja characters and their definition come from this <a href="https://happycgi.com/13322#2">database</a>.
-                            {% else %}
-                                <h2>Bienvenue sur <span class="site-name">HanjaGetter</span> !</h2>
-                                <p>L'objectif de ce site est de vous aider à explorer et comprendre le vocabulaire coréen ainsi que ses origines à travers les Hanja.</p>
-                                
-                                <h3>Comment utiliser ce site :</h3>
-                                <ol>
-                                    <li><strong>Recherchez un mot :</strong> Tapez un mot en coréen dans la barre de recherche pour obtenir sa définition et les caractères Hanja correspondants.</li>
-                                    <li><strong>Découvrez les connexions :</strong> Cliquez sur un des caractères pour étendre la liste et voir d'autres mots liés partageant les mêmes Hanja.</li>
-                                    <li><strong>Apprentissage interactif :</strong> Cliquez sur un des mots de cette liste pour en savoir plus.</li>
-                                </ol>
-                                
-                                <h3>Suggestions et retours</h3>
-                                <p>Si vous avez des suggestions, des questions ou des retours, n'hésitez pas à me contacter à l'adresse suivante :</p>
-                                <p><a href="mailto:tiphainejh@gmail.com" class="email-link">tiphainejh@gmail.com</a></p>
-                                Happy learning! 😊
-                                <h4>Sources :</h4>            
-                                Les mots de vocabulaire et leur traductions proviennent du site officiel de l'Institut national de la langue coréenne <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>, 
-                                les caractères hanja ainsi que leur définition viennent de cette <a href ="https://happycgi.com/13322#2">base de données</a>.
-                            {% endif %}
-                            
-                        </div>    
-                        {% else %}
-                            <div class="results-container">
-                            <div class="korean-results">
-                                <div class="result-item">{{ text_language.no_res | safe}} "{{word| safe}}".</div>
-                                
-                            </div></div>
-                        {% endif %}
+                        <h2>Bienvenue sur <span class="site-name">HanjaGetter</span> !</h2>
+                        <p>L'objectif de ce site est de vous aider à explorer et comprendre le vocabulaire coréen ainsi que ses origines à travers les Hanja.</p>
+                        
+                        <h3>Comment utiliser ce site :</h3>
+                        <ol>
+                            <li><strong>Recherchez un mot :</strong> Tapez un mot en coréen dans la barre de recherche pour obtenir sa définition et les caractères Hanja correspondants.</li>
+                            <li><strong>Découvrez les connexions :</strong> Cliquez sur un des caractères pour étendre la liste et voir d'autres mots liés partageant les mêmes Hanja.</li>
+                            <li><strong>Apprentissage interactif :</strong> Cliquez sur un des mots de cette liste pour en savoir plus.</li>
+                        </ol>
+                        
+                        <h3>Suggestions et retours</h3>
+                        <p>Si vous avez des suggestions, des questions ou des retours, n'hésitez pas à me contacter à l'adresse suivante :</p>
+                        <p><a href="mailto:tiphainejh@gmail.com" class="email-link">tiphainejh@gmail.com</a></p>
+                        Happy learning! 😊
+                        <h4>Sources :</h4>            
+                        Les mots de vocabulaire et leur traductions proviennent du site officiel de l'Institut national de la langue coréenne <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>, 
+                        les caractères hanja ainsi que leur définition viennent de cette <a href ="https://happycgi.com/13322#2">base de données</a>.
                     {% endif %}
                     
-                {% endif %}
+                </div> 
+            {% else %}  
+                {% include 'results.html' %}
+            {% endif %}
 
-               
             </div>
         </div>
     </body>

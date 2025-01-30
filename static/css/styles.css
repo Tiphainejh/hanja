@@ -401,3 +401,28 @@ h4 {
 .home-page .email-link:hover {
   text-decoration: underline;
 }
+
+.play-button {
+  background-color: #ffafcc; /* Rose pastel */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Bouton rond */
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  top: -5px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.play-button:hover {
+  background-color: #ff6392; /* Rose un peu plus foncé */
+  transform: scale(1.1); /* Effet zoom */
+}
+
+.play-button:active {
+  transform: scale(0.9); /* Effet clic */
+}

@@ -51,16 +51,6 @@ def search():
     """
     language = session.get('language') or request.cookies.get('language', 'fr')  
     if request.method == 'POST':
-        word_to_search = request.form['word'].replace(" ", "")
-        hanja_characters = data_access.get_hanja_for_word(word_to_search)
-        korean_results = data_access.get_word_by_korean(word_to_search, language)
-        
-        if hanja_characters is None:
-            hanja_results = None
-        else:
-            hanja_results = data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, hanja_characters, language), hanja_characters)
-            hanja_characters = "".join(hanja_characters)
-        
         # Set text language based on the selected language
         text_language = {
             'def': "Définition", 
@@ -79,8 +69,22 @@ def search():
             "no_related": "No related words found.", 
             "err_load": "Error while loading the data."
         }
-        
-        return render_template('index.html', word=word_to_search, hanja_results=hanja_results, korean_results=korean_results, hanja_characters=hanja_characters, text_language=text_language, language=language, is_homepage=False)
+        word_to_search = request.form['word'].replace(" ", "")
+        hanja_characters = data_access.get_hanja_for_word(word_to_search)
+        hanja_results = []
+        korean_results = []
+        combined_results = []
+        hanja_characters_list = []
+        if hanja_characters is None:
+            korean_results = data_access.get_word_by_korean(word_to_search, language)
+        else:
+            for h in hanja_characters : 
+                korean_results.extend(data_access.get_word_by_korean(word_to_search, language, h))
+                hanja_results.append(data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, h, language), h))
+                hanja_characters_list.append("".join(h))
+
+        combined_results =  list(zip(korean_results, hanja_results, hanja_characters_list))
+        return render_template('index.html', word=word_to_search, combined_results=combined_results, text_language=text_language, language=language, is_homepage=False)
 
 @app.route('/related-words')
 def related_words():
@@ -91,7 +95,6 @@ def related_words():
     language = session.get('language') or request.cookies.get('language', 'fr')  
     hanja_character = request.args.get('hanja')
     original_word = request.args.get('original_word')  # Pass the original word from the client-side
-    print(original_word)
     
     # Query the database for related words
     related_words = data_access.get_related_words(hanja_character, language)
