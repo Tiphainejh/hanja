@@ -8,6 +8,9 @@ var app_8py =
     [ "app", "app_8py.html#af539acf96b123b092913c3b972d45f8d", null ],
     [ "data_access", "app_8py.html#a8f56da2bd58eca36a1801418061ecc6b", null ],
     [ "data_processor", "app_8py.html#a5702ea214d2b31eb72a5029626bb70f8", null ],
+    [ "debug", "app_8py.html#a176de600ef735cbe7b916fe2001e2b45", null ],
     [ "folder_path", "app_8py.html#a7a6d88df119924b34e474cf535263d06", null ],
+    [ "host", "app_8py.html#a23e5c27fd4065b031f144521b7ae8497", null ],
+    [ "port", "app_8py.html#adb31592a03050f9813bd881678d6763f", null ],
     [ "secret_key", "app_8py.html#a56a8ed779749a77078562ad87be4fe04", null ]
 ];

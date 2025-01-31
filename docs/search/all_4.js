@@ -10,5 +10,6 @@ var searchData=
   ['database_5fpath_7',['DATABASE_PATH',['../namespacesrc_1_1config.html#a9ac81f0c023a802f6daf87ac4b00080b',1,'src::config']]],
   ['databaseconnection_8',['DatabaseConnection',['../classsrc_1_1database_1_1DatabaseConnection.html',1,'src::database']]],
   ['dataprocessor_9',['DataProcessor',['../classsrc_1_1data__processing_1_1DataProcessor.html',1,'src::data_processing']]],
-  ['drop_5ftables_10',['drop_tables',['../classsrc_1_1data__access_1_1DataAccess.html#aeea5396030fe584da1640d87530a5cf1',1,'src::data_access::DataAccess']]]
+  ['debug_10',['debug',['../namespaceapi_1_1app.html#a176de600ef735cbe7b916fe2001e2b45',1,'api::app']]],
+  ['drop_5ftables_11',['drop_tables',['../classsrc_1_1data__access_1_1DataAccess.html#aeea5396030fe584da1640d87530a5cf1',1,'src::data_access::DataAccess']]]
 ];
