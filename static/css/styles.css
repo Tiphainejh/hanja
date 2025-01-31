@@ -403,25 +403,19 @@ h4 {
 }
 
 .play-button {
-  background-color: #ffafcc; /* Rose pastel */
-  color: white;
+  background-image: url('../images/play-button.svg');
+  background-repeat: no-repeat;
   border: none;
+  background-size: cover;
   border-radius: 50%; /* Bouton rond */
   width: 20px;
   height: 20px;
-  font-size: 10px;
-  font-weight: bold;
-  top: -5px;
-  position: relative;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex; /* Use flexbox */
-  align-items: center; /* Center vertically */
-  justify-content: space-around; /* Center horizontally */
 }
 
 .play-button:hover {
-  background-color: #ff6392; /* Rose un peu plus foncé */
+  background-image: url('../images/play-button-hover.svg');
   transform: scale(1.1); /* Effet zoom */
 }
 

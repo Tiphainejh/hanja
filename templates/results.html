@@ -8,9 +8,9 @@
             {% set additional_info = korean_results[2] %}
             {% set audio_src = korean_results[3] %}
         
-            <h2 style="font-weight: 500; display: flex; align-items: baseline;">
-            <b>{{word| safe}}</b> &nbsp;{{hanja_characters| safe}}&nbsp;{% if audio_src  %}
-            <button class="play-button" onclick="document.getElementById('audio-player').play()">▶</button>
+            <h2 style="font-weight: 500;">
+            <b>{{word| safe}}</b> {{hanja_characters| safe}} {% if audio_src  %}
+            <button class="play-button" onclick="document.getElementById('audio-player').play()"></button>
             <audio id="audio-player" src="{{audio_src}}"></audio>
             {% endif %}
 
