@@ -3,7 +3,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify, make_response
 from src.data_access import DataAccess
 from src.data_processing import DataProcessor
-from deep_translator import GoogleTranslator
+from itertools import zip_longest
+
 import os
 
 # Get the absolute path for templates folder
@@ -82,8 +83,8 @@ def search():
                 korean_results.extend(data_access.get_word_by_korean(word_to_search, language, h))
                 hanja_results.append(data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, h, language), h))
                 hanja_characters_list.append("".join(h))
+        combined_results = list(zip_longest(korean_results, hanja_results, hanja_characters_list, fillvalue=None))
 
-        combined_results =  list(zip(korean_results, hanja_results, hanja_characters_list))
         return render_template('index.html', word=word_to_search, combined_results=combined_results, text_language=text_language, language=language, is_homepage=False)
 
 @app.route('/related-words')

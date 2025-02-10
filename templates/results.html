@@ -1,6 +1,6 @@
 <div class="results-container">
     <!-- Header displaying the word and its associated Hanja characters -->
-    
+     
     {% for korean_results, hanja_results, hanja_characters in combined_results %}
         {% if korean_results %}
             {% set word_definition = korean_results[0] %}
@@ -9,7 +9,7 @@
             {% set audio_src = korean_results[3] %}
         
             <h2 style="font-weight: 500;">
-            <b>{{word| safe}}</b> {{hanja_characters| safe}} {% if audio_src  %}
+            <b>{{word| safe}}</b>  {% if hanja_characters %}{{hanja_characters| safe}}{% endif %} {% if audio_src  %}
             <button class="play-button" onclick="document.getElementById('audio-player').play()"></button>
             <audio id="audio-player" src="{{audio_src}}"></audio>
             {% endif %}
@@ -48,7 +48,7 @@
                     </div>
                     {% endfor %}
                 {% else %}
-                    <div class="result-item korean">{{text_language.no_res_hanja| safe}} "{{ word | safe}}."</div>
+                    <div class="result-item ">{{text_language.no_res_hanja| safe}} "{{ word | safe}}."</div>
                 {% endif %}
             </ul>
         </div>
