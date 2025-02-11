@@ -1,62 +1,67 @@
 <div class="results-container">
     <!-- Header displaying the word and its associated Hanja characters -->
-     
-    {% for korean_results, hanja_results, hanja_characters in combined_results %}
-        {% if korean_results %}
-            {% set word_definition = korean_results[0] %}
-            {% set lemma = korean_results[1] %}
-            {% set additional_info = korean_results[2] %}
-            {% set audio_src = korean_results[3] %}
-        
-            <h2 style="font-weight: 500;">
-            <b>{{word| safe}}</b>  {% if hanja_characters %}{{hanja_characters| safe}}{% endif %} {% if audio_src  %}
-            <button class="play-button" onclick="document.getElementById('audio-player').play()"></button>
-            <audio id="audio-player" src="{{audio_src}}"></audio>
-            {% endif %}
+    {% if combined_results %} 
+        {% for korean_results, hanja_results, hanja_characters in combined_results %}
+            {% if korean_results %}
+                {% set word_definition = korean_results[0] %}
+                {% set lemma = korean_results[1] %}
+                {% set additional_info = korean_results[2] %}
+                {% set audio_src = korean_results[3] %}
+            
+                <h2 style="font-weight: 500;">
+                <b>{{word| safe}}</b>  {% if hanja_characters %}{{hanja_characters| safe}}{% endif %} {% if audio_src  %}
+                <button class="play-button" onclick="document.getElementById('audio-player').play()"></button>
+                <audio id="audio-player" src="{{audio_src}}"></audio>
+                {% endif %}
 
-        </h2>
-        <div class="korean-results">
-            <!-- Loop through the Korean results and display each glossary entry -->
-            <div class="result-item">
-                <!-- Display the definition in Korean -->
-                <div class="korean-definition">
-                    <b>{{ text_language.def | safe}}</b> {{ word_definition | safe}}
-                </div>
-                <!-- Display the lemma and its definition -->
-                <div class="lemma">
-                    <b>{{ text_language.lang | safe}}</b> {{ lemma | safe}} </br>{{ additional_info | safe}}
+            </h2>
+            <div class="korean-results">
+                <!-- Loop through the Korean results and display each glossary entry -->
+                <div class="result-item">
+                    <!-- Display the definition in Korean -->
+                    <div class="korean-definition">
+                        <b>{{ text_language.def | safe}}</b> {{ word_definition | safe}}
+                    </div>
+                    <!-- Display the lemma and its definition -->
+                    <div class="lemma">
+                        <b>{{ text_language.lang | safe}}</b> {{ lemma | safe}} </br>{{ additional_info | safe}}
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="hanja-results">
-            <ul>
-                <!-- Loop through the Hanja results and display each entry -->
-                {% if hanja_results %}
-                    {% for hanja, korean, meaning in hanja_results %}
+            
+            <div class="hanja-results">
+                <ul>
+                    <!-- Loop through the Hanja results and display each entry -->
+                    {% if hanja_results %}
+                        {% for hanja, korean, meaning in hanja_results %}
 
-                    <div class="result-item korean collapsed" 
-                        onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
-                        <!-- Display the Hanja character, Korean equivalent, and meaning -->
-                        <li>
-                            <span class="hanja-character">{{ hanja | safe}}</span> {{ korean | safe}} {{ meaning | safe}}
-                        </li>
-                        <!-- Hidden details section that can be toggled -->
-                        <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
-                            <p>{{ text_language.load | safe}}</p>
+                        <div class="result-item korean collapsed" 
+                            onclick="toggleDetails('{{ hanja }}', '{{word}}','{{text_language.no_related}}','{{text_language.err_load}}', this)">
+                            <!-- Display the Hanja character, Korean equivalent, and meaning -->
+                            <li>
+                                <span class="hanja-character">{{ hanja | safe}}</span> {{ korean | safe}} {{ meaning | safe}}
+                            </li>
+                            <!-- Hidden details section that can be toggled -->
+                            <div class="details hidden" id="details-{{ hanja }}" onclick="event.stopPropagation()">
+                                <p>{{ text_language.load | safe}}</p>
+                            </div>
                         </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="result-item ">{{text_language.no_res_hanja| safe}} "{{ word | safe}}."</div>
-                {% endif %}
-            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <div class="result-item ">{{text_language.no_res_hanja| safe}} "{{ word | safe}}."</div>
+                    {% endif %}
+                </ul>
+            </div>
+        
+        {% else %}
+        <div class="korean-results">
+        <div class="result-item">{{ text_language.no_res | safe}} "{{word| safe}}".</div>  
         </div>
-    
-    {% else %}
-    <div class="korean-results">
-    <div class="result-item">{{ text_language.no_res | safe}} "{{word| safe}}".</div>  
+        {% endif %}
+        {% endfor %}
     </div>
+    {% else %}
+        <div class="korean-results">
+        <div class="result-item">{{ text_language.no_res | safe}} "{{word| safe}}".</div>  
+        </div>
     {% endif %}
-    {% endfor %}
-</div>

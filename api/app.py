@@ -57,15 +57,15 @@ def search():
             'def': "Définition", 
             "lang": "Français", 
             "load": "Recherche des mots liés...", 
-            "no_res": "Pas de résultats pour", 
-            "no_res_hanja": "Pas de hanja associé au mot", 
+            "no_res": "Pas de résultat pour le mot", 
+            "no_res_hanja": "Pas de Hanja associé au mot", 
             "no_related": "Aucun mot lié trouvé.", 
             "err_load": "Erreur lors du chargement des données."
         } if language == "fr" else {
             'def': "Definition", 
             "lang": "English", 
             "load": "Loading related words...", 
-            "no_res": "No results found for", 
+            "no_res": "No results found for the word", 
             "no_res_hanja": "No hanja character linked to the word", 
             "no_related": "No related words found.", 
             "err_load": "Error while loading the data."
@@ -76,6 +76,7 @@ def search():
         korean_results = []
         combined_results = []
         hanja_characters_list = []
+        print(hanja_characters)
         if hanja_characters is None:
             korean_results = data_access.get_word_by_korean(word_to_search, language)
         else:
@@ -84,7 +85,6 @@ def search():
                 hanja_results.append(data_processor.reorder_hanja_results(data_access.get_hanja_meanings_for_word(word_to_search, h, language), h))
                 hanja_characters_list.append("".join(h))
         combined_results = list(zip_longest(korean_results, hanja_results, hanja_characters_list, fillvalue=None))
-
         return render_template('index.html', word=word_to_search, combined_results=combined_results, text_language=text_language, language=language, is_homepage=False)
 
 @app.route('/related-words')
