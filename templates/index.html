@@ -46,14 +46,20 @@
             <div class ="search-container">
                 {% if language == 'en' %}
                     <h1>Look Up Hanja for Your Korean Word.</h1>
-                    <form action="/search" method="POST" class="search-bar">
-                        <input type="text" name="word" placeholder="Enter a Korean word" required>
+                    <form action="/search" method="POST" class="search-bar" autocomplete="off">
+                        <div class="search-input-wrapper">
+                            <input type="text" name="word" placeholder="Enter a Korean word" required autocomplete="off" data-autocomplete="word">
+                            <ul class="autocomplete-list" aria-label="Suggestions"></ul>
+                        </div>
                         <button type="submit">Search</button>
                     </form>
                 {% else %}
                     <h1>Trouvez les Hanja associés à un mot coréen:</h1>
-                    <form action="/search" method="POST" class="search-bar">
-                        <input type="text" name="word" placeholder="Entrez un mot en coréen" required>
+                    <form action="/search" method="POST" class="search-bar" autocomplete="off">
+                        <div class="search-input-wrapper">
+                            <input type="text" name="word" placeholder="Entrez un mot en coréen" required autocomplete="off" data-autocomplete="word">
+                            <ul class="autocomplete-list" aria-label="Suggestions"></ul>
+                        </div>
                         <button type="submit">Rechercher</button>
                     </form>
                 {% endif %}
