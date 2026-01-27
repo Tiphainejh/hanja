@@ -1,6 +1,7 @@
 var namespaceapi =
 [
     [ "app", "namespaceapi_1_1app.html", [
+      [ "autocomplete", "namespaceapi_1_1app.html#a175e2db7f35d625785ddcf39ac84b825", null ],
       [ "index", "namespaceapi_1_1app.html#a72deaea484bf30029cb784dff75ec1f3", null ],
       [ "related_words", "namespaceapi_1_1app.html#ae8b1a661fd35aa767fc796c02781ba82", null ],
       [ "search", "namespaceapi_1_1app.html#ae1043cf9b00c1192e6269f629c5670bf", null ],

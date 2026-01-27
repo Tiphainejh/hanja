@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['index_0',['index',['../namespaceapi_1_1app.html#a72deaea484bf30029cb784dff75ec1f3',1,'api::app']]],
-  ['initialize_5fdatabase_1',['initialize_database',['../classsrc_1_1data__access_1_1DataAccess.html#a4684f7cefabfbcb84b28be9e2ef74f64',1,'src::data_access::DataAccess']]],
-  ['insert_5fdata_2',['insert_data',['../classsrc_1_1data__access_1_1DataAccess.html#a4f4e7ab71ee7131858752bdfb4d0e2f1',1,'src::data_access::DataAccess']]],
-  ['insert_5fhanja_5fdata_3',['insert_hanja_data',['../classsrc_1_1data__access_1_1DataAccess.html#a1cfc6893f66c213340355c6acaf1a3a3',1,'src::data_access::DataAccess']]]
+  ['get_5fautocomplete_5fwords_0',['get_autocomplete_words',['../classsrc_1_1data__access_1_1DataAccess.html#a7ccd10d3de002277f47fd9397fc046e2',1,'src::data_access::DataAccess']]],
+  ['get_5fhanja_5ffor_5fword_1',['get_hanja_for_word',['../classsrc_1_1data__access_1_1DataAccess.html#a6c59fef88695c46c9ee18f370e4346c6',1,'src::data_access::DataAccess']]],
+  ['get_5fhanja_5fmeanings_5ffor_5fword_2',['get_hanja_meanings_for_word',['../classsrc_1_1data__access_1_1DataAccess.html#a3d1907ec15f436a5a700997ec2bdeedd',1,'src::data_access::DataAccess']]],
+  ['get_5frelated_5fwords_3',['get_related_words',['../classsrc_1_1data__access_1_1DataAccess.html#a1f8eb51816b5631748421df5638689e4',1,'src::data_access::DataAccess']]],
+  ['get_5fword_5fby_5fkorean_4',['get_word_by_korean',['../classsrc_1_1data__access_1_1DataAccess.html#a1122604162d00ff40da4c08ce4761cbb',1,'src::data_access::DataAccess']]]
 ];

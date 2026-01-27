@@ -110,7 +110,7 @@ Collaboration diagram for src.data_access.DataAccess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1data__access_1_1DataAccess__coll__graph.png" border="0" usemap="#asrc_8data__access_8DataAccess_coll__map" alt="Collaboration graph"/></div>
 <map name="asrc_8data__access_8DataAccess_coll__map" id="asrc_8data__access_8DataAccess_coll__map">
-<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,203,280"/>
+<area shape="rect" title="A class to handle database operations for managing Korean words and their associated Hanja characters..." alt="" coords="5,5,208,300"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -141,6 +141,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f8eb51816b5631748421df5638689e4" id="r_a1f8eb51816b5631748421df5638689e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a1f8eb51816b5631748421df5638689e4">get_related_words</a> (self, hanja_character, language)</td></tr>
 <tr class="memdesc:a1f8eb51816b5631748421df5638689e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the words that contains the specified hanja character.  <br /></td></tr>
 <tr class="separator:a1f8eb51816b5631748421df5638689e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccd10d3de002277f47fd9397fc046e2" id="r_a7ccd10d3de002277f47fd9397fc046e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#a7ccd10d3de002277f47fd9397fc046e2">get_autocomplete_words</a> (self, query, limit=10)</td></tr>
+<tr class="memdesc:a7ccd10d3de002277f47fd9397fc046e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches a list of word suggestions that start with the provided query.  <br /></td></tr>
+<tr class="separator:a7ccd10d3de002277f47fd9397fc046e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcea9b4378c4ccf458bc2ad40418efdd" id="r_abcea9b4378c4ccf458bc2ad40418efdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html#abcea9b4378c4ccf458bc2ad40418efdd">find_word_with_unique_hanja</a> (self)</td></tr>
 <tr class="memdesc:abcea9b4378c4ccf458bc2ad40418efdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a Korean word where at least one Hanja character is unique to that word.  <br /></td></tr>
 <tr class="separator:abcea9b4378c4ccf458bc2ad40418efdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +189,50 @@ Public Member Functions</h2></td></tr>
 
 <p>Finds a Korean word where at least one Hanja character is unique to that word. </p>
 <dl class="section return"><dt>Returns</dt><dd>list of words with unique Hanja characters. </dd></dl>
+
+</div>
+</div>
+<a id="a7ccd10d3de002277f47fd9397fc046e2" name="a7ccd10d3de002277f47fd9397fc046e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ccd10d3de002277f47fd9397fc046e2">&#9670;&#160;</a></span>get_autocomplete_words()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_access.DataAccess.get_autocomplete_words </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>limit</em> = <code>10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches a list of word suggestions that start with the provided query. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">query</td><td>The prefix to search for. </td></tr>
+    <tr><td class="paramname">limit</td><td>Maximum number of results to return. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: A list of matching word strings. </dd></dl>
 
 </div>
 </div>

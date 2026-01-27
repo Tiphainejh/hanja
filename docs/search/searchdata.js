@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "d",
   2: "as",
   3: "_acdm",
-  4: "_defgimprsv",
+  4: "_adefgimprsv",
   5: "abcdfhps"
 };
 
