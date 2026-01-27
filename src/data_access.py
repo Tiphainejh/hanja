@@ -288,6 +288,30 @@ class DataAccess:
 
             return words
 
+    def get_autocomplete_words(self, query, limit=10):
+        """!
+        @brief Fetches a list of word suggestions that start with the provided query.
+
+        @param query: The prefix to search for.
+        @param limit: Maximum number of results to return.
+        @return: A list of matching word strings.
+        """
+        if not query:
+            return []
+        with DatabaseConnection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT DISTINCT word
+                FROM korean_words
+                WHERE word LIKE ?
+                ORDER BY word
+                LIMIT ?
+                """,
+                (f"{query}%", limit),
+            )
+            return [row[0] for row in cursor.fetchall()]
+
 
     def find_word_with_unique_hanja(self):
         """!

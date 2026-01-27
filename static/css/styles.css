@@ -125,14 +125,47 @@ h1 {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+  gap: 10px;
+}
+.search-input-wrapper {
+  position: relative;
+  width: 70%;
+  flex: 1;
+  max-width: 70%;
 }
 .search-bar input {
-  width: 70%;
+  width: 100%;
   padding: 0.5rem;
   font-size: clamp(0.9rem, 1.5vw, 1.5rem);
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 10px;
+}
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+}
+.autocomplete-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin: 0;
+}
+.autocomplete-list li:hover,
+.autocomplete-list li.active {
+  background-color: #f2f2f2;
 }
 
 /* Remove autofill background color */

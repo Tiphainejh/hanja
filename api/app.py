@@ -115,6 +115,18 @@ def related_words():
 
     return jsonify(unique_words)
 
+@app.route('/autocomplete')
+def autocomplete():
+    """!
+    @brief Return word suggestions for the search bar autocomplete.
+    @return JSON response containing a list of word suggestions.
+    """
+    query = request.args.get('q', '').replace(" ", "")
+    if not query:
+        return jsonify([])
+    suggestions = data_access.get_autocomplete_words(query)
+    return jsonify(suggestions)
+
 # This is needed for Vercel to run the app as a serverless function
 def vercel_app(environ, start_response):
     """!

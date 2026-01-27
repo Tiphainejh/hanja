@@ -80,3 +80,114 @@ playButton.addEventListener("click", () => {
     }
 });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector('input[data-autocomplete="word"]');
+    const suggestionList = document.querySelector(".autocomplete-list");
+
+    if (!searchInput || !suggestionList) {
+        return;
+    }
+
+    let activeIndex = -1;
+    let debounceTimer = null;
+    let currentController = null;
+
+    const clearSuggestions = () => {
+        suggestionList.innerHTML = "";
+        suggestionList.style.display = "none";
+        activeIndex = -1;
+    };
+
+    const setActiveItem = (index) => {
+        const items = suggestionList.querySelectorAll("li");
+        items.forEach((item, idx) => {
+            item.classList.toggle("active", idx === index);
+        });
+    };
+
+    const applySuggestion = (value) => {
+        searchInput.value = value;
+        clearSuggestions();
+    };
+
+    const fetchSuggestions = async (query) => {
+        if (currentController) {
+            currentController.abort();
+        }
+        currentController = new AbortController();
+
+        try {
+            const response = await fetch(`/autocomplete?q=${encodeURIComponent(query)}`, {
+                signal: currentController.signal,
+            });
+            if (!response.ok) {
+                clearSuggestions();
+                return;
+            }
+            const suggestions = await response.json();
+            if (!Array.isArray(suggestions) || suggestions.length === 0) {
+                clearSuggestions();
+                return;
+            }
+            suggestionList.innerHTML = "";
+            suggestions.forEach((suggestion) => {
+                const item = document.createElement("li");
+                item.textContent = suggestion;
+                item.addEventListener("mousedown", (event) => {
+                    event.preventDefault();
+                    applySuggestion(suggestion);
+                    searchInput.closest("form").submit();
+                });
+                suggestionList.appendChild(item);
+            });
+            suggestionList.style.display = "block";
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                clearSuggestions();
+            }
+        }
+    };
+
+    searchInput.addEventListener("input", (event) => {
+        const query = event.target.value.trim().replace(/\s+/g, "");
+        if (debounceTimer) {
+            clearTimeout(debounceTimer);
+        }
+        if (!query) {
+            clearSuggestions();
+            return;
+        }
+        debounceTimer = setTimeout(() => {
+            fetchSuggestions(query);
+        }, 200);
+    });
+
+    searchInput.addEventListener("keydown", (event) => {
+        const items = suggestionList.querySelectorAll("li");
+        if (items.length === 0) {
+            return;
+        }
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            activeIndex = (activeIndex + 1) % items.length;
+            setActiveItem(activeIndex);
+        } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            activeIndex = (activeIndex - 1 + items.length) % items.length;
+            setActiveItem(activeIndex);
+        } else if (event.key === "Enter" && activeIndex >= 0) {
+            event.preventDefault();
+            applySuggestion(items[activeIndex].textContent);
+            searchInput.closest("form").submit();
+        } else if (event.key === "Escape") {
+            clearSuggestions();
+        }
+    });
+
+    searchInput.addEventListener("blur", () => {
+        setTimeout(() => {
+            clearSuggestions();
+        }, 150);
+    });
+});
