@@ -62,33 +62,34 @@ def make_chunks(texts):
         yield chunk
 
 
-def translate_chunk(translator, chunk):
+def request(translator, text):
     """!
-    @brief Translates a chunk of meanings, one per line.
-    Falls back to one request per meaning if the line count does not match.
+    @brief Sends one request to Google Translate, retrying on network errors or rate limits.
+    @return The translated text, or None after 3 failures.
     """
     for attempt in range(3):
         try:
-            result = translator.translate("\n".join(chunk))
-            lines = [line.strip() for line in (result or "").split("\n")]
-            if len(lines) == len(chunk):
-                return lines
-            break  # Lines were merged or split: translate one by one instead
-        except Exception as error:  # Network error or rate limit: wait and retry
+            return translator.translate(text)
+        except Exception as error:
             print(f"  Error ({error}), retrying in {5 * (attempt + 1)} s...")
             time.sleep(5 * (attempt + 1))
-    lines = []
-    for text in chunk:
-        for attempt in range(3):
-            try:
-                lines.append(translator.translate(text).strip())
-                break
-            except Exception as error:
-                print(f"  Error on '{text[:40]}' ({error}), retrying...")
-                time.sleep(5 * (attempt + 1))
-        else:
-            lines.append(None)
-    return lines
+    return None
+
+
+def translate_chunk(translator, chunk):
+    """!
+    @brief Translates a chunk of meanings, one per line.
+    If Google merges or splits lines, the chunk is cut in two and each half is
+    translated again, so only a few extra requests are needed.
+    """
+    result = request(translator, "\n".join(chunk))
+    lines = [line.strip() for line in (result or "").split("\n")]
+    if result is not None and len(lines) == len(chunk):
+        return lines
+    if len(chunk) == 1:
+        return [result.strip() if result else None]
+    middle = len(chunk) // 2
+    return translate_chunk(translator, chunk[:middle]) + translate_chunk(translator, chunk[middle:])
 
 
 def main():
