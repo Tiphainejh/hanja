@@ -13,6 +13,7 @@ Run from the repository root:  python -m src.translate_hanja_spanish
 import json
 import os
 import re
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -21,7 +22,12 @@ from deep_translator import GoogleTranslator
 from src.database import DatabaseConnection
 
 CACHE_PATH = os.path.join("data", "hanja_spanish_cache.json")
-WORKERS = 5  # requests running at the same time
+WORKERS = 3  # requests running at the same time
+PAUSE_ON_LIMIT = 60  # seconds to wait when Google says there are too many requests
+MAX_ATTEMPTS = 6
+
+_pause_lock = threading.Lock()
+_paused_until = [0.0]  # shared by all workers: when Google complains, everybody waits
 SAVE_EVERY = 100  # progress is shown and saved every 100 meanings
 STROKES = re.compile(r"\s*(\(\d+\))\s*$")  # stroke count at the end, e.g. "(8)"
 
@@ -49,20 +55,39 @@ def save_cache(cache):
         json.dump(cache, file, ensure_ascii=False, indent=0)
 
 
+def wait_if_paused():
+    while True:
+        remaining = _paused_until[0] - time.time()
+        if remaining <= 0:
+            return
+        time.sleep(min(remaining, 5))
+
+
+def pause_everyone(seconds):
+    with _pause_lock:
+        if _paused_until[0] < time.time() + seconds:
+            _paused_until[0] = time.time() + seconds
+            print(f"  Google says there are too many requests: pausing {seconds} s...", flush=True)
+
+
 def translate_one(text):
     """!
-    @brief Translates one meaning, retrying on network errors or rate limits.
-    @return (english, spanish or None after 3 failures).
+    @brief Translates one meaning. When Google limits the requests, all workers pause together.
+    @return (english, spanish or None if it failed; it will be retried on the next run).
     """
     translator = GoogleTranslator(source="en", target="es")
-    for attempt in range(3):
+    for attempt in range(MAX_ATTEMPTS):
+        wait_if_paused()
         try:
             result = translator.translate(text)
-            time.sleep(1)  # stay around WORKERS requests per second
+            time.sleep(1)  # stay well under 5 requests per second
             return text, (result or "").strip() or None
         except Exception as error:
-            print(f"  Error on '{text[:40]}' ({error}), retrying in {5 * (attempt + 1)} s...")
-            time.sleep(5 * (attempt + 1))
+            if "too many requests" in str(error).lower():
+                pause_everyone(PAUSE_ON_LIMIT * (attempt + 1))
+            else:
+                print(f"  Error on '{text[:40]}' ({error}), retrying...", flush=True)
+                time.sleep(5)
     return text, None
 
 
