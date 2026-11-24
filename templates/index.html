@@ -17,7 +17,7 @@
                 if (savedBg) document.documentElement.setAttribute('data-bg', savedBg);
             } catch (e) {}
         </script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=4">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=5">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=2">
         <link rel="icon" type="image/x-icon" sizes="32x32" href="static/images/hanja.svg">
         <link rel="apple-touch-icon" href="static/images/hanja.svg">
@@ -80,6 +80,7 @@
                 </div>
             </div>
             <div class="language-selector">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"/></svg>
                 <form method="POST" action="/set_language">
                     <select name="language" onchange="this.form.submit()">
                         <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>

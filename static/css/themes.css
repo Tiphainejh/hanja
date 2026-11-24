@@ -542,7 +542,15 @@ body::before {
 }
 
 .language-selector {
-  padding: 0 6px;
+  padding: 0 6px 0 10px;
+  gap: 6px;
+}
+
+.language-selector svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  fill: var(--accent);
 }
 
 .language-selector form {
@@ -572,6 +580,11 @@ body::before {
     padding: 0 7px;
   }
   .language-selector {
-    padding: 0 4px;
+    padding: 0 4px 0 7px;
+    gap: 4px;
+  }
+  .language-selector svg {
+    width: 15px;
+    height: 15px;
   }
 }
