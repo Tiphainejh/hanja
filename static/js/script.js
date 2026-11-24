@@ -191,3 +191,90 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 150);
     });
 });
+
+// ---------- Theme picker (colour palette + background), saved in localStorage ----------
+const THEMES = ["rose", "jade", "indigo", "persimmon", "lavender", "seal", "night"];
+const BACKGROUNDS = ["plain", "gradient", "hanji", "lattice", "waves"];
+
+function readSetting(key, allowed, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return allowed.includes(value) ? value : fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function saveSetting(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {
+        // Storage can be unavailable (private mode, blocked cookies): the choice then lasts for this page only
+    }
+}
+
+function applyAppearance(theme, background) {
+    const root = document.documentElement;
+    if (theme === "rose") {
+        root.removeAttribute("data-theme");
+    } else {
+        root.setAttribute("data-theme", theme);
+    }
+    if (background === "plain") {
+        root.removeAttribute("data-bg");
+    } else {
+        root.setAttribute("data-bg", background);
+    }
+    document.querySelectorAll("[data-theme-value]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
+    });
+    document.querySelectorAll("[data-bg-value]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.bgValue === background));
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".theme-toggle");
+    const panel = document.getElementById("theme-panel");
+    if (!toggle || !panel) {
+        return;
+    }
+
+    let theme = readSetting("hg-theme", THEMES, "rose");
+    let background = readSetting("hg-bg", BACKGROUNDS, "plain");
+    applyAppearance(theme, background);
+
+    const setOpen = (open) => {
+        panel.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    toggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        setOpen(panel.hidden);
+    });
+
+    panel.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const themeButton = event.target.closest("[data-theme-value]");
+        const bgButton = event.target.closest("[data-bg-value]");
+        if (themeButton) {
+            theme = themeButton.dataset.themeValue;
+            saveSetting("hg-theme", theme);
+        } else if (bgButton) {
+            background = bgButton.dataset.bgValue;
+            saveSetting("hg-bg", background);
+        } else {
+            return;
+        }
+        applyAppearance(theme, background);
+    });
+
+    document.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !panel.hidden) {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+});

@@ -8,23 +8,76 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
         <link href="https://free.bboxtype.com/embedfonts/?family=FFF_tuoi_tre:700,900" rel="stylesheet">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1">
+        <script>
+            // Apply the saved theme before the page is painted, to avoid a flash of the default colours
+            try {
+                var savedTheme = localStorage.getItem('hg-theme');
+                var savedBg = localStorage.getItem('hg-bg');
+                if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+                if (savedBg) document.documentElement.setAttribute('data-bg', savedBg);
+            } catch (e) {}
+        </script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=2">
         <link rel="icon" type="image/x-icon" sizes="32x32" href="static/images/hanja.svg">
         <link rel="apple-touch-icon" href="static/images/hanja.svg">
         <link rel="apple-touch-icon-precomposed" href="static/images/hanja.svg">
         <link rel="shortcut icon" href="static/images/hanja.svg" type="image/x-icon" />
 
-        <script src="static/js/script.js"></script>
+        <script src="static/js/script.js?v=2"></script>
 
     </head>
     <body>
-        <div class="language-selector">
-            <form method="POST" action="/set_language">
-                <select name="language" onchange="this.form.submit()">
-                    <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>
-                    <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
-                </select>
-            </form>
+        {% set fr = language != 'en' %}
+        <div class="top-controls">
+            <div class="theme-picker">
+                <button type="button" class="theme-toggle" aria-expanded="false" aria-controls="theme-panel">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10a2.5 2.5 0 0 0 1.85-4.18.5.5 0 0 1 .37-.82H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zM6.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+                    <span class="theme-toggle-label">{{ 'Thème' if fr else 'Theme' }}</span>
+                </button>
+                <div class="theme-panel" id="theme-panel" hidden>
+                    <h3>{{ 'Couleur' if fr else 'Colour' }}</h3>
+                    <div class="theme-options" role="group" aria-label="{{ 'Couleur' if fr else 'Colour' }}">
+                        {% for key, name_fr, name_en in [
+                            ('rose', 'Rose', 'Pink'),
+                            ('jade', 'Jade', 'Jade'),
+                            ('indigo', 'Indigo', 'Indigo'),
+                            ('persimmon', 'Kaki', 'Persimmon'),
+                            ('lavender', 'Lavande', 'Lavender'),
+                            ('seal', 'Sceau', 'Seal'),
+                            ('night', 'Nuit', 'Night')
+                        ] %}
+                        <button type="button" class="theme-option" data-theme-value="{{ key }}" aria-pressed="false">
+                            <span class="swatch" data-swatch="{{ key }}"></span>
+                            {{ name_fr if fr else name_en }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                    <h3>{{ 'Arrière-plan' if fr else 'Background' }}</h3>
+                    <div class="theme-options bg-options" role="group" aria-label="{{ 'Arrière-plan' if fr else 'Background' }}">
+                        {% for key, name_fr, name_en in [
+                            ('plain', 'Uni', 'Plain'),
+                            ('gradient', 'Dégradé', 'Gradient'),
+                            ('hanji', 'Hanji', 'Hanji'),
+                            ('lattice', 'Treillis', 'Lattice'),
+                            ('waves', 'Vagues', 'Waves')
+                        ] %}
+                        <button type="button" class="theme-option" data-bg-value="{{ key }}" aria-pressed="false">
+                            <span class="bg-preview" data-preview="{{ key }}"></span>
+                            {{ name_fr if fr else name_en }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="language-selector">
+                <form method="POST" action="/set_language">
+                    <select name="language" onchange="this.form.submit()">
+                        <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>
+                        <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+                    </select>
+                </form>
+            </div>
         </div>
         <a href="/" class="title-link">
         <div class="container">
