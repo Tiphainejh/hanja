@@ -21,8 +21,11 @@ folder_path = "data/전체 내려받기_한국어기초사전_json_20250112"
 data_access = DataAccess()
 data_processor = DataProcessor(folder_path)
 
+## Spanish is hidden until the hanja meanings are translated (src/translate_hanja_spanish.py)
+SPANISH_ENABLED = False
+
 ## Languages available on the site
-LANGUAGES = ("fr", "en", "es")
+LANGUAGES = ("fr", "en", "es") if SPANISH_ENABLED else ("fr", "en")
 
 ## Interface texts of the results page, for each language
 TEXTS = {
@@ -54,6 +57,14 @@ TEXTS = {
         "err_load": "Error al cargar los datos."
     },
 }
+
+
+@app.context_processor
+def inject_languages():
+    """!
+    @brief Makes the list of available languages available in every template.
+    """
+    return {"languages": LANGUAGES}
 
 
 def get_language():
