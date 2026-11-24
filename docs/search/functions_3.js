@@ -8,5 +8,6 @@ var searchData=
   ['extract_5flanguage_5',['extract_language',['../classsrc_1_1data__processing_1_1DataProcessor.html#a8c28d40e8b07b8de8a765f8f5c9c18f8',1,'src::data_processing::DataProcessor']]],
   ['extract_5flemma_6',['extract_lemma',['../classsrc_1_1data__processing_1_1DataProcessor.html#a3a6f7d8ef4426dfe180524a089fe5ea9',1,'src::data_processing::DataProcessor']]],
   ['extract_5fpronounciation_7',['extract_pronounciation',['../classsrc_1_1data__processing_1_1DataProcessor.html#ac8e2944d6f855feb557e929eb4631b51',1,'src::data_processing::DataProcessor']]],
-  ['extract_5fword_8',['extract_word',['../classsrc_1_1data__processing_1_1DataProcessor.html#aca8cb2dd99e8358d0c80ff0f04307193',1,'src::data_processing::DataProcessor']]]
+  ['extract_5fspanish_5fentries_8',['extract_spanish_entries',['../namespacesrc_1_1add__spanish.html#aa8fde4dc0cc9ee31b83b0b4b45ac18ed',1,'src::add_spanish']]],
+  ['extract_5fword_9',['extract_word',['../classsrc_1_1data__processing_1_1DataProcessor.html#aca8cb2dd99e8358d0c80ff0f04307193',1,'src::data_processing::DataProcessor']]]
 ];

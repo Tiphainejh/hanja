@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../namespacesrc_1_1main.html#a756d97178b0d2558784ee8b4b5f05c7e',1,'src::main']]]
+  ['load_5fcache_0',['load_cache',['../namespacesrc_1_1translate__hanja__spanish.html#a41c766754851db8b37011b328b1bced8',1,'src::translate_hanja_spanish']]]
 ];

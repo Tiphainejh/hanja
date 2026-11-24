@@ -103,7 +103,84 @@ $(function(){initNavTree('namespacesrc_1_1data__access.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:DataAccess" id="r_DataAccess"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1data__access_1_1DataAccess.html">DataAccess</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to handle database operations for managing Korean words and their associated Hanja characters.  <a href="classsrc_1_1data__access_1_1DataAccess.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a42a682ceedc7b8e6222e44fc2f1208b1" id="r_a42a682ceedc7b8e6222e44fc2f1208b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42a682ceedc7b8e6222e44fc2f1208b1">word_columns</a> (language)</td></tr>
+<tr class="memdesc:a42a682ceedc7b8e6222e44fc2f1208b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the (lemma, definition) columns for a language, French by default.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac76a358391ceb12dbcb41148499525ab" id="r_ac76a358391ceb12dbcb41148499525ab"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac76a358391ceb12dbcb41148499525ab">WORD_COLUMNS</a></td></tr>
+<tr class="memdesc:ac76a358391ceb12dbcb41148499525ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Columns holding the lemma and definition of a word, for each site language.  <br /></td></tr>
+<tr class="memitem:aef5675c88861b11a768fd29503121fb3" id="r_aef5675c88861b11a768fd29503121fb3"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef5675c88861b11a768fd29503121fb3">HANJA_COLUMNS</a></td></tr>
+<tr class="memdesc:aef5675c88861b11a768fd29503121fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column holding the meaning of a hanja, for each site language.  <br /></td></tr>
 </table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a42a682ceedc7b8e6222e44fc2f1208b1" name="a42a682ceedc7b8e6222e44fc2f1208b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42a682ceedc7b8e6222e44fc2f1208b1">&#9670;&#160;</a></span>word_columns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">src.data_access.word_columns </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>language</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the (lemma, definition) columns for a language, French by default. </p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="aef5675c88861b11a768fd29503121fb3" name="aef5675c88861b11a768fd29503121fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef5675c88861b11a768fd29503121fb3">&#9670;&#160;</a></span>HANJA_COLUMNS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict src.data_access.HANJA_COLUMNS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;fr&quot;</span>: <span class="stringliteral">&quot;frenchDefinition&quot;</span>,</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;en&quot;</span>: <span class="stringliteral">&quot;englishDefinition&quot;</span>,</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;es&quot;</span>: <span class="stringliteral">&quot;COALESCE(spanishDefinition, englishDefinition)&quot;</span>,</div>
+<div class="line"><span class="lineno">    5</span>}</div>
+</div><!-- fragment -->
+<p>Column holding the meaning of a hanja, for each site language. </p>
+<p>Spanish falls back to English while the Spanish meaning is missing. </p>
+
+</div>
+</div>
+<a id="ac76a358391ceb12dbcb41148499525ab" name="ac76a358391ceb12dbcb41148499525ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac76a358391ceb12dbcb41148499525ab">&#9670;&#160;</a></span>WORD_COLUMNS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dict src.data_access.WORD_COLUMNS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  {</div>
+<div class="line"><span class="lineno">    2</span>    <span class="stringliteral">&quot;fr&quot;</span>: (<span class="stringliteral">&quot;frenchLemma&quot;</span>, <span class="stringliteral">&quot;frenchDefinition&quot;</span>),</div>
+<div class="line"><span class="lineno">    3</span>    <span class="stringliteral">&quot;en&quot;</span>: (<span class="stringliteral">&quot;englishLemma&quot;</span>, <span class="stringliteral">&quot;englishDefinition&quot;</span>),</div>
+<div class="line"><span class="lineno">    4</span>    <span class="stringliteral">&quot;es&quot;</span>: (<span class="stringliteral">&quot;COALESCE(spanishLemma, englishLemma)&quot;</span>, <span class="stringliteral">&quot;COALESCE(spanishDefinition, englishDefinition)&quot;</span>),</div>
+<div class="line"><span class="lineno">    5</span>}</div>
+</div><!-- fragment -->
+<p>Columns holding the lemma and definition of a word, for each site language. </p>
+<p>Spanish falls back to English for the few words krdict has not translated. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

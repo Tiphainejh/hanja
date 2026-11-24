@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['secret_5fkey_0',['secret_key',['../namespaceapi_1_1app.html#a56a8ed779749a77078562ad87be4fe04',1,'api::app']]]
+  ['max_5fchars_0',['MAX_CHARS',['../namespacesrc_1_1translate__hanja__spanish.html#af28c223cb50ba21a7b4692f8b3f878cc',1,'src::translate_hanja_spanish']]]
 ];
