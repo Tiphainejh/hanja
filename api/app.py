@@ -74,6 +74,15 @@ def index():
     language = get_language()
     return render_template('index.html', language=language, is_homepage=True)
 
+@app.route('/my-words')
+def my_words():
+    """!
+    @brief Render the personal dictionary page (saved words and history).
+    The words themselves are stored in the browser and displayed by static/js/script.js.
+    @return Rendered HTML template for the personal dictionary.
+    """
+    return render_template('index.html', language=get_language(), is_homepage=False, page='dictionary')
+
 @app.route('/set_language', methods=['POST'])
 def set_language():
     """!

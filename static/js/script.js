@@ -278,3 +278,184 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// ---------- Personal dictionary: saved words and history, stored in localStorage ----------
+const SAVED_KEY = "hg-saved-words";
+const HISTORY_KEY = "hg-history";
+const HISTORY_LIMIT = 100;
+
+// Some definitions come from the database with HTML entities (&quot;): turn them back into plain text
+function decodeEntities(text) {
+    return new DOMParser().parseFromString(String(text || ""), "text/html").documentElement.textContent;
+}
+
+function readList(key) {
+    try {
+        const list = JSON.parse(localStorage.getItem(key) || "[]");
+        return Array.isArray(list) ? list : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function writeList(key, list) {
+    try {
+        localStorage.setItem(key, JSON.stringify(list));
+    } catch (e) {
+        // Storage unavailable (private mode, blocked cookies): nothing is kept
+    }
+}
+
+const sameEntry = (a, b) => a.word === b.word && (a.hanja || "") === (b.hanja || "");
+
+function entryFromButton(button) {
+    return {
+        word: button.dataset.word,
+        hanja: button.dataset.hanja || "",
+        lemma: decodeEntities(button.dataset.lemma),
+    };
+}
+
+function isSaved(entry) {
+    return readList(SAVED_KEY).some((item) => sameEntry(item, entry));
+}
+
+function toggleSaved(entry) {
+    const saved = readList(SAVED_KEY);
+    const index = saved.findIndex((item) => sameEntry(item, entry));
+    if (index >= 0) {
+        saved.splice(index, 1);
+    } else {
+        saved.unshift({ ...entry, date: Date.now() });
+    }
+    writeList(SAVED_KEY, saved);
+    return index < 0;
+}
+
+function addToHistory(entry) {
+    const history = readList(HISTORY_KEY).filter((item) => !sameEntry(item, entry));
+    history.unshift({ ...entry, date: Date.now() });
+    writeList(HISTORY_KEY, history.slice(0, HISTORY_LIMIT));
+}
+
+function updateStar(button, saved) {
+    const labels = document.body.dataset;
+    const label = saved ? labels.labelUnsave : labels.labelSave;
+    button.setAttribute("aria-pressed", String(saved));
+    button.setAttribute("aria-label", label);
+    button.title = label;
+}
+
+// Results page: star buttons, and every word shown is added to the history
+document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".save-word");
+    // Add in reverse so the first result ends up at the top of the history
+    Array.from(buttons).reverse().forEach((button) => addToHistory(entryFromButton(button)));
+    buttons.forEach((button) => {
+        updateStar(button, isSaved(entryFromButton(button)));
+        button.addEventListener("click", () => {
+            updateStar(button, toggleSaved(entryFromButton(button)));
+        });
+    });
+});
+
+// Personal dictionary page
+document.addEventListener("DOMContentLoaded", () => {
+    const page = document.querySelector(".dictionary-page");
+    if (!page) {
+        return;
+    }
+    const removeLabel = page.dataset.labelRemove;
+    const tabs = page.querySelectorAll("[role=tab]");
+    const clearButton = page.querySelector(".clear-history");
+
+    const searchLink = (entry) => {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/search";
+        form.className = "word-link-form";
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "word";
+        input.value = entry.word;
+        const button = document.createElement("button");
+        button.type = "submit";
+        button.className = "word-link";
+        const word = document.createElement("strong");
+        word.textContent = entry.word;
+        button.appendChild(word);
+        if (entry.hanja) {
+            const hanja = document.createElement("span");
+            hanja.className = "word-hanja";
+            hanja.textContent = entry.hanja;
+            button.appendChild(hanja);
+        }
+        form.append(input, button);
+        return form;
+    };
+
+    const render = (name) => {
+        const key = name === "saved" ? SAVED_KEY : HISTORY_KEY;
+        const list = readList(key);
+        const container = page.querySelector(`[data-list="${name}"]`);
+        container.innerHTML = "";
+        list.forEach((entry) => {
+            const item = document.createElement("li");
+            item.className = "word-entry";
+            item.appendChild(searchLink(entry));
+            if (entry.lemma) {
+                const lemma = document.createElement("span");
+                lemma.className = "word-lemma";
+                lemma.textContent = entry.lemma;
+                item.appendChild(lemma);
+            }
+            if (name === "saved") {
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "remove-word";
+                remove.textContent = "×";
+                remove.title = removeLabel;
+                remove.setAttribute("aria-label", `${removeLabel} ${entry.word}`);
+                remove.addEventListener("click", () => {
+                    writeList(SAVED_KEY, readList(SAVED_KEY).filter((saved) => !sameEntry(saved, entry)));
+                    render("saved");
+                });
+                item.appendChild(remove);
+            }
+            container.appendChild(item);
+        });
+        page.querySelector(`[data-empty="${name}"]`).hidden = list.length > 0;
+        page.querySelector(`[data-count="${name}"]`).textContent = list.length ? `(${list.length})` : "";
+        if (name === "history") {
+            clearButton.hidden = list.length === 0;
+        }
+    };
+
+    const selectTab = (tab) => {
+        tabs.forEach((other) => {
+            const selected = other === tab;
+            other.setAttribute("aria-selected", String(selected));
+            other.tabIndex = selected ? 0 : -1;
+            document.getElementById(other.getAttribute("aria-controls")).hidden = !selected;
+        });
+    };
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => selectTab(tab));
+        tab.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+                const next = tabs[(index + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+                selectTab(next);
+                next.focus();
+            }
+        });
+    });
+
+    clearButton.addEventListener("click", () => {
+        writeList(HISTORY_KEY, []);
+        render("history");
+    });
+
+    render("saved");
+    render("history");
+});

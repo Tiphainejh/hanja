@@ -1,0 +1,48 @@
+{# Personal dictionary: saved words and history, read from localStorage by static/js/script.js #}
+{% set dt = {
+    'fr': {'title': 'Mon dictionnaire', 'saved': 'Mots sauvegardés', 'history': 'Historique',
+           'intro': 'Vos mots sont enregistrés dans ce navigateur, sur cet appareil uniquement : ils ne sont pas sauvegardés sur un serveur.',
+           'warning': "Ils peuvent donc disparaître si vous effacez les données de navigation (cookies, historique), si vous naviguez en mode privé, ou si votre navigateur fait le ménage tout seul (Safari supprime ces données après 7 jours sans visite). Pensez à noter ailleurs les mots importants.",
+           'empty_saved': "Aucun mot sauvegardé pour l'instant. Cliquez sur l'étoile à côté d'un mot pour l'ajouter ici.",
+           'empty_history': 'Aucun mot consulté pour l\'instant.',
+           'remove': 'Retirer', 'clear_history': "Effacer l'historique"},
+    'en': {'title': 'My dictionary', 'saved': 'Saved words', 'history': 'History',
+           'intro': 'Your words are stored in this browser, on this device only: they are not saved on a server.',
+           'warning': 'They can therefore disappear if you clear your browsing data (cookies, history), browse in private mode, or if your browser cleans up on its own (Safari deletes this data after 7 days without a visit). Keep a copy of important words somewhere else.',
+           'empty_saved': 'No saved words yet. Click the star next to a word to add it here.',
+           'empty_history': 'No words looked up yet.',
+           'remove': 'Remove', 'clear_history': 'Clear history'},
+    'es': {'title': 'Mi diccionario', 'saved': 'Palabras guardadas', 'history': 'Historial',
+           'intro': 'Tus palabras se guardan en este navegador, solo en este dispositivo: no se guardan en un servidor.',
+           'warning': 'Por eso pueden desaparecer si borras los datos de navegación (cookies, historial), si navegas en modo privado o si tu navegador hace limpieza por su cuenta (Safari borra estos datos tras 7 días sin visitas). Anota en otro sitio las palabras importantes.',
+           'empty_saved': 'Todavía no has guardado ninguna palabra. Haz clic en la estrella junto a una palabra para añadirla aquí.',
+           'empty_history': 'Todavía no has consultado ninguna palabra.',
+           'remove': 'Quitar', 'clear_history': 'Borrar el historial'}
+}[language] %}
+<div class="dictionary-page" data-label-remove="{{ dt.remove }}">
+    <h2>{{ dt.title }}</h2>
+    <div class="dictionary-notice">
+        <p>{{ dt.intro }}</p>
+        <p>{{ dt.warning }}</p>
+    </div>
+
+    <div class="dictionary-tabs" role="tablist">
+        <button type="button" role="tab" id="tab-saved" aria-controls="panel-saved" aria-selected="true">
+            {{ dt.saved }} <span class="count" data-count="saved"></span>
+        </button>
+        <button type="button" role="tab" id="tab-history" aria-controls="panel-history" aria-selected="false" tabindex="-1">
+            {{ dt.history }} <span class="count" data-count="history"></span>
+        </button>
+    </div>
+
+    <div class="dictionary-panel" id="panel-saved" role="tabpanel" aria-labelledby="tab-saved">
+        <ul class="word-list" data-list="saved"></ul>
+        <p class="empty-message" data-empty="saved" hidden>{{ dt.empty_saved }}</p>
+    </div>
+
+    <div class="dictionary-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+        <ul class="word-list" data-list="history"></ul>
+        <p class="empty-message" data-empty="history" hidden>{{ dt.empty_history }}</p>
+        <button type="button" class="clear-history" hidden>{{ dt.clear_history }}</button>
+    </div>
+</div>
