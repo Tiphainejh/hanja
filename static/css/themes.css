@@ -521,3 +521,57 @@ body::before {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+/* ---------- Same size for the three buttons at the top (dictionary, theme, language) ---------- */
+
+.top-controls {
+  --top-height: 34px;
+}
+
+.top-button,
+.language-selector {
+  box-sizing: border-box;
+  height: var(--top-height);
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.top-button {
+  padding: 0 10px;
+}
+
+.language-selector {
+  padding: 0 6px;
+}
+
+.language-selector form {
+  display: flex;
+  height: 100%;
+  margin: 0;
+}
+
+.language-selector select {
+  height: 100%;
+  padding: 0;
+  font-size: 1rem;
+  line-height: normal;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .top-controls {
+    --top-height: 28px;
+  }
+  .top-button,
+  .language-selector,
+  .language-selector select {
+    font-size: 0.8rem;
+  }
+  .top-button {
+    padding: 0 7px;
+  }
+  .language-selector {
+    padding: 0 4px;
+  }
+}
