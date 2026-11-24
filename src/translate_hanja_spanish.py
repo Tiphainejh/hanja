@@ -4,7 +4,7 @@
 and fills hanja_characters.spanishDefinition.
 
 Uses Google Translate through deep-translator (already in requirements.txt),
-one request per meaning, with a few requests running at the same time.
+one request per meaning, one after the other (like process_hanja_data did for French).
 Translations are saved in data/hanja_spanish_cache.json as they arrive, so the
 script can be stopped and started again without losing work.
 
@@ -22,7 +22,7 @@ from deep_translator import GoogleTranslator
 from src.database import DatabaseConnection
 
 CACHE_PATH = os.path.join("data", "hanja_spanish_cache.json")
-WORKERS = 3  # requests running at the same time
+WORKERS = 1  # one request at a time, like the original French translation in process_hanja_data
 PAUSE_ON_LIMIT = 60  # seconds to wait when Google says there are too many requests
 MAX_ATTEMPTS = 6
 
@@ -80,7 +80,7 @@ def translate_one(text):
         wait_if_paused()
         try:
             result = translator.translate(text)
-            time.sleep(1)  # stay well under 5 requests per second
+            time.sleep(0.3)  # small pause between two requests
             return text, (result or "").strip() or None
         except Exception as error:
             if "too many requests" in str(error).lower():
