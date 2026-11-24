@@ -4,6 +4,7 @@ var namespaceapi =
       [ "autocomplete", "namespaceapi_1_1app.html#a175e2db7f35d625785ddcf39ac84b825", null ],
       [ "get_language", "namespaceapi_1_1app.html#ae13ecf516b0d348f185639d2705a6ab2", null ],
       [ "index", "namespaceapi_1_1app.html#a72deaea484bf30029cb784dff75ec1f3", null ],
+      [ "inject_languages", "namespaceapi_1_1app.html#a9da8208c89f8f8298317bd20bc938d18", null ],
       [ "my_words", "namespaceapi_1_1app.html#afaf51d86f81aa9a90817ec549cf319c7", null ],
       [ "related_words", "namespaceapi_1_1app.html#ae8b1a661fd35aa767fc796c02781ba82", null ],
       [ "search", "namespaceapi_1_1app.html#ae1043cf9b00c1192e6269f629c5670bf", null ],
@@ -18,6 +19,7 @@ var namespaceapi =
       [ "LANGUAGES", "namespaceapi_1_1app.html#a5c419604ab4c1e0505f68f4fdfeb5f78", null ],
       [ "port", "namespaceapi_1_1app.html#adb31592a03050f9813bd881678d6763f", null ],
       [ "secret_key", "namespaceapi_1_1app.html#a56a8ed779749a77078562ad87be4fe04", null ],
+      [ "SPANISH_ENABLED", "namespaceapi_1_1app.html#aa4dd07f2964f98616c2b003ade587f7b", null ],
       [ "TEXTS", "namespaceapi_1_1app.html#a485e30ff167c7ae2f4529e7ebe1d5f5d", null ]
     ] ]
 ];

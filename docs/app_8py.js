@@ -3,6 +3,7 @@ var app_8py =
     [ "api.app.autocomplete", "namespaceapi_1_1app.html#a175e2db7f35d625785ddcf39ac84b825", null ],
     [ "api.app.get_language", "namespaceapi_1_1app.html#ae13ecf516b0d348f185639d2705a6ab2", null ],
     [ "api.app.index", "namespaceapi_1_1app.html#a72deaea484bf30029cb784dff75ec1f3", null ],
+    [ "api.app.inject_languages", "namespaceapi_1_1app.html#a9da8208c89f8f8298317bd20bc938d18", null ],
     [ "api.app.my_words", "namespaceapi_1_1app.html#afaf51d86f81aa9a90817ec549cf319c7", null ],
     [ "api.app.related_words", "namespaceapi_1_1app.html#ae8b1a661fd35aa767fc796c02781ba82", null ],
     [ "api.app.search", "namespaceapi_1_1app.html#ae1043cf9b00c1192e6269f629c5670bf", null ],
@@ -17,5 +18,6 @@ var app_8py =
     [ "api.app.LANGUAGES", "namespaceapi_1_1app.html#a5c419604ab4c1e0505f68f4fdfeb5f78", null ],
     [ "api.app.port", "namespaceapi_1_1app.html#adb31592a03050f9813bd881678d6763f", null ],
     [ "api.app.secret_key", "namespaceapi_1_1app.html#a56a8ed779749a77078562ad87be4fe04", null ],
+    [ "api.app.SPANISH_ENABLED", "namespaceapi_1_1app.html#aa4dd07f2964f98616c2b003ade587f7b", null ],
     [ "api.app.TEXTS", "namespaceapi_1_1app.html#a485e30ff167c7ae2f4529e7ebe1d5f5d", null ]
 ];
