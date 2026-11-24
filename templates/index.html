@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ language }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,43 +28,48 @@
 
     </head>
     <body>
-        {% set fr = language != 'en' %}
+        {% set ui = {
+            'fr': {'theme': 'Thème', 'colour': 'Couleur', 'background': 'Arrière-plan'},
+            'en': {'theme': 'Theme', 'colour': 'Colour', 'background': 'Background'},
+            'es': {'theme': 'Tema', 'colour': 'Color', 'background': 'Fondo'}
+        }[language] %}
+        {% set li = {'fr': 0, 'en': 1, 'es': 2}[language] %}
         <div class="top-controls">
             <div class="theme-picker">
                 <button type="button" class="theme-toggle" aria-expanded="false" aria-controls="theme-panel">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10a2.5 2.5 0 0 0 1.85-4.18.5.5 0 0 1 .37-.82H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zM6.5 13a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
-                    <span class="theme-toggle-label">{{ 'Thème' if fr else 'Theme' }}</span>
+                    <span class="theme-toggle-label">{{ ui.theme }}</span>
                 </button>
                 <div class="theme-panel" id="theme-panel" hidden>
-                    <h3>{{ 'Couleur' if fr else 'Colour' }}</h3>
-                    <div class="theme-options" role="group" aria-label="{{ 'Couleur' if fr else 'Colour' }}">
-                        {% for key, name_fr, name_en in [
-                            ('rose', 'Rose', 'Pink'),
-                            ('jade', 'Jade', 'Jade'),
-                            ('indigo', 'Indigo', 'Indigo'),
-                            ('persimmon', 'Kaki', 'Persimmon'),
-                            ('lavender', 'Lavande', 'Lavender'),
-                            ('seal', 'Sceau', 'Seal'),
-                            ('night', 'Nuit', 'Night')
+                    <h3>{{ ui.colour }}</h3>
+                    <div class="theme-options" role="group" aria-label="{{ ui.colour }}">
+                        {% for key, names in [
+                            ('rose', ('Rose', 'Pink', 'Rosa')),
+                            ('jade', ('Jade', 'Jade', 'Jade')),
+                            ('indigo', ('Indigo', 'Indigo', 'Índigo')),
+                            ('persimmon', ('Kaki', 'Persimmon', 'Caqui')),
+                            ('lavender', ('Lavande', 'Lavender', 'Lavanda')),
+                            ('seal', ('Sceau', 'Seal', 'Sello')),
+                            ('night', ('Nuit', 'Night', 'Noche'))
                         ] %}
                         <button type="button" class="theme-option" data-theme-value="{{ key }}" aria-pressed="false">
                             <span class="swatch" data-swatch="{{ key }}"></span>
-                            {{ name_fr if fr else name_en }}
+                            {{ names[li] }}
                         </button>
                         {% endfor %}
                     </div>
-                    <h3>{{ 'Arrière-plan' if fr else 'Background' }}</h3>
-                    <div class="theme-options bg-options" role="group" aria-label="{{ 'Arrière-plan' if fr else 'Background' }}">
-                        {% for key, name_fr, name_en in [
-                            ('plain', 'Uni', 'Plain'),
-                            ('gradient', 'Dégradé', 'Gradient'),
-                            ('hanji', 'Hanji', 'Hanji'),
-                            ('lattice', 'Treillis', 'Lattice'),
-                            ('waves', 'Vagues', 'Waves')
+                    <h3>{{ ui.background }}</h3>
+                    <div class="theme-options bg-options" role="group" aria-label="{{ ui.background }}">
+                        {% for key, names in [
+                            ('plain', ('Uni', 'Plain', 'Liso')),
+                            ('gradient', ('Dégradé', 'Gradient', 'Degradado')),
+                            ('hanji', ('Hanji', 'Hanji', 'Hanji')),
+                            ('lattice', ('Treillis', 'Lattice', 'Celosía')),
+                            ('waves', ('Vagues', 'Waves', 'Olas'))
                         ] %}
                         <button type="button" class="theme-option" data-bg-value="{{ key }}" aria-pressed="false">
                             <span class="bg-preview" data-preview="{{ key }}"></span>
-                            {{ name_fr if fr else name_en }}
+                            {{ names[li] }}
                         </button>
                         {% endfor %}
                     </div>
@@ -75,6 +80,7 @@
                     <select name="language" onchange="this.form.submit()">
                         <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français</option>
                         <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+                        <option value="es" {% if language == 'es' %}selected{% endif %}>Español</option>
                     </select>
                 </form>
             </div>
@@ -105,6 +111,15 @@
                             <ul class="autocomplete-list" aria-label="Suggestions"></ul>
                         </div>
                         <button type="submit">Search</button>
+                    </form>
+                {% elif language == 'es' %}
+                    <h1>Encuentra los hanja de una palabra coreana:</h1>
+                    <form action="/search" method="POST" class="search-bar" autocomplete="off">
+                        <div class="search-input-wrapper">
+                            <input type="text" name="word" placeholder="Escribe una palabra en coreano" required autocomplete="off" data-autocomplete="word">
+                            <ul class="autocomplete-list" aria-label="Sugerencias"></ul>
+                        </div>
+                        <button type="submit">Buscar</button>
                     </form>
                 {% else %}
                     <h1>Trouvez les Hanja associés à un mot coréen:</h1>
@@ -137,6 +152,24 @@
                         <h4>Sources :</h4>            
                         Vocabulary words and their translations come from the official website of the National Korean Language Institute <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>,
                         hanja characters and their definition come from this <a href="https://happycgi.com/13322#2">database</a>.
+                    {% elif language == 'es' %}
+                        <h2>¡Bienvenido a <span class="site-name">HanjaGetter</span>!</h2>
+                        <p>El objetivo de este sitio es ayudarte a explorar y comprender el vocabulario coreano y sus orígenes a través de los hanja.</p>
+
+                        <h3>Cómo usar este sitio:</h3>
+                        <ol>
+                            <li><strong>Busca una palabra:</strong> escribe una palabra coreana en la barra de búsqueda para obtener su definición y los caracteres hanja correspondientes.</li>
+                            <li><strong>Descubre las conexiones:</strong> haz clic en uno de los caracteres para desplegar la lista y ver otras palabras que comparten el mismo hanja.</li>
+                            <li><strong>Aprendizaje interactivo:</strong> haz clic en una de las palabras de esa lista para saber más sobre ella.</li>
+                        </ol>
+
+                        <h3>Sugerencias y comentarios</h3>
+                        <p>Si tienes sugerencias, preguntas o comentarios, no dudes en escribirme a:</p>
+                        <p><a href="mailto:tiphainejh@gmail.com" class="email-link">tiphainejh@gmail.com</a></p>
+                        ¡Feliz aprendizaje! 😊
+                        <h4>Fuentes:</h4>
+                        Las palabras y sus traducciones provienen del sitio oficial del Instituto Nacional de la Lengua Coreana <a href="https://krdict.korean.go.kr/kor/mainAction">한국어기초사전</a>,
+                        los caracteres hanja y su significado provienen de esta <a href="https://happycgi.com/13322#2">base de datos</a>. Por ahora, el significado de los hanja se muestra en inglés.
                     {% else %}
                         <h2>Bienvenue sur <span class="site-name">HanjaGetter</span> !</h2>
                         <p>L'objectif de ce site est de vous aider à explorer et comprendre le vocabulaire coréen ainsi que ses origines à travers les Hanja.</p>

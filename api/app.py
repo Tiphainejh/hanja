@@ -21,6 +21,48 @@ folder_path = "data/전체 내려받기_한국어기초사전_json_20250112"
 data_access = DataAccess()
 data_processor = DataProcessor(folder_path)
 
+## Languages available on the site
+LANGUAGES = ("fr", "en", "es")
+
+## Interface texts of the results page, for each language
+TEXTS = {
+    "fr": {
+        "def": "Définition",
+        "lang": "Français",
+        "load": "Recherche des mots liés...",
+        "no_res": "Pas de résultat pour le mot",
+        "no_res_hanja": "Pas de Hanja associé au mot",
+        "no_related": "Aucun mot lié trouvé.",
+        "err_load": "Erreur lors du chargement des données."
+    },
+    "en": {
+        "def": "Definition",
+        "lang": "English",
+        "load": "Loading related words...",
+        "no_res": "No results found for the word",
+        "no_res_hanja": "No hanja character linked to the word",
+        "no_related": "No related words found.",
+        "err_load": "Error while loading the data."
+    },
+    "es": {
+        "def": "Definición",
+        "lang": "Español",
+        "load": "Buscando palabras relacionadas...",
+        "no_res": "No hay resultados para la palabra",
+        "no_res_hanja": "No hay hanja asociado a la palabra",
+        "no_related": "No se encontraron palabras relacionadas.",
+        "err_load": "Error al cargar los datos."
+    },
+}
+
+
+def get_language():
+    """!
+    @brief Returns the user's language from the session or the cookie, French by default.
+    """
+    language = session.get('language') or request.cookies.get('language', 'fr')
+    return language if language in LANGUAGES else 'fr'
+
 @app.route('/')
 def index():
     """!
@@ -29,7 +71,7 @@ def index():
     """
     # Get the current language, default to English if not set
     # Try to retrieve the language from the session, otherwise from the cookie
-    language = session.get('language') or request.cookies.get('language', 'fr')  
+    language = get_language()
     return render_template('index.html', language=language, is_homepage=True)
 
 @app.route('/set_language', methods=['POST'])
@@ -39,6 +81,8 @@ def set_language():
     @return Redirect response to the index page.
     """
     language = request.form['language']
+    if language not in LANGUAGES:
+        language = 'fr'
     session['language'] = language  # Store the language in the session
     resp = make_response(redirect(url_for('index')))
     resp.set_cookie('language', language, max_age=30*24*60*60, secure=True, httponly=True)  # Store the language in the cookie (30 days)
@@ -50,26 +94,9 @@ def search():
     @brief Handle search requests and display results based on the searched word.
     @return Rendered HTML template with search results.
     """
-    language = session.get('language') or request.cookies.get('language', 'fr')  
+    language = get_language()
     if request.method == 'POST':
-        # Set text language based on the selected language
-        text_language = {
-            'def': "Définition", 
-            "lang": "Français", 
-            "load": "Recherche des mots liés...", 
-            "no_res": "Pas de résultat pour le mot", 
-            "no_res_hanja": "Pas de Hanja associé au mot", 
-            "no_related": "Aucun mot lié trouvé.", 
-            "err_load": "Erreur lors du chargement des données."
-        } if language == "fr" else {
-            'def': "Definition", 
-            "lang": "English", 
-            "load": "Loading related words...", 
-            "no_res": "No results found for the word", 
-            "no_res_hanja": "No hanja character linked to the word", 
-            "no_related": "No related words found.", 
-            "err_load": "Error while loading the data."
-        }
+        text_language = TEXTS[language]
         word_to_search = request.form['word'].replace(" ", "")
         hanja_characters = data_access.get_hanja_for_word(word_to_search)
         hanja_results = []
@@ -93,7 +120,7 @@ def related_words():
     @brief Retrieve related words for a given Hanja character.
     @return JSON response containing unique related words.
     """
-    language = session.get('language') or request.cookies.get('language', 'fr')  
+    language = get_language()
     hanja_character = request.args.get('hanja')
     original_word = request.args.get('original_word')  # Pass the original word from the client-side
     

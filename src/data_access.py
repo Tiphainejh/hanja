@@ -3,6 +3,29 @@ import sqlite3
 from src.config import DATABASE_PATH
 from src.database import DatabaseConnection
 
+## Columns holding the lemma and definition of a word, for each site language.
+## Spanish falls back to English for the few words krdict has not translated.
+WORD_COLUMNS = {
+    "fr": ("frenchLemma", "frenchDefinition"),
+    "en": ("englishLemma", "englishDefinition"),
+    "es": ("COALESCE(spanishLemma, englishLemma)", "COALESCE(spanishDefinition, englishDefinition)"),
+}
+
+## Column holding the meaning of a hanja, for each site language.
+## Spanish falls back to English while the Spanish meaning is missing.
+HANJA_COLUMNS = {
+    "fr": "frenchDefinition",
+    "en": "englishDefinition",
+    "es": "COALESCE(spanishDefinition, englishDefinition)",
+}
+
+
+def word_columns(language):
+    """!
+    @brief Returns the (lemma, definition) columns for a language, French by default.
+    """
+    return WORD_COLUMNS.get(language, WORD_COLUMNS["fr"])
+
 class DataAccess:
     """!
     @brief A class to handle database operations for managing Korean words and their associated Hanja characters.
@@ -191,12 +214,9 @@ class DataAccess:
                 print(f"No Hanja found for word '{word}'.")
                 return None
             else:         
-                if language == "fr":           
-                    query = 'SELECT character, korean, frenchDefinition FROM hanja_characters WHERE character IN ({seq})'.format(
-                    seq=','.join(['?'] * len(hanja_list))
-                )
-                else :
-                    query = 'SELECT character, korean, englishDefinition FROM hanja_characters WHERE character IN ({seq})'.format(
+                meaning = HANJA_COLUMNS.get(language, HANJA_COLUMNS["fr"])
+                query = 'SELECT character, korean, {meaning} FROM hanja_characters WHERE character IN ({seq})'.format(
+                    meaning=meaning,
                     seq=','.join(['?'] * len(hanja_list))
                 )
                 cursor.execute(query, hanja_list)
@@ -213,37 +233,20 @@ class DataAccess:
             """      
             with DatabaseConnection() as conn:
                 cursor = conn.cursor()
-                if hanja_characters == None :
-                    if language == "fr":
-                        cursor.execute("SELECT glossary, frenchLemma, frenchDefinition, pronounciation  FROM korean_words WHERE word = ?", (korean_word,))
-                    else :
-                        cursor.execute("SELECT glossary, englishLemma, englishDefinition, pronounciation  FROM korean_words WHERE word = ?", (korean_word,))
+                lemma, definition = word_columns(language)
+                if hanja_characters is None:
+                    cursor.execute(f"SELECT glossary, {lemma}, {definition}, pronounciation FROM korean_words WHERE word = ?", (korean_word,))
                     return cursor.fetchall()
-                else :
-                    if language == "fr":
-                        conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
-                        query = f"""
-                            SELECT glossary, frenchLemma, frenchDefinition, pronounciation 
-                            FROM korean_words 
-                            WHERE word = ? AND {conditions}
-                        """
-
-                        # Construire les paramètres de la requête (un '%' + caractère + '%' pour chaque caractère)
-                        params = [korean_word] + [f"%{char}%" for char in hanja_characters]
-
-                        cursor.execute(query, params)
-                    else :
-                        conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
-                        query = f"""
-                            SELECT glossary, englishLemma, englishDefinition, pronounciation 
-                            FROM korean_words 
-                            WHERE word = ? AND {conditions}
-                        """
-
-                        # Construire les paramètres de la requête (un '%' + caractère + '%' pour chaque caractère)
-                        params = [korean_word] + [f"%{char}%" for char in hanja_characters]
-
-                        cursor.execute(query, params)
+                else:
+                    conditions = " AND ".join(["hanja LIKE ?"] * len(hanja_characters))
+                    query = f"""
+                        SELECT glossary, {lemma}, {definition}, pronounciation
+                        FROM korean_words
+                        WHERE word = ? AND {conditions}
+                    """
+                    # One '%' + character + '%' parameter for each hanja character
+                    params = [korean_word] + [f"%{char}%" for char in hanja_characters]
+                    cursor.execute(query, params)
                     return cursor.fetchall()
             
     def get_related_words(self, hanja_character, language):
@@ -253,18 +256,12 @@ class DataAccess:
             @param language: The language for the definition
             @return: A list of matching entries.
         """  
-        if language == "fr" :
-            query = """
-            SELECT word, hanja, glossary, frenchLemma, frenchDefinition
-            FROM korean_words
-            WHERE hanja LIKE ?;
-            """
-        elif language == "en":
-            query = """
-            SELECT word, hanja, glossary, englishLemma, englishDefinition
-            FROM korean_words
-            WHERE hanja LIKE ?;
-            """
+        lemma, definition = word_columns(language)
+        query = f"""
+        SELECT word, hanja, glossary, {lemma}, {definition}
+        FROM korean_words
+        WHERE hanja LIKE ?;
+        """
         with DatabaseConnection() as conn:
             cursor = conn.cursor()
     
