@@ -3,24 +3,32 @@
 @brief Translates the meanings of the hanja characters from English to Spanish
 and fills hanja_characters.spanishDefinition.
 
-Uses Google Translate through deep-translator (already in requirements.txt).
-Several meanings are sent in one request, one per line, to keep the number of
-requests low. Translations are saved in data/hanja_spanish_cache.json as they
-arrive, so the script can be stopped and started again without losing work.
+Uses Google Translate through deep-translator (already in requirements.txt),
+one request per meaning, one after the other (like process_hanja_data did for French).
+Translations are saved in data/hanja_spanish_cache.json as they arrive, so the
+script can be stopped and started again without losing work.
 
 Run from the repository root:  python -m src.translate_hanja_spanish
 """
 import json
 import os
 import re
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from deep_translator import GoogleTranslator
 
 from src.database import DatabaseConnection
 
 CACHE_PATH = os.path.join("data", "hanja_spanish_cache.json")
-MAX_CHARS = 4000  # Google Translate accepts up to 5000 characters per request
+WORKERS = 1  # one request at a time, like the original French translation in process_hanja_data
+PAUSE_ON_LIMIT = 60  # seconds to wait when Google says there are too many requests
+MAX_ATTEMPTS = 6
+
+_pause_lock = threading.Lock()
+_paused_until = [0.0]  # shared by all workers: when Google complains, everybody waits
+SAVE_EVERY = 100  # progress is shown and saved every 100 meanings
 STROKES = re.compile(r"\s*(\(\d+\))\s*$")  # stroke count at the end, e.g. "(8)"
 
 
@@ -47,52 +55,43 @@ def save_cache(cache):
         json.dump(cache, file, ensure_ascii=False, indent=0)
 
 
-def make_chunks(texts):
-    """!
-    @brief Groups meanings into chunks of at most MAX_CHARS characters.
-    """
-    chunk, size = [], 0
-    for text in texts:
-        if chunk and size + len(text) + 1 > MAX_CHARS:
-            yield chunk
-            chunk, size = [], 0
-        chunk.append(text)
-        size += len(text) + 1
-    if chunk:
-        yield chunk
+def wait_if_paused():
+    while True:
+        remaining = _paused_until[0] - time.time()
+        if remaining <= 0:
+            return
+        time.sleep(min(remaining, 5))
 
 
-def translate_chunk(translator, chunk):
+def pause_everyone(seconds):
+    with _pause_lock:
+        if _paused_until[0] < time.time() + seconds:
+            _paused_until[0] = time.time() + seconds
+            print(f"  Google says there are too many requests: pausing {seconds} s...", flush=True)
+
+
+def translate_one(text):
     """!
-    @brief Translates a chunk of meanings, one per line.
-    Falls back to one request per meaning if the line count does not match.
+    @brief Translates one meaning. When Google limits the requests, all workers pause together.
+    @return (english, spanish or None if it failed; it will be retried on the next run).
     """
-    for attempt in range(3):
+    translator = GoogleTranslator(source="en", target="es")
+    for attempt in range(MAX_ATTEMPTS):
+        wait_if_paused()
         try:
-            result = translator.translate("\n".join(chunk))
-            lines = [line.strip() for line in (result or "").split("\n")]
-            if len(lines) == len(chunk):
-                return lines
-            break  # Lines were merged or split: translate one by one instead
-        except Exception as error:  # Network error or rate limit: wait and retry
-            print(f"  Error ({error}), retrying in {5 * (attempt + 1)} s...")
-            time.sleep(5 * (attempt + 1))
-    lines = []
-    for text in chunk:
-        for attempt in range(3):
-            try:
-                lines.append(translator.translate(text).strip())
-                break
-            except Exception as error:
-                print(f"  Error on '{text[:40]}' ({error}), retrying...")
-                time.sleep(5 * (attempt + 1))
-        else:
-            lines.append(None)
-    return lines
+            result = translator.translate(text)
+            time.sleep(0.3)  # small pause between two requests
+            return text, (result or "").strip() or None
+        except Exception as error:
+            if "too many requests" in str(error).lower():
+                pause_everyone(PAUSE_ON_LIMIT * (attempt + 1))
+            else:
+                print(f"  Error on '{text[:40]}' ({error}), retrying...", flush=True)
+                time.sleep(5)
+    return text, None
 
 
 def main():
-    translator = GoogleTranslator(source="en", target="es")
     cache = load_cache()
 
     with DatabaseConnection() as conn:
@@ -104,16 +103,19 @@ def main():
 
         meanings = sorted({split_strokes(english)[0] for _, english in rows if english})
         to_translate = [m for m in meanings if m and m not in cache]
-        print(f"{len(meanings)} different meanings, {len(to_translate)} left to translate.")
+        print(f"{len(meanings)} different meanings, {len(to_translate)} left to translate.", flush=True)
 
-        chunks = list(make_chunks(to_translate))
-        for number, chunk in enumerate(chunks, start=1):
-            for english, spanish in zip(chunk, translate_chunk(translator, chunk)):
+        done = 0
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            futures = [pool.submit(translate_one, text) for text in to_translate]
+            for future in as_completed(futures):
+                english, spanish = future.result()
                 if spanish:
                     cache[english] = spanish
-            save_cache(cache)
-            print(f"Chunk {number}/{len(chunks)} done ({len(cache)} meanings translated).")
-            time.sleep(1)
+                done += 1
+                if done % SAVE_EVERY == 0 or done == len(to_translate):
+                    save_cache(cache)
+                    print(f"{done}/{len(to_translate)} done ({len(cache)} meanings translated in total).", flush=True)
 
         updated = 0
         for row_id, english in rows:
