@@ -347,9 +347,25 @@ body::before {
   }
 }
 
+.top-left-controls {
+  position: absolute;
+  top: 10px;
+  left: 4rem;
+  z-index: 20;
+  --top-height: 34px;
+}
+
 @media (max-width: 768px) {
-  .dictionary-link .top-button-label {
-    display: none;
+  .top-left-controls {
+    top: 5px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-left-controls {
+    top: 10px;
+    --top-height: 28px;
   }
 }
 

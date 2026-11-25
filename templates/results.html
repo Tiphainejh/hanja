@@ -26,10 +26,12 @@
                     <div class="korean-definition">
                         <b>{{ text_language.def | safe}}</b> {{ word_definition | safe}}
                     </div>
-                    <!-- Display the lemma and its definition -->
+                    <!-- Display the lemma and its definition (some words have no translation in krdict) -->
+                    {% if lemma %}
                     <div class="lemma">
                         <b>{{ text_language.lang | safe}}</b> {{ lemma | safe}} </br>{{ additional_info | safe}}
                     </div>
+                    {% endif %}
                 </div>
             </div>
             

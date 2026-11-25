@@ -41,13 +41,14 @@ async function fetchRelatedWords(hanja, container, originalWord, text_language_n
                 .map((word) => {
                     const sanitizedWord = sanitizeHTML(word.word);
                     const sanitizedHanja = sanitizeHTML(word.hanja);
-                    const sanitizedLemma = sanitizeHTML(word.lemma);
+                    // Some words have no translation in krdict
+                    const lemmaText = word.lemma ? ` : ${sanitizeHTML(word.lemma)}` : "";
 
                     return `
                         <form action="/search" method="POST" class="related-word-form">
                             <input type="hidden" name="word" value="${sanitizedWord}">
                             <button type="submit" class="related-word-button">
-                                <strong>${sanitizedWord}</strong></button> (${sanitizedHanja}) : ${sanitizedLemma}
+                                <strong>${sanitizedWord}</strong></button> (${sanitizedHanja})${lemmaText}
                         </form>
                     `;
                 })

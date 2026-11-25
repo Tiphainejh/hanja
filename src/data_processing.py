@@ -98,19 +98,15 @@ class DataProcessor:
         for file in raw_data:
             lexical_entries = file.get("LexicalResource", {}).get("Lexicon", {}).get("LexicalEntry", [])
             
-            # Variables to store data
-            korean_definition = None
-            english_lemma = None
-            english_definition = None
-            french_lemma = None
-            french_definition = None
-            language = None
-            lemma = None
-            definition = None
-            pronounciation = None
-
             # Iterate through the Lexical Entries
             for entry in lexical_entries:
+                # Reset for every entry, otherwise a word with no English or French
+                # translation would get the translation of the previous word
+                english_lemma = None
+                english_definition = None
+                french_lemma = None
+                french_definition = None
+
                 lemma_data = entry.get("Lemma")
                 korean_word = self.extract_word(lemma_data)
                 hanja_datas = entry.get("feat")
