@@ -22,7 +22,7 @@ data_access = DataAccess()
 data_processor = DataProcessor(folder_path)
 
 ## Spanish is hidden until the hanja meanings are translated (src/translate_hanja_spanish.py)
-SPANISH_ENABLED = False
+SPANISH_ENABLED = True
 
 ## Languages available on the site
 LANGUAGES = ("fr", "en", "es") if SPANISH_ENABLED else ("fr", "en")
