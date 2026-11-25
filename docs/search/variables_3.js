@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['data_5faccess_0',['data_access',['../namespaceapi_1_1app.html#a8f56da2bd58eca36a1801418061ecc6b',1,'api::app']]],
-  ['data_5fprocessor_1',['data_processor',['../namespaceapi_1_1app.html#a5702ea214d2b31eb72a5029626bb70f8',1,'api::app']]],
-  ['database_5fpath_2',['DATABASE_PATH',['../namespacesrc_1_1config.html#a9ac81f0c023a802f6daf87ac4b00080b',1,'src::config']]],
-  ['debug_3',['debug',['../namespaceapi_1_1app.html#a176de600ef735cbe7b916fe2001e2b45',1,'api::app']]]
+  ['cache_5fpath_0',['CACHE_PATH',['../namespacesrc_1_1translate__hanja__spanish.html#ae1db6c6919fa1d8c927a85add2417c7c',1,'src::translate_hanja_spanish']]],
+  ['conn_1',['conn',['../classsrc_1_1database_1_1DatabaseConnection.html#ace6735dee7ad91a77d0b120ae3cb3f87',1,'src::database::DatabaseConnection']]]
 ];

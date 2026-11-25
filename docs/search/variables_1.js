@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['base_5fdir_0',['BASE_DIR',['../namespacesrc_1_1config.html#a371a629caa526e7cbc3a025840bc1b50',1,'src::config']]]
+  ['app_0',['app',['../namespaceapi_1_1app.html#af539acf96b123b092913c3b972d45f8d',1,'api::app']]]
 ];

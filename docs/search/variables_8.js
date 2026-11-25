@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['port_0',['port',['../namespaceapi_1_1app.html#adb31592a03050f9813bd881678d6763f',1,'api::app']]]
+  ['max_5fattempts_0',['MAX_ATTEMPTS',['../namespacesrc_1_1translate__hanja__spanish.html#ad9bdddd9abf7c73ba44de43869941daf',1,'src::translate_hanja_spanish']]]
 ];
